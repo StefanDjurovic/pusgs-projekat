@@ -10,17 +10,18 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
-  declarations: [					
+  declarations: [							
     AppComponent,
       ValueComponent,
       LoginComponent,
       NavComponent,
       HeaderComponent,
       HomeComponent,
-      RegisterComponent
+      RegisterComponent,
+      HeaderComponent
    ],
   imports: [
     BrowserModule,

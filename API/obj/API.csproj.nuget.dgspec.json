@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\n-pej\\Desktop\\web2 projekat\\API\\API.csproj": {}
+    "C:\\Users\\n-pej\\Desktop\\pusgs-projekat\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\n-pej\\Desktop\\web2 projekat\\API\\API.csproj": {
+    "C:\\Users\\n-pej\\Desktop\\pusgs-projekat\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\n-pej\\Desktop\\web2 projekat\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\n-pej\\Desktop\\pusgs-projekat\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\n-pej\\Desktop\\web2 projekat\\API\\API.csproj",
+        "projectPath": "C:\\Users\\n-pej\\Desktop\\pusgs-projekat\\API\\API.csproj",
         "packagesPath": "C:\\Users\\n-pej\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\n-pej\\Desktop\\web2 projekat\\API\\obj\\",
+        "outputPath": "C:\\Users\\n-pej\\Desktop\\pusgs-projekat\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

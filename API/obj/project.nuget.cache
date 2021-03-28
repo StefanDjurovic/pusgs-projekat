@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LFnNZmE3jy8BP/Lr0C1Kw+7Bm/nYPuiZ4Qx5tKiA4MpeiR3DgE6gEKIGvPjs8K85ajl1R86jdBJn9csvHIzvAw==",
+  "dgSpecHash": "5+Q30Us2BiTC17utHpmSkxCQ6J8CwbfcldPgKVZ66+aMwFCXsZb+40w5dBZjkGsONfW8noT+8wveOLj2yL39dA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\n-pej\\Desktop\\web2 projekat\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\n-pej\\Desktop\\pusgs-projekat\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\n-pej\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\n-pej\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.4\\microsoft.aspnetcore.authentication.jwtbearer.5.0.4.nupkg.sha512",

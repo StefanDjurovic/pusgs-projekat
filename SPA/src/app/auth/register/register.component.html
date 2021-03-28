@@ -1,0 +1,45 @@
+<form #registerForm="ngForm" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Sign Up</h2>
+  <!-- <hr> -->
+
+  <!-- username -->
+  <div class="form-group my-2">
+    <input type="text" placeholder="Username" required name="username" [(ngModel)]="model.username" class="form-control">
+  </div>
+
+  <!-- password -->
+  <div class="form-group my-2">
+    <input type="password" placeholder="Password" required name="password" [(ngModel)]="model.password" class="form-control">
+  </div>
+
+  <!-- email -->
+  <div class="form-group my-2">
+    <input type="email" placeholder="Email" required name="email" [(ngModel)]="model.email" class="form-control">
+  </div>
+
+  <!-- name -->
+  <div class="form-group my-2">
+    <input type="text" placeholder="Name" required name="name" [(ngModel)]="model.name" class="form-control">
+  </div>
+
+  <!-- surname -->
+  <div class="form-group my-2">
+    <input type="text" placeholder="Surname" required name="surname" [(ngModel)]="model.surname" class="form-control">
+  </div>
+
+  <!-- address -->
+  <div class="form-group my-2">
+    <input type="text" placeholder="Address" required name="address" [(ngModel)]="model.address" class="form-control">
+  </div>
+
+  <!-- birthday -->
+  <div class="form-group my-2">
+    Date of Birth:
+    <input type="date" placeholder="Date of birth" required name="birthday" [(ngModel)]="model.birthday" class="form-control">
+  </div>
+  <!-- <app-InputField type="date" formControlName="dateOfBirth" label="date of birth" [shouldInit]="registerActive" [invalid]="regDate.invalid && regDate.touched"></app-InputField> -->
+
+  <div class="form-group text-center my-2">
+    <button [disabled]="!registerForm.valid" class="btn btn-outline-success" type="submit">Register</button>
+  </div>
+</form>

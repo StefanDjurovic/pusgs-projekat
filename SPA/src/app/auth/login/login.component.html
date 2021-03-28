@@ -1,22 +1,20 @@
-  <main class="form-signin">
-    <form>
-      <!-- logo here -->
-      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+<form #loginForm="ngForm" (ngSubmit)="login()">
+  <h2 class="text-center text-primary my-3">Sign In</h2>
+  <!-- <hr> -->
 
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="username">
-        <label for="floatingInput">Username</label>
-      </div>
-      <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-      </div>
+  <!-- username -->
+  <div class="form-group my-2">
+    <input type="text" placeholder="Username" required name="username" [(ngModel)]="model.username" class="form-control">
+  </div>
 
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    </form>
-  </main>
+  <!-- password -->
+  <div class="form-group my-2">
+    <input type="password" placeholder="Password" required name="password" [(ngModel)]="model.password" class="form-control">
+  </div>
+
+  
+
+  <div class="form-group text-center my-2">
+    <button [disabled]="!loginForm.valid" class="btn btn-outline-success" type="submit">Login</button>
+  </div>
+</form>

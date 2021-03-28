@@ -40,7 +40,13 @@ namespace API.Controllers
 
             var userToCreate = new User
             {
-                Username = userRegDto.Username
+                Username = userRegDto.Username,
+                Email = userRegDto.Email,
+                Address = userRegDto.Address,
+                Birthday = userRegDto.Birthday,
+                Name = userRegDto.Name,
+                Surname = userRegDto.Surname,
+                ActivationStatus = UserActivationStatus.toBeProcessed
             };
 
             var createdUser = await this.repo.Register(userToCreate, userRegDto.Password);

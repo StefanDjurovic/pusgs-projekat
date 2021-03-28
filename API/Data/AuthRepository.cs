@@ -26,7 +26,7 @@ namespace API.Data
                 return null;
             }
 
-
+            return user;
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
@@ -36,11 +36,11 @@ namespace API.Data
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));       
                 for (int i = 0; i < computedHash.Length; i++)
                 {
-
+                    if (computedHash[i] != passwordHash[i]) return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
         public async Task<User> Register(User user, string password)
@@ -66,9 +66,14 @@ namespace API.Data
             }
         }
 
-        public Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            throw new System.NotImplementedException();
+            if (await  this.context.Users.AnyAsync(x => x.Username == username))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

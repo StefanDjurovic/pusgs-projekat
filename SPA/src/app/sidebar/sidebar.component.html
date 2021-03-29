@@ -1,0 +1,79 @@
+<mat-nav-list>
+    <div class="profile-card">
+        <div class="header">
+            <h2>Name Surename</h2>
+        </div>
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Profile Picture"
+            (click)="goToProfile()">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Pages</h2>
+
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+        <mat-icon>find_in_page</mat-icon>
+        Search
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+        <mat-icon>home</mat-icon>
+        Home
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+        <mat-icon>file_present</mat-icon>
+        Files
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+        <mat-icon>language</mat-icon>
+        Example
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+        <mat-icon>phone</mat-icon>
+        Example
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+        <mat-icon>business_center</mat-icon>
+        Example
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+        <mat-icon>sentiment_satisfied_alt</mat-icon>
+        Example
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+        <mat-icon>people</mat-icon>
+        Example
+    </a>
+
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Tools</h2>
+
+    <a mat-list-item inline=true class="mat-icon-bottom" routerLink="/">
+        <mat-icon>settings</mat-icon>
+        Example
+    </a>
+
+    <!-- <a mat-list-item inline=true class="mat-icon-bottom" routerLink="/">
+        <mat-icon>people</mat-icon>
+        Example
+    </a> -->
+
+    <a mat-list-item inline=true class="mat-icon-bottom" routerLink="/">
+        <mat-icon>information</mat-icon>
+        Example
+    </a>
+
+    <a mat-list-item inline=true class="mat-icon-bottom" routerLink="/">
+        <mat-icon>exit_to_app</mat-icon>
+        Log Out
+    </a>
+
+</mat-nav-list>

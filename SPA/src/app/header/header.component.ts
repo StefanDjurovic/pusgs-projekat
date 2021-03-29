@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -7,29 +7,23 @@ import { AuthService } from '../_services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  model: any = {};
+  @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
+  auth = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(auth: AuthService) {
+    this.auth = auth;
+  }
 
   ngOnInit() {
+
   }
 
-  login() {
-    this.authService.login(this.model).subscribe(next => {
-      console.log('Logged in successfully');
-    }, error => {
-      console.log('Failed to login');
-    });
-  }
-
-  loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
-  }
-
-  logout() {
-    localStorage.removeItem('token');
-    console.log('logged out!');
-    
+  toggleSideBar() {
+    this.toggleSideBarForMe.emit();
+    setTimeout(() => {
+      window.dispatchEvent(
+        new Event('resize')
+      );
+    }, 300);
   }
 }

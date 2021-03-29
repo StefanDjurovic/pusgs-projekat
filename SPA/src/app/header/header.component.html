@@ -13,22 +13,19 @@
     <li class="nav-item text-nowrap p-2">
       <a class="nav-link" href="#">Register</a>
     </li>
-    <li class="nav-item text-nowrap p-2">
-      <a class="nav-link" (click)="logout()" href="#">Logout</a>
-    </li>
   </ul>
 
-  <div *ngIf="loggedIn()" class="dropdown mx-4">
-    <a class="dropdown-toggle text-light">
+  <div *ngIf="loggedIn()" class="dropdown mx-4" dropdown>
+    <a class="dropdown-toggle text-light" (click)="false" dropdownToggle>
       Welcome {{ authService.decodedToken?.name | titlecase }}
     </a>
   
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu mt-3" *dropdownMenu>
       <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edit Profile</a></li>
       <li>
         <div class="dropdown-divider"></div>
       </li>
-      <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
+      <li><a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
   </div>
 

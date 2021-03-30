@@ -1,0 +1,82 @@
+<div class="container rounded bg-white mt-5 mb-5" align="center">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
+                    class="rounded-circle mt-5 profile-img"
+                    src="https://material.angular.io/assets/img/examples/shiba2.jpg"><span
+                    class="font-weight-bold">Name</span><span class="text-black-50">email@example.com</span><span>
+                </span></div>
+
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <mat-form-field class="columns">
+                    <mat-label *ngIf="">Selected File</mat-label>
+                    <ng-template #newFile>
+                        <mat-label>Choose file</mat-label>
+                    </ng-template>
+                    <input matInput disabled>
+                    <button mat-icon-button matSuffix (click)="fileInput.click()" matTooltip="Upload Profile Image">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <input hidden #fileInput type="file" id="file">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-md-5 border-right">
+            <form class="example-form mt-5">
+                <mat-form-field class="example-full-width">
+                    <mat-label>User Type (disabled)</mat-label>
+                    <input matInput disabled value="Type">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name" value="">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Address</mat-label>
+                    <input matInput placeholder="Address" value="">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Date of Birth" value="">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last Name" value="">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" value="">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="Username" value="">
+                </mat-form-field>
+
+                <button mat-raised-button type="submit" color="primary">Update Profile</button>
+            </form>
+        </div>
+
+        <div class="col-md-3 border-right mt-5">
+            <mat-form-field class="example-full-width">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Password" value="">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput placeholder="Confirm Password" value="">
+            </mat-form-field>
+
+            <button mat-raised-button type="submit" color="primary">Change Password</button>
+        </div>
+    </div>
+</div>

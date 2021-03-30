@@ -1,4 +1,3 @@
-.dropdown-toggle,
-.dropdown-item {
-    cursor: pointer;
+.navbar-spacer {
+    flex: 1 1 auto;
 }

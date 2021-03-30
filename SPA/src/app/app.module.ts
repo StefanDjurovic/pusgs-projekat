@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -37,6 +37,7 @@ import { ProfileComponent } from './profile/profile.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
     AppRoutingModule,

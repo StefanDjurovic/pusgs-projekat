@@ -1,14 +1,12 @@
 <form #loginForm="ngForm" (ngSubmit)="login()">
   <h2 class="text-center text-primary my-3">Sign In</h2>
-  <!-- <hr> -->
 
-  <!-- username -->
   <div class="form-group my-2">
     <input type="text" placeholder="Username" required name="username" [(ngModel)]="model.username"
       class="form-control">
   </div>
 
-  <!-- password -->
+
   <div class="form-group my-2">
     <input type="password" placeholder="Password" required name="password" [(ngModel)]="model.password"
       class="form-control">

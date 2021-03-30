@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -40,8 +39,7 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    AppRoutingModule
-    FormsModule,
+    AppRoutingModule,
     BsDropdownModule.forRoot()
   ],
   providers: [AuthService, ErrorInterceptorProvider],

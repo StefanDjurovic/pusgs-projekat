@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 
@@ -10,11 +9,11 @@ import { AuthService } from '../_services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
-  auth = null;
+  model: any = {};
 
   constructor(protected authService: AuthService, private alertify: AlertifyService) { }
 
-  ngOnInit() {
+  ngOnInit() { }
 
   login() {
     this.authService.login(this.model).subscribe(next => {
@@ -24,6 +23,15 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  loggedIn() {
+    return this.authService.loggedIn();
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.alertify.message('logged out');
+  }
+
   toggleSideBar() {
     this.toggleSideBarForMe.emit();
     setTimeout(() => {
@@ -31,14 +39,5 @@ export class HeaderComponent implements OnInit {
         new Event('resize')
       );
     }, 300);
-  loggedIn() {
-    return this.authService.loggedIn();
   }
-
-
-  logout() {
-    localStorage.removeItem('token');
-    this.alertify.message('logged out');
-  }
-
 }

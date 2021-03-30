@@ -1,24 +1,26 @@
 <mat-toolbar color="primary">
-  <!-- *ngIf="auth.loggedIn" -->
-  <button mat-icon-button class="navbar-icon" aria-label="sidebar-button" (click)="toggleSideBar()">
+  <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" aria-label="sidebar-button" (click)="toggleSideBar()">
     <mat-icon>menu</mat-icon>
   </button>
   <span>App Title</span>
   <span class="navbar-spacer"></span>
-  <button mat-icon-button class="navbar-icon" matTooltip="Sign Up" [routerLink]='["/register"]' aria-label="sign-up">
+  <button mat-icon-button class="navbar-icon" *ngIf="!loggedIn()" matTooltip="Sign Up" [routerLink]='["/register"]'
+    aria-label="sign-up">
     <mat-icon>person_add</mat-icon>
   </button>
-  <button mat-icon-button class="navbar-icon" matTooltip="Sign In" [routerLink]='["/login"]' aria-label="sign-in">
+  <button mat-icon-button class="navbar-icon" *ngIf="!loggedIn()" matTooltip="Sign In" [routerLink]='["/login"]'
+    aria-label="sign-in">
     <mat-icon>input</mat-icon>
   </button>
-  <button mat-icon-button class="navbar-icon" matTooltip="Profile" [routerLink]='["/profile"]'
+  <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" matTooltip="Profile" [routerLink]='["/profile"]'
     aria-label="member-profile">
     <mat-icon>account_circle</mat-icon>
   </button>
-  <button mat-icon-button class="navbar-icon" matTooltip="Notifications" aria-label="notifications">
+  <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" matTooltip="Notifications" aria-label="notifications">
     <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
   </button>
-  <button mat-icon-button class="navbar-icon" matTooltip="Sign Out" aria-label="logout">
+  <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" (click)="logout()" matTooltip="Sign Out"
+    aria-label="logout">
     <mat-icon>exit_to_app</mat-icon>
   </button>
 </mat-toolbar>

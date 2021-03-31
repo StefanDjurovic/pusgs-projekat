@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,16 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  constructor(private router: Router) {
+  constructor(private router: Router, auth: AuthService) {
     this.router = router;
   }
 
   ngOnInit(): void {
+
   }
 
   goToProfile() {
-    console.log('asdasdsaasd')
     this.router.navigate(['/profile'])
   }
-
 }

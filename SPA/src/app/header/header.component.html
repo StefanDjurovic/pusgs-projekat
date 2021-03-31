@@ -16,7 +16,8 @@
     aria-label="member-profile">
     <mat-icon>account_circle</mat-icon>
   </button>
-  <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" matTooltip="Notifications" aria-label="notifications">
+  <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" matTooltip="Notifications"
+    [routerLink]='["/notifications"]' aria-label="notifications">
     <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
   </button>
   <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" (click)="logout()" matTooltip="Sign Out"

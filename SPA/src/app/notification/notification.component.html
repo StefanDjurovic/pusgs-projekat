@@ -1,0 +1,25 @@
+<div class="container mt-5 mb-5">
+    <mat-card>
+        <mat-card-subtitle>Notifications Type:</mat-card-subtitle>
+        <mat-card-content>
+            <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal">
+                <mat-chip class="example-box {{notification.color}}" (click)="showNotifications(notification.name)"
+                    cdkDrag *ngFor="let notification of notifications_type">
+                    {{notification.name}}
+                </mat-chip>
+            </mat-chip-list>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="container mt-3" *ngFor="let _notification of show_notifications">
+    <mat-card class="{{_notification.type}}">
+        <mat-card-content>
+            <mat-icon class="notification-icon">{{_notification.type}}</mat-icon>
+            {{_notification.content}}
+            <button mat-icon-button aria-label="">
+                <mat-icon class="clear-btn" (click)="markAsReadNotification(_notification)">clear</mat-icon>
+            </button>
+        </mat-card-content>
+    </mat-card>
+</div>

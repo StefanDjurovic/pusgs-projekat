@@ -1,0 +1,23 @@
+mat-chip {
+    max-width: 200px;
+}
+
+.information {
+  background-color: rgb(93, 132, 240);
+}
+
+.warning {
+  background-color: rgb(225, 243, 64);
+}
+
+.error {
+  background-color: rgb(233, 56, 56);
+}
+
+.check_circle {
+  background-color: rgb(59, 245, 52);
+}
+
+.mat-icon {
+  vertical-align: middle;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
   model: any = {};
 
-  constructor(protected authService: AuthService, private alertify: AlertifyService) { }
+  constructor(protected authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() { }
 

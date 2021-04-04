@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
 
@@ -24,8 +26,11 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this.authService.login(this.form.value).subscribe(next => {
         console.log('Logged in successfully');
+        this.alertify.success('logged in!');
+        this.router.navigate(['profile'])
       }, error => {
         console.log('Failed to login');
+        this.alertify.error(error);
       });
     }
   }

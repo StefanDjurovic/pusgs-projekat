@@ -64,6 +64,16 @@ namespace API.Controllers
                 return Unauthorized();
             }
 
+            if (userFromRepo.ActivationStatus == UserActivationStatus.toBeProcessed)
+            {
+                return BadRequest("application not processed yet");
+            }
+
+            if (userFromRepo.ActivationStatus == UserActivationStatus.declined)
+            {
+                return BadRequest("your application has been declined");
+            }
+
             var claims = new []
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),

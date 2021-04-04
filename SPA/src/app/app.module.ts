@@ -20,9 +20,11 @@ import { DefaultComponent } from './default/default.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProfileComponent } from './profile/profile.component';
 import { NotificationComponent } from './notification/notification.component';
+import { RegisterApplicationsComponent } from './registerApplications/registerApplications.component';
+import { RegisterApplicationsResolver } from './_resolvers/registerApplications.resolver';
 
 @NgModule({
-  declarations: [
+  declarations: [		
     AppComponent,
     ValueComponent,
     LoginComponent,
@@ -33,7 +35,9 @@ import { NotificationComponent } from './notification/notification.component';
     DefaultComponent,
     ProfileComponent,
     NotificationComponent,
-  ],
+      RegisterApplicationsComponent,
+      RegisterApplicationsComponent
+   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -45,7 +49,11 @@ import { NotificationComponent } from './notification/notification.component';
     AppRoutingModule,
     BsDropdownModule.forRoot()
   ],
-  providers: [AuthService, ErrorInterceptorProvider],
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider,
+    RegisterApplicationsResolver,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

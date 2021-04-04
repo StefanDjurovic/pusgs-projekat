@@ -1,0 +1,5 @@
+<div class="" *ngFor="let user of applications">
+  <p>{{ user.username }}</p>
+  <button (click)="approveUser(user.id)">approve</button>
+  <button (click)="declineUser(user.id)">decline</button>
+</div>

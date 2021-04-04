@@ -12,6 +12,7 @@ namespace API.Models
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
         public UserActivationStatus ActivationStatus { get; set; }
+        public UserType Type { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
     }

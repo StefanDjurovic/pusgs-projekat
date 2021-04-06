@@ -12,6 +12,6 @@ namespace API.Data
         Task<bool> ApproveApplication(int userId);
         Task<bool> DeclineApplication(int userId);
         Task<bool> UserExists(int userId);
-
+        Task<bool> UpdateUser(User user);
     }
 }

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using API.Data;
+using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -41,6 +42,29 @@ namespace API.Controllers
 
             return await this.userRepo.DeclineApplication(userId) ? Ok() : BadRequest();
         }
-        
+
+        [HttpGet("{userId}")]
+        public async Task<User> GetUser(int userId)
+        {
+            if (!await this.userRepo.UserExists(userId))
+            {
+                return null;
+            }
+            return await this.userRepo.GetUser(userId);
+        }
+
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateUser(User updatedUser)
+        {
+            if (!await this.userRepo.UserExists(updatedUser.Id))
+            {
+                return BadRequest();
+            }
+            return await this.userRepo.UpdateUser(updatedUser) ? Ok() : BadRequest();
+        }
+
+
+
     }
 }

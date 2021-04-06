@@ -8,13 +8,13 @@
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Username" formControlName="username" required>
         <mat-error>
-          Please provide a valid username
+          Please provide a valid username!
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width-input">
         <input matInput type="password" placeholder="Password" formControlName="password" required>
         <mat-error>
-          Please provide a valid password
+          Please provide a valid password!
         </mat-error>
       </mat-form-field>
       <button mat-raised-button color="primary" [disabled]="!form.valid">Login</button>

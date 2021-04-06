@@ -22,4 +22,8 @@ export class UserService {
   declineApplication(id) {
     return this.http.put(this.baseUrl + 'decline/' + id, {}, {});
   }
+
+  getUser(id) {
+    return this.http.get(this.baseUrl + id);
+  }
 }

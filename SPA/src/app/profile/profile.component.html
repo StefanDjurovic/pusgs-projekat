@@ -7,7 +7,8 @@
                     class="font-weight-bold">Name</span><span class="text-black-50">email@example.com</span><span>
                 </span></div>
 
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <div [formGroup]="pictureForm" (ngSubmit)="updateProfilePicture()"
+                class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <mat-form-field class="columns">
                     <mat-label *ngIf="">Selected File</mat-label>
                     <ng-template #newFile>
@@ -17,13 +18,22 @@
                     <button mat-icon-button matSuffix (click)="fileInput.click()" matTooltip="Upload Profile Image">
                         <mat-icon>attach_file</mat-icon>
                     </button>
-                    <input hidden #fileInput type="file" id="file">
+                    <input hidden #fileInput type="file" id="file" formControlName="picture">
                 </mat-form-field>
+                <br>
+                <mat-progress-bar *ngIf="false" mode="determinate" value="40"></mat-progress-bar>
+                <br>
+
+                <button mat-raised-button type="submit" color="primary">Update Picture</button>
             </div>
         </div>
 
         <div class="col-md-5 border-right">
-            <form class="example-form mt-5">
+            <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="example-form mt-5">
+                <mat-error *ngIf="!profileForm.valid">
+                    All of the fields are necessary, and can't be left empty!
+                </mat-error>
+                <br>
                 <mat-form-field class="example-full-width">
                     <mat-label>User Type (disabled)</mat-label>
                     <input matInput disabled value="Type">
@@ -31,52 +41,74 @@
 
                 <mat-form-field class="example-full-width">
                     <mat-label>First Name</mat-label>
-                    <input matInput placeholder="First Name" value="">
+                    <input matInput formControlName="name" required>
+                    <mat-error>
+                        Please provide a valid first name!
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="surname" required>
+                    <mat-error>
+                        Please provide a valid surname!
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
                     <mat-label>Address</mat-label>
-                    <input matInput placeholder="Address" value="">
+                    <input matInput formControlName="address" required>
+                    <mat-error>
+                        Please provide a valid address!
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
                     <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker" placeholder="Date of Birth" value="">
+                    <input matInput [matDatepicker]="picker" formControlName="birthday" required>
+                    <mat-error>
+                        Please provide a valid birthday!
+                    </mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput placeholder="Last Name" value="">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width">
                     <mat-label>Email</mat-label>
-                    <input matInput placeholder="Email" value="">
+                    <input matInput formControlName="email" required>
+                    <mat-error>
+                        Please provide a valid email!
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
                     <mat-label>Username</mat-label>
-                    <input matInput placeholder="Username" value="">
+                    <input matInput formControlName="username" required>
+                    <mat-error>
+                        Please provide a valid username!
+                    </mat-error>
                 </mat-form-field>
 
-                <button mat-raised-button type="submit" color="primary">Update Profile</button>
+                <button mat-raised-button [disabled]="!profileForm.valid && profileForm.touched" color="primary">Update
+                    Profile</button>
             </form>
         </div>
 
         <div class="col-md-3 border-right mt-5">
-            <mat-form-field class="example-full-width">
-                <mat-label>Password</mat-label>
-                <input matInput placeholder="Password" value="">
-            </mat-form-field>
+            <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Confirm Password</mat-label>
-                <input matInput placeholder="Confirm Password" value="">
-            </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password">
+                </mat-form-field>
 
-            <button mat-raised-button type="submit" color="primary">Change Password</button>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput formControlName="confirm_password">
+                </mat-form-field>
+
+                <button mat-raised-button type="submit" color="primary">Change Password</button>
+            </form>
         </div>
     </div>
 </div>

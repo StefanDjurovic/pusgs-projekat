@@ -11,7 +11,7 @@ import { AuthService } from '../../_services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup = new FormGroup({
-    firstname: new FormControl(''),
+    name: new FormControl(''),
     surname: new FormControl(''),
     birthday: new FormControl(''),
     address: new FormControl(''),

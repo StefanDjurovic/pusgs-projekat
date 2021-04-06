@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,14 +15,16 @@ namespace API.Data
             this.context = context;
         }
 
-        public Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
-            throw new System.NotImplementedException();
+            var users = await this.context.Users.ToListAsync();
+            return users;
         }
 
-        public Task<User> GetUser(int userId)
+        public async Task<User> GetUser(int userId)
         {
-            throw new System.NotImplementedException();
+            var user = await this.context.Users.FirstOrDefaultAsync(user => user.Id == userId);
+            return user;
         }
 
         public async Task<IEnumerable<User>> GetUserApplications()
@@ -33,7 +36,7 @@ namespace API.Data
 
         public async Task<bool> ApproveApplication(int userId)
         {
-            var user = await this.context.Users.FirstOrDefaultAsync(user=> user.Id == userId);
+            var user = await this.context.Users.FirstOrDefaultAsync(user => user.Id == userId);
             user.ActivationStatus = UserActivationStatus.active;
 
             return await this.context.SaveChangesAsync() > 0;
@@ -41,7 +44,7 @@ namespace API.Data
 
         public async Task<bool> DeclineApplication(int userId)
         {
-            var user = await this.context.Users.FirstOrDefaultAsync(user=> user.Id == userId);
+            var user = await this.context.Users.FirstOrDefaultAsync(user => user.Id == userId);
             user.ActivationStatus = UserActivationStatus.declined;
 
             return await this.context.SaveChangesAsync() > 0;
@@ -51,6 +54,22 @@ namespace API.Data
         {
             return await this.context.Users.FirstOrDefaultAsync(user => user.Id == userId) != default;
         }
+
+        public async Task<bool> UpdateUser(User updatedUser)
+        {
+            var user = await this.context.Users.FirstOrDefaultAsync(user => user.Id.Equals(updatedUser.Id));
+
+            user.Name = updatedUser.Name;
+            user.Surname = updatedUser.Surname;
+            user.Address = updatedUser.Address;
+            user.Email = updatedUser.Email;
+            user.Birthday = updatedUser.Birthday;
+            user.Username = updatedUser.Username;
+
+            return await this.context.SaveChangesAsync() > 0;
+
+        }
+
 
     }
 }

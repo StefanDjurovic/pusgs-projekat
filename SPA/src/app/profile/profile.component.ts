@@ -42,11 +42,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var id = this.authService.decodedToken.nameid;
-    this.currentUser = this.userService.getUser(id).subscribe(res => {
-      this.currentUser = res;
-      this.fillForm();
-    });
+    this.getCurrentUserProfle();
   }
 
   ngAfterViewChecked() {
@@ -81,11 +77,22 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.valid && this.hasChanged) {
       console.log(this.profileForm.value);
       this.http.post(baseURL, this.profileForm.value).subscribe(() => {
+        this.getCurrentUserProfle();
+        this.initialValue = this.profileForm.value;
         this.alertify.success('successfully updated profile');
       }, error => {
         this.alertify.error(error);
       });
     }
+    else { console.log('nothing changed') }
+  }
+
+  getCurrentUserProfle() {
+    var id = this.authService.decodedToken.nameid;
+    this.currentUser = this.userService.getUser(id).subscribe(res => {
+      this.currentUser = res;
+      this.fillForm();
+    });
   }
 
   updatePassword() {

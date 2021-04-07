@@ -3,9 +3,12 @@
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
                     class="rounded-circle mt-5 profile-img"
-                    src="https://material.angular.io/assets/img/examples/shiba2.jpg"><span
-                    class="font-weight-bold">Name</span><span class="text-black-50">email@example.com</span><span>
-                </span></div>
+                    src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+                <br>
+                <span class="font-weight-bold">{{this.currentUser.name}} {{this.currentUser.surname}}</span><span
+                    class="text-black-50">{{this.currentUser.email}}</span><span>
+                </span>
+            </div>
 
             <div [formGroup]="pictureForm" (ngSubmit)="updateProfilePicture()"
                 class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -14,11 +17,11 @@
                     <ng-template #newFile>
                         <mat-label>Choose file</mat-label>
                     </ng-template>
-                    <input matInput disabled>
+                    <input matInput formControlName="picture" disabled>
                     <button mat-icon-button matSuffix (click)="fileInput.click()" matTooltip="Upload Profile Image">
                         <mat-icon>attach_file</mat-icon>
                     </button>
-                    <input hidden #fileInput type="file" id="file" formControlName="picture">
+                    <input hidden #fileInput type="file" id="file" (change)="onFileChanged($event)">
                 </mat-form-field>
                 <br>
                 <mat-progress-bar *ngIf="false" mode="determinate" value="40"></mat-progress-bar>
@@ -98,16 +101,29 @@
             <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
 
                 <mat-form-field class="example-full-width">
-                    <mat-label>Password</mat-label>
-                    <input matInput formControlName="password">
+                    <mat-label>Current Password</mat-label>
+                    <input matInput formControlName="current_password" required>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
-                    <mat-label>Confirm Password</mat-label>
-                    <input matInput formControlName="confirm_password">
+                    <mat-label>New Password</mat-label>
+                    <input matInput formControlName="new_password" required>
                 </mat-form-field>
 
-                <button mat-raised-button type="submit" color="primary">Change Password</button>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Confirm New Password</mat-label>
+                    <input matInput name="confirm_password" formControlName="confirm_password" required>
+                </mat-form-field>
+
+                <br>
+                <mat-error *ngIf="passwordForm.hasError('notSame')">
+                    Password & Confirm Password, don't match!
+                </mat-error>
+                <br>
+
+                <button mat-raised-button [disabled]="!passwordForm.valid" color="primary">Change
+                    Password
+                </button>
             </form>
         </div>
     </div>

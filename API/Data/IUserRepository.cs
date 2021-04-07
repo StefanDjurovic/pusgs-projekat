@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Dtos;
 using API.Models;
 
 namespace API.Data
@@ -13,5 +14,6 @@ namespace API.Data
         Task<bool> DeclineApplication(int userId);
         Task<bool> UserExists(int userId);
         Task<bool> UpdateUser(User user);
+        Task<bool> UpdatePassword(int userId, PasswordUpdateDto passwordUpdate);
     }
 }

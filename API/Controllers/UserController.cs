@@ -1,7 +1,9 @@
 using System.Threading.Tasks;
 using API.Data;
+using API.Dtos;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace API.Controllers
 {
@@ -65,6 +67,15 @@ namespace API.Controllers
         }
 
 
-
+        [HttpPost("{userId}/update-password")]
+        public async Task<IActionResult> UpdatePassword(int userId, PasswordUpdateDto passwordUpdate)
+        {
+            if (!await this.userRepo.UserExists(userId))
+            {
+                return BadRequest();
+            }
+            System.Console.WriteLine($"ID: {userId}, Current Password: {passwordUpdate.CurrentPassword}, New Password: {passwordUpdate.NewPassword}");
+            return await this.userRepo.UpdatePassword(userId, passwordUpdate) ? Ok() : BadRequest();
+        }
     }
 }

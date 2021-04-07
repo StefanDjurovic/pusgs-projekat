@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
@@ -23,9 +23,10 @@ export class ProfileComponent implements OnInit {
   });
 
   passwordForm: FormGroup = new FormGroup({
-    password: new FormControl(''),
-    confirm_password: new FormControl(''),
-  });
+    current_password: new FormControl(''),
+    new_password: new FormControl('', Validators.required),
+    confirm_password: new FormControl('', Validators.required),
+  }, { validators: this.checkPasswords });
 
   pictureForm: FormGroup = new FormGroup({
     picture: new FormControl(''),
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
   currentUser = null;
   initialValue = null;
   hasChanged = false;
+  selectedFile: File = null;
   constructor(private http: HttpClient, userService: UserService, authService: AuthService, private alertify: AlertifyService, private changeDetector: ChangeDetectorRef) {
     this.userService = userService;
     this.authService = authService;
@@ -95,10 +97,25 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  checkPasswords(group: FormGroup) {
+    const password = group.get('new_password').value;
+    const confirmPassword = group.get('confirm_password').value;
+
+    return password === confirmPassword ? null : { notSame: true }
+  }
+
   updatePassword() {
-    console.log(this.currentUser);
+    var id = this.authService.decodedToken.nameid;
+    var baseURL = 'http://localhost:5000/api/user/' + id + '/update-password';
     if (this.passwordForm.valid) {
-      console.log(this.passwordForm.value);
+
+      var data = { 'currentPassword': this.passwordForm.value.current_password, 'newPassword': this.passwordForm.value.new_password };
+      console.log(data);
+      this.http.post(baseURL, data).subscribe(() => {
+        this.alertify.success('successfully updated password');
+      }, error => {
+        this.alertify.error(error);
+      });
     }
   }
 
@@ -106,6 +123,22 @@ export class ProfileComponent implements OnInit {
     if (this.pictureForm.valid) {
       console.log(this.pictureForm.value);
     }
+  }
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+    this.pictureForm.controls['picture'].setValue(this.selectedFile.name);
+    console.log(this.selectedFile);
+  }
+
+  onUpload() {
+    this.http.post('http://localhost:5000/api/user/file-upload', this.selectedFile, {
+      reportProgress: true,
+      observe: 'events'
+    })
+      .subscribe(event => {
+        console.log(event); // handle event here
+      });
   }
 
 }

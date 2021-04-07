@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dtos;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -71,5 +71,23 @@ namespace API.Data
         }
 
 
+        public async Task<bool> UpdatePassword(int userId, PasswordUpdateDto passwordUpdate)
+        {
+            var user = await this.context.Users.FirstOrDefaultAsync(user => user.Id.Equals(userId));
+
+            if (PasswordVerification.VerifyPasswordHash(passwordUpdate.CurrentPassword, user.PasswordHash, user.PasswordSalt))
+            {
+                byte[] newPasswordHash = null;
+                byte[] newPasswordSalt = null;
+
+                PasswordVerification.CreatePasswordHash(passwordUpdate.NewPassword, out newPasswordHash, out newPasswordSalt);
+
+                user.PasswordHash = newPasswordHash;
+                user.PasswordSalt = newPasswordSalt;
+
+                return await this.context.SaveChangesAsync() > 0;
+            }
+            return false;
+        }
     }
 }

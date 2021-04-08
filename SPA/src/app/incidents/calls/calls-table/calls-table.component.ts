@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild, Output } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
 @Component({
   selector: 'app-calls-table',
   templateUrl: './calls-table.component.html',
   styleUrls: ['./calls-table.component.css']
 })
-export class CallsTableComponent implements OnInit {
+export class CallsTableComponent {
+  @Output() callFormShowEvent: EventEmitter<any> = new EventEmitter();
+
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
@@ -17,11 +18,17 @@ export class CallsTableComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit(): void {
   }
 
+  showCallForm() {
+    console.log('show form for creation of a new call');
+    this.callFormShowEvent.emit();
+  }
 }
 
 export interface PeriodicElement {
@@ -53,3 +60,4 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
   { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
 ];
+

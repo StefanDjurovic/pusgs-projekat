@@ -44,22 +44,26 @@
             <!-- resolution component -->
         </span>
 
-        <span *ngIf="showCalls">
+        <span *ngIf="callsTableVisability">
             <!-- calls -->
-            <app-calls-table>
-            </app-calls-table>
+            <app-calls-table (callFormShowEvent)="showCallForm($event)"></app-calls-table>
+        </span>
+
+        <span *ngIf="callFormVisability">
+            <!--  call form -->
+            <app-call-report (returnToCalls)="hideCallForm($event)"></app-call-report>
         </span>
 
         <span *ngIf="">
             <!--  crew -->
-            <app-calls-table>
-            </app-calls-table>
+        </span>
+
+        <span *ngIf="">
+            <!--  crew -->
         </span>
 
         <span *ngIf="">
             <!-- ultimedia attchments -->
-            <app-calls-table>
-            </app-calls-table>
         </span>
 
         <span *ngIf="">

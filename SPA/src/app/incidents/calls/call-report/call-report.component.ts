@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,10 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./call-report.component.css']
 })
 export class CallReportComponent implements OnInit {
+  @Output() returnToCalls: EventEmitter<any> = new EventEmitter();
+
   anonymousCheck = false;
+
 
   reasons = [
     'No Electricity',
@@ -35,6 +38,10 @@ export class CallReportComponent implements OnInit {
     if (this.incidentForm.valid) {
       console.log(this.incidentForm.value);
     }
+  }
+
+  returnToCallsTable() {
+    this.returnToCalls.emit()
   }
 }
 

@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./incidents-table.component.css']
 })
 export class IncidentsTableComponent implements OnInit {
-  showCalls = false;
+  callsTableVisability = false;
+  callFormVisability = false;
 
   constructor() { }
 
@@ -14,6 +15,22 @@ export class IncidentsTableComponent implements OnInit {
   }
 
   onCallsPress() {
-    this.showCalls = true;
+    this.callsTableVisability = true;
+  }
+
+  showCallForm(e) {
+    this.hideAllComponents();
+    this.callFormVisability = true;
+  }
+
+  hideCallForm(e) {
+    console.log('hise call form');
+    this.hideAllComponents();
+    this.callsTableVisability = true;
+  }
+
+  hideAllComponents() {
+    this.callsTableVisability = false;
+    this.callFormVisability = false;
   }
 }

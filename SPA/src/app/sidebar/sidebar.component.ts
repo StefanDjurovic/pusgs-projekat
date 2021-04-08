@@ -8,8 +8,11 @@ import { AuthService } from '../_services/auth.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+  auth = null;
+
   constructor(private router: Router, auth: AuthService) {
     this.router = router;
+    this.auth = auth;
   }
 
   ngOnInit(): void {

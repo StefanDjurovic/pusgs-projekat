@@ -22,9 +22,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RegisterApplicationsComponent } from './registerApplications/registerApplications.component';
 import { RegisterApplicationsResolver } from './_resolvers/registerApplications.resolver';
+import { IncidentsTableComponent } from './incidents/incidents-table/incidents-table.component';
+import { CallsTableComponent } from './incidents/calls/calls-table/calls-table.component';
+import { CallReportComponent } from './incidents/calls/call-report/call-report.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
     ValueComponent,
     LoginComponent,
@@ -35,9 +38,12 @@ import { RegisterApplicationsResolver } from './_resolvers/registerApplications.
     DefaultComponent,
     ProfileComponent,
     NotificationComponent,
-      RegisterApplicationsComponent,
-      RegisterApplicationsComponent
-   ],
+    RegisterApplicationsComponent,
+    RegisterApplicationsComponent,
+    IncidentsTableComponent,
+    CallsTableComponent,
+    CallReportComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

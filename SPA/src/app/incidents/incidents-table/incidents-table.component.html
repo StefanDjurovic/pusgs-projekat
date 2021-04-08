@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="inline-block navigation">
+        <mat-card>
+            <mat-card class="mat-card-item" routerLinkActive="list-item">
+                Basic Information
+            </mat-card>
+
+            <mat-card class="mat-card-item" routerLinkActive="list-item">
+                Devices
+            </mat-card>
+
+            <mat-card class="mat-card-item" routerLinkActive="list-item">
+                Resolution
+            </mat-card>
+
+            <mat-card class="mat-card-item" (click)="onCallsPress()" routerLinkActive="list-item">
+                Calls
+            </mat-card>
+
+            <mat-card class="mat-card-item" routerLinkActive="list-item">
+                Crew
+            </mat-card>
+
+            <mat-card class="mat-card-item" routerLinkActive="list-item">
+                Multimedia Attchments
+            </mat-card>
+
+            <mat-card class="mat-card-item" routerLinkActive="list-item">
+                Equipment
+            </mat-card>
+        </mat-card>
+    </div>
+
+    <div class="inline-block components">
+        <span *ngIf="">
+            <!--  basic info component -->
+        </span>
+
+        <span *ngIf="">
+            <!-- devices component -->
+        </span>
+
+        <span *ngIf="">
+            <!-- resolution component -->
+        </span>
+
+        <span *ngIf="showCalls">
+            <!-- calls -->
+            <app-calls-table>
+            </app-calls-table>
+        </span>
+
+        <span *ngIf="">
+            <!--  crew -->
+            <app-calls-table>
+            </app-calls-table>
+        </span>
+
+        <span *ngIf="">
+            <!-- ultimedia attchments -->
+            <app-calls-table>
+            </app-calls-table>
+        </span>
+
+        <span *ngIf="">
+            <!-- equipment -->
+
+        </span>
+    </div>
+</div>

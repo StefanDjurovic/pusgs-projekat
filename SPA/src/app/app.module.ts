@@ -25,6 +25,7 @@ import { RegisterApplicationsResolver } from './_resolvers/registerApplications.
 import { IncidentsTableComponent } from './incidents/incidents-table/incidents-table.component';
 import { CallsTableComponent } from './incidents/calls/calls-table/calls-table.component';
 import { CallReportComponent } from './incidents/calls/call-report/call-report.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CallReportComponent } from './incidents/calls/call-report/call-report.c
     IncidentsTableComponent,
     CallsTableComponent,
     CallReportComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { IncidentsTableComponent } from './incidents/incidents-table/incidents-t
 import { CallsTableComponent } from './incidents/calls/calls-table/calls-table.component';
 import { CallReportComponent } from './incidents/calls/call-report/call-report.component';
 import { HomeComponent } from './home/home.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationComponent },
   { path: 'incidents', component: IncidentsTableComponent },
   { path: 'calls', component: CallsTableComponent },
-  { path: 'new-call', component: CallReportComponent },
+  { path: 'settings', component: SettingsComponent },
 
   { path: '**', redirectTo: '' }
 ];

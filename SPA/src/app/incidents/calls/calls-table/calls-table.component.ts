@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, ViewChild, Output } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-calls-table',
@@ -9,13 +10,15 @@ import { MatTableDataSource } from '@angular/material/table';
 export class CallsTableComponent {
   @Output() callFormShowEvent: EventEmitter<any> = new EventEmitter();
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['callId', 'reason', 'hazard', 'comment', 'marker'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   constructor() {
@@ -26,38 +29,38 @@ export class CallsTableComponent {
   }
 
   showCallForm() {
-    console.log('show form for creation of a new call');
     this.callFormShowEvent.emit();
   }
 }
 
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  callId: number;
+  reason: string;
+  hazard: string;
+  comment: string;
+  marker: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
+  { callId: 1, reason: 'Strong wind!', hazard: 'No Electricity', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 2, reason: 'Strong wind!', hazard: 'Lights flickering', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 3, reason: 'Strong wind!', hazard: 'Lights flickering', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 4, reason: 'Strong wind!', hazard: 'Lights flickering', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 5, reason: 'Strong wind!', hazard: 'Lights flickering', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 6, reason: 'Strong wind!', hazard: 'No Electricity', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 7, reason: 'Strong wind!', hazard: 'There is a malfunction', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 8, reason: 'Strong wind!', hazard: 'No Electricity', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 9, reason: 'Strong wind!', hazard: 'Lights flickering', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 10, reason: 'Strong wind!', hazard: 'Partial current', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 11, reason: 'Strong wind!', hazard: 'Partial current', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 12, reason: 'Strong wind!', hazard: 'No Electricity', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 13, reason: 'Strong wind!', hazard: 'Partial current', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 14, reason: 'Strong wind!', hazard: 'Partial current', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 15, reason: 'Strong wind!', hazard: 'Power is back', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 16, reason: 'Strong wind!', hazard: 'Power is back', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 17, reason: 'Strong wind!', hazard: 'There is a malfunction', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 18, reason: 'Strong wind!', hazard: 'There is a malfunction', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 19, reason: 'Strong wind!', hazard: 'No Electricity', comment: 'Lorem Ipsum', marker: 'location_on' },
+  { callId: 20, reason: 'Strong wind!', hazard: 'Partial current', comment: 'Lorem Ipsum', marker: 'location_on' },
 ];
 

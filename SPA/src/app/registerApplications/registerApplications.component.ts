@@ -12,12 +12,15 @@ import { UserService } from '../_services/user.service';
 export class RegisterApplicationsComponent implements OnInit {
   applications: User[]
 
+  displayedColumns: string[] = ['id', 'name', 'surname', 'email', 'approve', 'decline'];
   constructor(private route: ActivatedRoute, private userService: UserService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.applications = data['applications'];
     });
+
+    console.log(this.applications);
   }
 
   approveUser(id) {

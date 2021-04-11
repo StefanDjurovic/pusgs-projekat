@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'registerApplications', component: RegisterApplicationsComponent, resolve: { applications: RegisterApplicationsResolver } },
+  { path: 'register-applications', component: RegisterApplicationsComponent, resolve: { applications: RegisterApplicationsResolver } },
   { path: 'notifications', component: NotificationComponent },
   { path: 'incidents', component: IncidentsTableComponent },
   { path: 'calls', component: CallsTableComponent },

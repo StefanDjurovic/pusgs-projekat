@@ -1,0 +1,183 @@
+<div class="row">
+    <div class="inline-block navigation">
+        <mat-card>
+            <mat-card class="mat-card-item">
+                Basic Information
+            </mat-card>
+
+            <mat-card class="mat-card-item" routerLinkActive="list-item">
+                History of State Changes
+            </mat-card>
+
+            <mat-card class="mat-card-item" routerLinkActive="list-item">
+                Multimedia Attchments
+            </mat-card>
+
+            <mat-card class="mat-card-item">
+                Equipment
+            </mat-card>
+        </mat-card>
+    </div>
+
+
+    <div class="components">
+        <span *ngIf="true">
+            <!-- generate a new component -->
+            <mat-card>
+                <form [formGroup]="workRequestForm" (ngSubmit)="submitWorkRequest()">
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Type</mat-label>
+                            <mat-select formControlName="type">
+                                <mat-option *ngFor="let type of types" [value]="type.value">
+                                    {{type.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Draft</mat-label>
+                            <input matInput formControlName="draft" value="Draft">
+                        </mat-form-field>
+
+                        <div class="col">
+                            <mat-form-field>
+                                <mat-label>Incident</mat-label>
+                                <input matInput formControlName="incident" placeholder="Import Incident" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col">
+                            <button mat-button>Import Incident</button>
+                        </div>
+
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Equipment</mat-label>
+                            <mat-select formControlName="equipment">
+                                <mat-option *ngFor="let type of types" [value]="type.value">
+                                    {{type.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Start date/time</mat-label>
+                            <input matInput [matDatepicker]="picker" placeholder="Start date/time"
+                                formControlName="start_dt" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>End date/time</mat-label>
+                            <input matInput [matDatepicker]="picker_" placeholder="End date/time"
+                                formControlName="end_dt" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker_"></mat-datepicker-toggle>
+                            <mat-datepicker #picker_></mat-datepicker>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Created By</mat-label>
+                            <input matInput formControlName="created_by">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Purpose</mat-label>
+                            <textarea matInput formControlName="purpose" required></textarea>
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Details</mat-label>
+                            <textarea matInput formControlName="details" required></textarea>
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Notes</mat-label>
+                            <textarea matInput formControlName="notes" required></textarea>
+                        </mat-form-field>
+
+
+                        <!-- <mat-form-field class="example-full-width">
+                            <mat-label>Emergency Work</mat-label>
+                            <mat-slide-toggle formControlName="emergencyWork">
+                                Emergency Work
+                            </mat-slide-toggle>
+                        </mat-form-field> -->
+
+                        <br>
+                        <mat-slide-toggle [checked]="emergencyWorkToggle"
+                            (change)="emergencyWorkToggle = $event.source.checked">
+                            Emergency Work
+                        </mat-slide-toggle>
+                        <br>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Company</mat-label>
+                            <input matInput formControlName="company" value="Company Name">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Incident</mat-label>
+                            <input matInput formControlName="incident" value="IN1">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Phone No</mat-label>
+                            <input matInput formControlName="phone_num">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Date/time Created</mat-label>
+                            <input matInput [matDatepicker]="__picker" placeholder="Created"
+                                formControlName="dt_created" required>
+                            <mat-datepicker-toggle matSuffix [for]="__picker"></mat-datepicker-toggle>
+                            <mat-datepicker #__picker></mat-datepicker>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary">Save</button>
+                    </div>
+
+                </form>
+            </mat-card>
+        </span>
+
+        <span *ngIf="">
+            <!-- devices component -->
+        </span>
+
+        <span *ngIf="">
+            <!-- resolution component -->
+        </span>
+
+        <span *ngIf="">
+            <!-- calls -->
+            <app-calls-table></app-calls-table>
+        </span>
+
+        <span *ngIf="">
+            <!--  call form -->
+            <app-call-report></app-call-report>
+        </span>
+
+        <span *ngIf="">
+            <!--  crew -->
+        </span>
+
+        <span *ngIf="">
+            <!--  crew -->
+        </span>
+
+        <span *ngIf="">
+            <!-- ultimedia attchments -->
+        </span>
+
+        <span *ngIf="">
+            <!-- equipment -->
+
+        </span>
+    </div>
+</div>

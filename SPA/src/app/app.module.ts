@@ -26,6 +26,8 @@ import { IncidentsTableComponent } from './incidents/incidents-table/incidents-t
 import { CallsTableComponent } from './incidents/calls/calls-table/calls-table.component';
 import { CallReportComponent } from './incidents/calls/call-report/call-report.component';
 import { SettingsComponent } from './settings/settings.component';
+import { WorkRequestsComponent } from './documents/work-requests/work-requests.component';
+import { WorkRequestFormComponent } from './documents/work-request-form/work-request-form.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { SettingsComponent } from './settings/settings.component';
     CallsTableComponent,
     CallReportComponent,
     SettingsComponent,
+    WorkRequestsComponent,
+    WorkRequestFormComponent
   ],
   imports: [
     BrowserModule,

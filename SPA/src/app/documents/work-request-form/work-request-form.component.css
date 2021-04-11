@@ -1,0 +1,40 @@
+.inline-block {
+    display: inline-block;
+    margin: 5px;
+}
+
+.navigation {
+    width: 15%; 
+}
+
+.components {
+    width: 80%; 
+}
+
+.mat-card-item {
+    margin: 5px;
+}
+
+.mat-button-toggle {
+  display: block;
+  margin:auto;
+  font-size: 12px;
+  position: relative;
+}
+
+.inline-block {
+    display: inline-block;
+    margin: 5px;
+}
+
+.navigation {
+    width: 15%; 
+}
+
+.components {
+    width: 80%; 
+}
+
+.mat-card-item {
+    margin: 5px;
+}

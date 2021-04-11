@@ -13,6 +13,8 @@ import { CallsTableComponent } from './incidents/calls/calls-table/calls-table.c
 import { CallReportComponent } from './incidents/calls/call-report/call-report.component';
 import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
+import { WorkRequestsComponent } from './documents/work-requests/work-requests.component';
+import { WorkRequestFormComponent } from './documents/work-request-form/work-request-form.component';
 
 
 const routes: Routes = [
@@ -25,7 +27,8 @@ const routes: Routes = [
   { path: 'incidents', component: IncidentsTableComponent },
   { path: 'calls', component: CallsTableComponent },
   { path: 'settings', component: SettingsComponent },
-
+  { path: 'documents', component: WorkRequestsComponent },
+  { path: 'create-work-request', component: WorkRequestFormComponent },
   { path: '**', redirectTo: '' }
 ];
 

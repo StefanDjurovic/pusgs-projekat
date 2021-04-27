@@ -28,6 +28,9 @@ import { CallReportComponent } from './incidents/calls/call-report/call-report.c
 import { SettingsComponent } from './settings/settings.component';
 import { WorkRequestsComponent } from './documents/work-requests/work-requests.component';
 import { WorkRequestFormComponent } from './documents/work-request-form/work-request-form.component';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { PriorityAssignmentComponent } from './settings/priority-assignment/priority-assignment.component';
+import { IconUpdateComponent } from './settings/icon-update/icon-update.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { WorkRequestFormComponent } from './documents/work-request-form/work-req
     CallReportComponent,
     SettingsComponent,
     WorkRequestsComponent,
-    WorkRequestFormComponent
+    WorkRequestFormComponent,
+    ChangePasswordComponent,
+    PriorityAssignmentComponent,
+    IconUpdateComponent,
   ],
   imports: [
     BrowserModule,

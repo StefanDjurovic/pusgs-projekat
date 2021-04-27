@@ -1,0 +1,14 @@
+table {
+    width: 100%;
+}
+
+.notifications > .mat-card {
+    max-width: 600px;
+    margin: 2em auto;
+    text-align: center;
+}
+
+.notifications > .example-form mat-slide-toggle {
+  margin: 8px 0;
+  display: block;
+}

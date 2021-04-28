@@ -1,0 +1,56 @@
+<mat-card>
+    <mat-card-title>Add a new Device</mat-card-title>
+
+    <div class="container rounded bg-white mt-5 mb-5" align="center">
+        <div class="col-md-5 border-right">
+            <form [formGroup]="deviceForm" (ngSubmit)="submitNewDevice()" class="example-form mt-5">
+                <mat-error *ngIf="false">
+                    All of the fields are necessary, and can't be left empty!
+                </mat-error>
+                <!-- automaticly assigned by the location -->
+                <mat-form-field class="example-full-width">
+                    <mat-label>Account ID</mat-label>
+                    <input matInput placeholder="ID" disabled>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput disabled [value]="name">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Surname</mat-label>
+                    <input matInput disabled [value]="surname">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Location</mat-label>
+                    <textarea matInput placeholder="Location" formControlName="location" required></textarea>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Priority (Napomena: Lokacije kroz različite vremenske periode mogu da menjaju
+                        prioritete.) </mat-label>
+                    <input matInput disabled value="Automatically assigned with Location">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <span matPrefix>+381 &nbsp;</span>
+                    <input type="tel" matInput placeholder="Telephone" formControlName="telephone" required>
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Type</mat-label>
+                    <select matNativeControl required formControlName="account_type">
+                        <option value="Rezidentalni">Rezidentalni</option>
+                        <option value="Komercijalni">Komercijalni</option>
+                    </select>
+                </mat-form-field>
+
+                <button mat-raised-button class="btn-submit" [disabled]="!deviceForm.valid"
+                    color="primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</mat-card>

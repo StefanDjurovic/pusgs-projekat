@@ -15,6 +15,8 @@ import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { WorkRequestsComponent } from './documents/work-requests/work-requests.component';
 import { WorkRequestFormComponent } from './documents/work-request-form/work-request-form.component';
+import { AllDevicesComponent } from './devices/all-devices/all-devices.component';
+import { AddDeviceComponent } from './devices/add-device/add-device.component';
 
 
 const routes: Routes = [
@@ -29,6 +31,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'documents', component: WorkRequestsComponent },
   { path: 'create-work-request', component: WorkRequestFormComponent },
+  { path: 'all-devices', component: AllDevicesComponent },
+  { path: 'add-device', component: AddDeviceComponent },
   { path: '**', redirectTo: '' }
 ];
 

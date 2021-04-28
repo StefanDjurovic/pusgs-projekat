@@ -31,6 +31,8 @@ import { WorkRequestFormComponent } from './documents/work-request-form/work-req
 import { ChangePasswordComponent } from './settings/change-password/change-password.component';
 import { PriorityAssignmentComponent } from './settings/priority-assignment/priority-assignment.component';
 import { IconUpdateComponent } from './settings/icon-update/icon-update.component';
+import { AddDeviceComponent } from './devices/add-device/add-device.component';
+import { AllDevicesComponent } from './devices/all-devices/all-devices.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { IconUpdateComponent } from './settings/icon-update/icon-update.componen
     ChangePasswordComponent,
     PriorityAssignmentComponent,
     IconUpdateComponent,
+    AddDeviceComponent,
+    AllDevicesComponent,
   ],
   imports: [
     BrowserModule,

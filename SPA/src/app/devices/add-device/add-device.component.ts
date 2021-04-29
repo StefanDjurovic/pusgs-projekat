@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -17,14 +19,14 @@ export class AddDeviceComponent implements OnInit {
   authService = null;
 
   deviceForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    surname: new FormControl(''),
-    location: new FormControl(''),
-    telephone: new FormControl('', [Validators.required, Validators.pattern("[0-9]{9}")]),
-    account_type: new FormControl(''),
+    Name: new FormControl(''),
+    Surname: new FormControl(''),
+    Location: new FormControl(''),
+    Telephone: new FormControl('', [Validators.required, Validators.pattern("[0-9]{9}")]),
+    AccountType: new FormControl(''),
   });
 
-  constructor(private http: HttpClient, userService: UserService, authService: AuthService) {
+  constructor(private http: HttpClient, userService: UserService, authService: AuthService, private alertify: AlertifyService, private router: Router) {
     this.userService = userService;
     this.authService = authService;
   }
@@ -34,9 +36,22 @@ export class AddDeviceComponent implements OnInit {
   }
 
   submitNewDevice() {
+    var baseURL = 'http://localhost:5000/api/device/add';
+
     if (this.deviceForm.valid) {
-      console.log('sending a new device to server...');
+      this.deviceForm.value['Priority'] = 0;
+      this.deviceForm.value['Id'] = 0;
+      this.deviceForm.value['AccountType'] = Number(this.deviceForm.value['AccountType']);
+
       console.log(this.deviceForm.value);
+
+      this.http.post(baseURL, this.deviceForm.value).subscribe(response => {
+        this.alertify.success('New Device Added!');
+        this.router.navigate(['all-devices'])
+      }, error => {
+        console.log('Failed to add new Device!');
+        this.alertify.error(error);
+      });
     }
   }
 
@@ -46,8 +61,8 @@ export class AddDeviceComponent implements OnInit {
       this.name = res.name;
       this.surname = res.surname;
 
-      this.deviceForm.controls['name'].setValue(res.name);
-      this.deviceForm.controls['surname'].setValue(res.surname);
+      this.deviceForm.controls['Name'].setValue(res.name);
+      this.deviceForm.controls['Surname'].setValue(res.surname);
     });
   }
 }

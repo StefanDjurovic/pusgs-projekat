@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Data;
+using API.Dtos;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -50,10 +52,16 @@ namespace API.Controllers
             return BadRequest("Device couldn't be updated!");
         }
 
-        [HttpGet("devices")]
-        public async Task<IEnumerable<Device>> GetDevices()
+        [HttpGet("all-devices")]
+        public async Task<IEnumerable<Device>> GetAllDevices()
         {
-            return await this.repo.GetDevices();
+            return await this.repo.GetAllDevices();
+        }
+
+        [HttpGet("devices")]
+        public async Task<IEnumerable<Device>> GetDevices(PaginationParameters paginationParameters)
+        {
+            return await this.repo.GetDevices(paginationParameters);
         }
     }
 }

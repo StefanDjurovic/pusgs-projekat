@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Dtos;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
 
 namespace API.Data
 {
@@ -52,9 +55,15 @@ namespace API.Data
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Device>> GetDevices()
+        public async Task<IEnumerable<Device>> GetDevices(PaginationParameters paginationParameters)
+        {
+            return await this.context.Devices.OrderBy(x => x.Name).Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Device>> GetAllDevices()
         {
             return await this.context.Devices.ToListAsync();
         }
+
     }
 }

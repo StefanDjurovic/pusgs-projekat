@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Models;
+using API.Dtos;
 
 namespace API.Data
 {
@@ -9,6 +10,7 @@ namespace API.Data
         Task<bool> Add(Device device);
         Task<bool> Remove(int id);
         Task<bool> Update(int id, Device device);
-        Task<IEnumerable<Device>> GetDevices();
+        Task<IEnumerable<Device>> GetAllDevices();
+        Task<IEnumerable<Device>> GetDevices(PaginationParameters paginationParameters);
     }
 }

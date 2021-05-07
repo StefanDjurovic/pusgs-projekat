@@ -59,7 +59,7 @@ namespace API.Controllers
         }
 
         [HttpGet("devices")]
-        public async Task<IEnumerable<Device>> GetDevices(PaginationParameters paginationParameters)
+        public async Task<IEnumerable<Device>> GetDevices([FromQuery] PaginationParameters paginationParameters)
         {
             return await this.repo.GetDevices(paginationParameters);
         }

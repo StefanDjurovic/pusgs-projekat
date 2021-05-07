@@ -33,6 +33,7 @@ import { PriorityAssignmentComponent } from './settings/priority-assignment/prio
 import { IconUpdateComponent } from './settings/icon-update/icon-update.component';
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { AllDevicesComponent } from './devices/all-devices/all-devices.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { AllDevicesComponent } from './devices/all-devices/all-devices.component
     IconUpdateComponent,
     AddDeviceComponent,
     AllDevicesComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

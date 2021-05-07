@@ -1,0 +1,13 @@
+<div class="pages">
+    <!-- X through Y of Z pages -->
+    <span class="page-count">
+        {{getMin()}} through {{getMax()}} of {{count}} devices
+    </span>
+    <span class="page-totals">{{totalPages()}} total pages</span>
+    <br>
+    <button mat-button (click)="onPrev()" [disabled]="page === 1" [ngClass]="{'disabled': page === 1}">Previous
+        Page</button>
+    <b>...</b>
+    <button mat-button (click)="onNext()" [disabled]="isLastPage()" [ngClass]="{'disabled': isLastPage()}">Next
+        Page</button>
+</div>

@@ -16,29 +16,6 @@ export interface DeviceElement {
   account_type: number;
 }
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   { position: 1, id: 2, name: 'Name', surname: 'Surname', location: 'asd gdfg', telephone: 123, priority: 1 },
-//   { position: 1, id: 3, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 7, name: 'Name', surname: 'Surname', location: 'asd', telephone: 123, priority: 1 },
-//   { position: 1, id: 9, name: 'Name', surname: 'Surname', location: 'asd gdfg', telephone: 123, priority: 1 },
-//   { position: 1, id: 4, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 18, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 32, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 86, name: 'Name', surname: 'Surname', location: 'gdfg adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 12, name: 'Name', surname: 'Surname', location: 'gdfg adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 98, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 47, name: 'Name', surname: 'Surname', location: 'asd', telephone: 123, priority: 1 },
-//   { position: 1, id: 65, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 45, name: 'Name', surname: 'Surname', location: 'asd', telephone: 123, priority: 1 },
-//   { position: 1, id: 53, name: 'Name', surname: 'Surname', location: 'asd gdfg', telephone: 123, priority: 1 },
-//   { position: 1, id: 65, name: 'Name', surname: 'Surname', location: 'asd gdfg', telephone: 123, priority: 1 },
-//   { position: 1, id: 51, name: 'Name', surname: 'Surname', location: 'asd', telephone: 123, priority: 1 },
-//   { position: 1, id: 99, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 32, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-//   { position: 1, id: 41, name: 'Name', surname: 'Surname', location: 'asd adasdas', telephone: 123, priority: 1 },
-// ];
-
-
 @Component({
   selector: 'app-all-devices',
   templateUrl: './all-devices.component.html',
@@ -49,6 +26,11 @@ export class AllDevicesComponent implements OnInit {
   dataSource = null;
   data = [];
 
+  total = 0;
+  page = 1;
+  limit = 10;
+  loading = false;
+
   ngAfterViewInit() {
 
   }
@@ -56,18 +38,36 @@ export class AllDevicesComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
-    this.fetchDevices();
+    this.fetchDevicePage();
+    this.fetchDeviceCount();
   }
 
   redirectToAddDevicePage() {
     this.router.navigate(['add-device']);
   }
 
-  fetchDevices() {
-    var url = 'http://localhost:5000/api/device/devices';
+  fetchAllDevices() {
+    var url = 'http://localhost:5000/api/device/all-devices';
     this.http.get(url, { responseType: 'text' }).subscribe(response => {
       var responseJSON = JSON.parse(response);
       this.dataSource = new MatTableDataSource<DeviceElement>(responseJSON);
+    });
+  }
+
+
+  fetchDevicePage() {
+    var url = 'http://localhost:5000/api/device/devices?pageNumber=' + this.page + '&pageSize=' + this.limit;
+    this.http.get(url, { responseType: 'text' }).subscribe(response => {
+      var responseJSON = JSON.parse(response);
+      this.dataSource = responseJSON;
+      this.loading = false;
+    });
+  }
+
+  fetchDeviceCount() {
+    var url = 'http://localhost:5000/api/device/total-pages';
+    this.http.get(url, { responseType: 'text' }).subscribe(response => {
+      this.total = JSON.parse(response);
     });
   }
 
@@ -76,7 +76,7 @@ export class AllDevicesComponent implements OnInit {
     var url = 'http://localhost:5000/api/device/remove/' + id;
     this.http.get(url).subscribe(response => {
       this.alertify.success('Device Removed!');
-      this.fetchDevices();
+      this.fetchAllDevices();
     }, error => {
       console.log('Failed to Remove Device!');
       this.alertify.error(error);
@@ -85,6 +85,24 @@ export class AllDevicesComponent implements OnInit {
 
   updateDevice(id) {
     console.log(id);
+  }
+
+  goToPrevious() {
+    console.log('Previous Button Clicked!');
+    this.page--;
+    this.fetchDevicePage();
+  }
+
+  goToNext() {
+    console.log('Next Button Clicked!');
+    this.page++;
+    this.fetchDevicePage();
+  }
+
+  goToPage(n: number) {
+    console.log('Going to Specific Page!');
+    this.page = n;
+    this.fetchDevicePage();
   }
 
 }

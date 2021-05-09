@@ -34,6 +34,7 @@ import { IconUpdateComponent } from './settings/icon-update/icon-update.componen
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { AllDevicesComponent } from './devices/all-devices/all-devices.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { SortDirective } from './direrctive/sort.directive';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     AddDeviceComponent,
     AllDevicesComponent,
     PaginationComponent,
+    SortDirective,
   ],
   imports: [
     BrowserModule,

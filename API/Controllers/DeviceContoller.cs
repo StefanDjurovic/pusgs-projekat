@@ -7,6 +7,7 @@ using API.Dtos;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -63,8 +64,11 @@ namespace API.Controllers
         {
             return await this.repo.GetDevices(paginationParameters);
         }
+
+
         [HttpGet("total-pages")]
         public async Task<int> GetTotalPages()
+        {
             IEnumerable<Device> totalDevices = await this.repo.GetAllDevices();
             return totalDevices.Count();
     }

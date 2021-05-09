@@ -46,6 +46,12 @@ export class AllDevicesComponent implements OnInit {
     this.router.navigate(['add-device']);
   }
 
+
+  reloadTable(n) {
+    this.limit = n;
+    this.fetchDevicePage();
+  }
+
   fetchAllDevices() {
     var url = 'http://localhost:5000/api/device/all-devices';
     this.http.get(url, { responseType: 'text' }).subscribe(response => {

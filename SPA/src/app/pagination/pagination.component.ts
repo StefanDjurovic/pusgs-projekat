@@ -6,6 +6,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit {
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 50];
 
   @Input() page: number;
   @Input() count: number;
@@ -15,11 +17,21 @@ export class PaginationComponent implements OnInit {
 
   @Output() goPrev = new EventEmitter<boolean>();
   @Output() goNext = new EventEmitter<boolean>();
+  @Output() updateSize = new EventEmitter<number>();
   @Output() goPage = new EventEmitter<number>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  setPageSizeOptions(e) {
+    this.perPage = this.pageSize;
+    this.updatePageSize(this.perPage);
+  }
+
+  updatePageSize(n): void {
+    this.updateSize.emit(n);
   }
 
   onPrev(): void {

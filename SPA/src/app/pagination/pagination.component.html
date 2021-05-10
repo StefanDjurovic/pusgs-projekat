@@ -19,7 +19,13 @@
         <button mat-raised-button color="primary" (click)="onPrev()" [disabled]="page === 1"
             [ngClass]="{'disabled': page === 1}">Previous
             Page</button>
-        <b> &nbsp;...&nbsp; </b>
+
+        <button mat-raised-button class="pageNum" color="primary" *ngFor="let pageNum of getPages()"
+            (click)="onPage(pageNum)" [ngClass]="{'active':pageNum === page, 'disabled': loading}"> {{pageNum}}
+        </button>
+
+
+        <!-- <b> &nbsp;...&nbsp; </b> -->
         <button mat-raised-button color="primary" (click)="onNext()" [disabled]="isLastPage()"
             [ngClass]="{'disabled': isLastPage()}">Next
             Page</button>

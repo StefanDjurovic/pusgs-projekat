@@ -8,6 +8,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RegisterApplicationsComponent } from './registerApplications/registerApplications.component';
 import { RegisterApplicationsResolver } from './_resolvers/registerApplications.resolver';
+import { NewWorkRequestComponent } from './workRequest/newWorkRequest/newWorkRequest.component';
+import { MapComponent } from './workRequest/map/map.component';
 
 
 const routes: Routes = [
@@ -15,8 +17,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'newWorkRequest', component: NewWorkRequestComponent }, // route guard for unauth users
   { path: 'registerApplications', component: RegisterApplicationsComponent, resolve: { applications: RegisterApplicationsResolver } },
   { path: 'notifications', component: NotificationComponent },
+  { path: 'map', component: MapComponent },
   { path: '**', redirectTo: '' }
 ];
 

@@ -40,4 +40,18 @@ export class AuthService {
   updateToken(token: any) {
     this.decodedToken = this.jwtHelper.decodeToken(token);
   }
+
+  getUsername(): string {
+    if (this.loggedIn()) {
+      return this.jwtHelper.decodeToken(localStorage.getItem('token')).unique_name;
+    }
+  }
+
+  getId(): number {
+    if (this.loggedIn()) {      
+      return this.jwtHelper.decodeToken(localStorage.getItem('token')).nameid;
+    } else {
+      return -1;
+    }
+  }
 }

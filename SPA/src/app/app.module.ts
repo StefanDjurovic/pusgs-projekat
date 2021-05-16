@@ -22,6 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RegisterApplicationsComponent } from './registerApplications/registerApplications.component';
 import { RegisterApplicationsResolver } from './_resolvers/registerApplications.resolver';
+import { NewWorkRequestComponent } from './workRequest/newWorkRequest/newWorkRequest.component';
+import { MapComponent } from './workRequest/map/map.component';
 
 @NgModule({
   declarations: [		
@@ -35,8 +37,9 @@ import { RegisterApplicationsResolver } from './_resolvers/registerApplications.
     DefaultComponent,
     ProfileComponent,
     NotificationComponent,
-      RegisterApplicationsComponent,
-      RegisterApplicationsComponent
+    RegisterApplicationsComponent,
+    NewWorkRequestComponent,
+    MapComponent
    ],
   imports: [
     BrowserModule,

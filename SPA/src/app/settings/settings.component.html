@@ -1,0 +1,52 @@
+<mat-tab-group mat-stretch-tabs>
+    <mat-tab label="Update Password">
+        <app-change-password></app-change-password>
+    </mat-tab>
+    <mat-tab label="Priority Assignment">
+        <app-priority-assignment></app-priority-assignment>
+    </mat-tab>
+    <mat-tab label="Update Icons">
+        <app-icon-update></app-icon-update>
+    </mat-tab>
+    <mat-tab label="Notification Settings">
+        <mat-card class="notifications">
+            <h3>Slide Toggle to enable/disable certain types of notifications.</h3>
+            <legend></legend>
+
+            <form class="example-form" #form="ngForm" (ngSubmit)="updateNotifications()" ngNativeValidate>
+                <mat-slide-toggle ngModel name="enableNotifications">Enable Notifications</mat-slide-toggle>
+                <br>
+                <mat-slide-toggle ngModel name="enableInfos">Enable Info Notifications</mat-slide-toggle>
+                <br>
+                <mat-slide-toggle ngModel name="enableSuccess">Enable Success Notifications</mat-slide-toggle>
+                <br>
+                <mat-slide-toggle ngModel name="enableWarnings">Enable Warning Notifications</mat-slide-toggle>
+                <br>
+                <mat-slide-toggle ngModel name="enableErrors">Enable Error Notifications</mat-slide-toggle>
+                <br>
+                <button mat-raised-button type="submit">Save</button>
+            </form>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Documents Field Settings">
+        <mat-card class="notifications">
+            <h3>Slide Toggle to show/hide disabled types of inputs fields.</h3>
+            <legend></legend>
+            <form class="example-form" #form="ngForm" (ngSubmit)="updateNotifications()" ngNativeValidate>
+                <mat-slide-toggle ngModel name="enableNotifications" #tooltip="matTooltip"
+                    matTooltip="Will allow users to interact with previously disabled options."
+                    matTooltipHideDelay="1000">
+                    Enable Disabled Fields
+                </mat-slide-toggle>
+            </form>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Factory Reset">
+        <mat-card class="notifications">
+            <h3>Click to reset all settings to Default.</h3>
+            <p>This changes can't be reverted if initiated!</p>
+            <legend></legend>
+            <button mat-raised-button color="warn" (click)="settingsReset()">Factory Reset Settings</button>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

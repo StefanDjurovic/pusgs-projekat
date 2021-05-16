@@ -24,9 +24,22 @@ import { RegisterApplicationsComponent } from './registerApplications/registerAp
 import { RegisterApplicationsResolver } from './_resolvers/registerApplications.resolver';
 import { NewWorkRequestComponent } from './workRequest/newWorkRequest/newWorkRequest.component';
 import { MapComponent } from './workRequest/map/map.component';
+import { IncidentsTableComponent } from './incidents/incidents-table/incidents-table.component';
+import { CallsTableComponent } from './incidents/calls/calls-table/calls-table.component';
+import { CallReportComponent } from './incidents/calls/call-report/call-report.component';
+import { SettingsComponent } from './settings/settings.component';
+import { WorkRequestsComponent } from './documents/work-requests/work-requests.component';
+import { WorkRequestFormComponent } from './documents/work-request-form/work-request-form.component';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { PriorityAssignmentComponent } from './settings/priority-assignment/priority-assignment.component';
+import { IconUpdateComponent } from './settings/icon-update/icon-update.component';
+import { AddDeviceComponent } from './devices/add-device/add-device.component';
+import { AllDevicesComponent } from './devices/all-devices/all-devices.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { SortDirective } from './direrctive/sort.directive';
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
     ValueComponent,
     LoginComponent,

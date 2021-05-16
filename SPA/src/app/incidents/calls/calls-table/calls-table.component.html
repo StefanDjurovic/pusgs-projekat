@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="example-button-row">
+        <button mat-button color="primary" (click)="showCallForm()">
+            <mat-icon>add</mat-icon> New
+        </button>
+        <button mat-button color="primary">
+            <mat-icon>sort</mat-icon> Filter
+        </button>
+    </div>
+</div>
+<legend></legend>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-table">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="callId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Call Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.callId}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="reason">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+            <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="hazard">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hazard </th>
+            <td mat-cell *matCellDef="let element"> {{element.hazard}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="comment">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Comment </th>
+            <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="marker">
+            <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button>
+                    <mat-icon>{{element.marker}}</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

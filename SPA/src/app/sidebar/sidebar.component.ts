@@ -10,7 +10,8 @@ import { AuthService } from '../_services/auth.service';
 })
 export class SidebarComponent implements OnInit {
   constructor(private router: Router, private auth: AuthService, private alertify: AlertifyService) {
-    // this.router = router;
+    this.router = router;
+    this.auth = auth;
   }
 
   ngOnInit(): void {

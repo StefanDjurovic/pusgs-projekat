@@ -1,0 +1,108 @@
+<div class="row">
+    <h2>Devices Table</h2>
+</div>
+
+<div class="row">
+    <div class="example-button-row">
+        <button mat-button color="primary" tooltip="Add a new Device" (click)="redirectToAddDevicePage()">
+            <mat-icon>add</mat-icon> New
+        </button>
+        <button mat-button color="primary">
+            <mat-icon>sort</mat-icon> Filter
+        </button>
+    </div>
+</div>
+<legend></legend>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" [appSort]="dataSource" data-order="asc" data-name="id">ID</th>
+                <th scope="col" [appSort]="dataSource" data-order="asc" data-name="name">Name</th>
+                <th scope="col" [appSort]="dataSource" data-order="asc" data-name="surname">Surname</th>
+                <th scope="col" [appSort]="dataSource" data-order="asc" data-name="location">Location</th>
+                <th scope="col" [appSort]="dataSource" data-order="asc" data-name="telephone">Telephone</th>
+                <th scope="col" [appSort]="dataSource" data-order="asc" data-name="priority">Priority</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let device of dataSource">
+                <td>{{device.id}}</td>
+                <td>{{device.name}}</td>
+                <td>{{device.surname}}</td>
+                <td>{{device.location}}</td>
+                <td>{{device.telephone}}</td>
+                <td>{{device.priority}}</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <app-pagination (goPage)="goToPage($event)" (goPrev)="goToPrevious()" (goNext)="goToNext()"
+        (updateSize)="reloadTable($event)" [page]="page" [perPage]="limit" [count]="total">
+    </app-pagination>
+</div>
+
+
+<!--
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+        
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+       
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        
+        <ng-container matColumnDef="surname">
+            <th mat-header-cell *matHeaderCellDef> Surname </th>
+            <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+        </ng-container>
+
+        
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef> Location </th>
+            <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telephone">
+            <th mat-header-cell *matHeaderCellDef> Telephone </th>
+            <td mat-cell *matCellDef="let element"> {{element.telephone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+            <th mat-header-cell *matHeaderCellDef> Priority </th>
+            <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="icons">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button (click)="removeDevice(element.id)" matTooltip="Remove Device">
+                    <mat-icon>remove_circle</mat-icon>
+                </button>
+                &nbsp;
+                <button mat-button (click)="updateDevice(element.id)" matTooltip="Update Device">
+                    <mat-icon>create</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            <mat-icon>remove_circle</mat-icon>
+        </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div> -->

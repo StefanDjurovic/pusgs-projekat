@@ -1,0 +1,33 @@
+<div class="pages">
+    <!-- X through Y of Z pages -->
+    <span class="page-count">
+        {{getMin()}} through {{getMax()}} of {{count}} devices
+    </span>
+    <span class="page-totals">{{totalPages()}} total pages</span>
+    <br><br>
+    <mat-form-field>
+        <mat-label>Page size</mat-label>
+        <mat-select [(value)]="pageSize" (selectionChange)="setPageSizeOptions($event)">
+            <mat-option *ngFor="let size of pageSizeOptions" [value]="size">
+                {{size}}
+            </mat-option>
+        </mat-select>
+        <!-- <input matInput [(ngModel)]="pageSize" type="number"> -->
+    </mat-form-field>
+
+    <span class="spacer">
+        <button mat-raised-button color="primary" (click)="onPrev()" [disabled]="page === 1"
+            [ngClass]="{'disabled': page === 1}">Previous
+            Page</button>
+
+        <button mat-raised-button class="pageNum" color="primary" *ngFor="let pageNum of getPages()"
+            (click)="onPage(pageNum)" [ngClass]="{'active':pageNum === page, 'disabled': loading}"> {{pageNum}}
+        </button>
+
+
+        <!-- <b> &nbsp;...&nbsp; </b> -->
+        <button mat-raised-button color="primary" (click)="onNext()" [disabled]="isLastPage()"
+            [ngClass]="{'disabled': isLastPage()}">Next
+            Page</button>
+    </span>
+</div>

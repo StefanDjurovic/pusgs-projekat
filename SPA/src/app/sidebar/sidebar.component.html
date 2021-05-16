@@ -16,19 +16,19 @@
         Search
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/home']">
         <mat-icon>home</mat-icon>
         Home
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" routerLink="/">
-        <mat-icon>file_present</mat-icon>
-        Files
+    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/incidents']">
+        <mat-icon>ballot icon</mat-icon>
+        Incidents
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" routerLink="/">
-        <mat-icon>language</mat-icon>
-        Example
+    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/documents']">
+        <mat-icon>insert_drive_file</mat-icon>
+        Documents
     </a>
 
     <a mat-list-item routerLinkActive="list-item" routerLink="/">
@@ -36,9 +36,9 @@
         Example
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" routerLink="/">
-        <mat-icon>business_center</mat-icon>
-        Example
+    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/all-devices']">
+        <mat-icon>widgets</mat-icon>
+        Devices
     </a>
 
     <a mat-list-item routerLinkActive="list-item" routerLink="/">
@@ -51,7 +51,7 @@
         Example
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" routerLink="/registerApplications">
+    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/register-applications']">
         <mat-icon>people</mat-icon>
         Register Applications
     </a>
@@ -61,9 +61,9 @@
 
     <h2 matSubheader>Tools</h2>
 
-    <a mat-list-item inline=true class="mat-icon-bottom" routerLink="/">
+    <a mat-list-item inline=true class="mat-icon-bottom" [routerLink]="['/settings']">
         <mat-icon>settings</mat-icon>
-        Example
+        Settings
     </a>
 
     <!-- <a mat-list-item inline=true class="mat-icon-bottom" routerLink="/">

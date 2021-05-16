@@ -1,0 +1,18 @@
+.mat-tab-group {
+  justify-content: center;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.example-form mat-slide-toggle {
+  margin: 8px 0;
+  display: block;
+}
+
+.notifications {
+  max-width: 600px;
+  margin: 2em auto;
+  text-align: center;
+}

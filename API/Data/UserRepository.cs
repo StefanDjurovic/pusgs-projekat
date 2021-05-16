@@ -67,7 +67,6 @@ namespace API.Data
             user.Username = updatedUser.Username;
 
             return await this.context.SaveChangesAsync() > 0;
-
         }
 
 

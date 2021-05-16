@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="example-button-row">
+        <!-- (click)="showWorkRequestForm()" -->
+        <button mat-button color="primary" [routerLink]="['/create-work-request']">
+            <mat-icon>add</mat-icon> New
+        </button>
+        <button mat-button color="primary">
+            <mat-icon>sort</mat-icon> Filter
+        </button>
+    </div>
+</div>
+<legend></legend>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-table">
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Reason Column -->
+        <ng-container matColumnDef="start_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.start_date}} </td>
+        </ng-container>
+
+        <!-- Hazard Column -->
+        <ng-container matColumnDef="phone_num">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.phone_num}} </td>
+        </ng-container>
+
+        <!-- Comment Column -->
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

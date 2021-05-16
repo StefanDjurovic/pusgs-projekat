@@ -41,7 +41,10 @@ namespace API
             services.AddCors();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+            services.AddScoped<IDeviceRepository, DeviceRepository>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -59,24 +62,26 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
-            else 
+            else
             {
-                app.UseExceptionHandler(builder => {
-                    builder.Run(async context => {
+                app.UseExceptionHandler(builder =>
+                {
+                    builder.Run(async context =>
+                    {
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if (error != null)
                         {
                             context.Response.AddApplicationError(error.Error.Message);
-                            
+
                             await context.Response.WriteAsync(error.Error.Message);
                         }
                     });
                 });
             }
 
-            
+
 
             app.UseRouting();
 

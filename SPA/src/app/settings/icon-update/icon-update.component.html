@@ -1,0 +1,44 @@
+<mat-card>
+    <h2>Table of current Street Priorities</h2>
+    <legend></legend>
+
+    <button mat-button (click)="updateIcons()">
+        <mat-icon>save</mat-icon> Save Changes
+    </button>
+    <legend></legend>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="used_for">
+            <th mat-header-cell *matHeaderCellDef> Meaning </th>
+            <td mat-cell *matCellDef="let element"> {{element.used_for}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="current">
+            <th mat-header-cell *matHeaderCellDef> Current Icon </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon>{{element.current}}</mat-icon>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="select_new">
+            <th mat-header-cell *matHeaderCellDef> Select a New Icon </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-select placeholder="Select a Icon *">
+                    <mat-option *ngFor="let icon of available_icons" [value]="icon">
+                        <mat-icon>{{icon}}</mat-icon>
+                        &nbsp;{{icon}}
+                    </mat-option>
+                </mat-select>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</mat-card>

@@ -1,0 +1,13 @@
+table {
+    width: 100%;
+  }
+
+tr.mat-row {
+    border: 1px solid #e7e7e7;
+    height: 60px !important;
+}
+
+tr.mat-icon {
+    border: 1px solid #e7e7e7;
+    size: 75px !important;
+}

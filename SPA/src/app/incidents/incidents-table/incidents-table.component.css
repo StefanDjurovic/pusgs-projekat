@@ -1,0 +1,16 @@
+.inline-block {
+    display: inline-block;
+    margin: 5px;
+}
+
+.navigation {
+    width: 15%; 
+}
+
+.components {
+    width: 80%; 
+}
+
+.mat-card-item {
+    margin: 5px;
+}

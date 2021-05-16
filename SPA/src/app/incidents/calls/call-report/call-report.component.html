@@ -1,0 +1,74 @@
+<div class="example-button-row">
+    <button class="return-btn" mat-button color="primary" (click)="returnToCallsTable()">
+        <mat-icon>assignment_return</mat-icon> Return
+    </button>
+</div>
+
+<div class="container rounded bg-white mt-5 mb-5" align="center">
+    <div class="col-md-5 border-right">
+        <form [formGroup]="incidentForm" (ngSubmit)="submitIncident()" class="example-form mt-5">
+            <mat-error *ngIf="false">
+                All of the fields are necessary, and can't be left empty!
+            </mat-error>
+            <br>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Reason</mat-label>
+                <mat-select formControlName="reason" required>
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let reason of reasons" [value]="reason">
+                        {{reason}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    Please select a valid hazard reason!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Comment</mat-label>
+                <textarea matInput formControlName="comment" placeholder="Explain reported hazard in detail"
+                    required></textarea>
+                <mat-error>
+                    Please provide a valid comment!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Hazard</mat-label>
+                <input matInput formControlName="hazard" required>
+                <mat-error>
+                    Please provide a valid address!
+                </mat-error>
+            </mat-form-field>
+
+            <section class="example-full-width">
+                <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="anonymousCheck" class="example-margin">
+                    Stay
+                    Anonymous
+                </mat-checkbox>
+            </section>
+
+            <div *ngIf="!anonymousCheck">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error>
+                        Please provide a valid name!
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="address" required>
+                    <mat-error>
+                        Please provide a valid address!
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <button mat-raised-button class="btn-submit" color="primary">Submit Incident</button>
+        </form>
+    </div>
+</div>

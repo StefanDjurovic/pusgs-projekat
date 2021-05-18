@@ -17,16 +17,37 @@ namespace API.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4");
 
             modelBuilder.Entity("API.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Latitude")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Longitude")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("API.Models.Device", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Number")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Street");
                     b.Property<int>("AccountType")
                         .HasColumnType("INTEGER");
 
@@ -47,9 +68,8 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
                     b.ToTable("Devices");
-                }));
+                });
 
             modelBuilder.Entity("API.Models.User", b =>
                 {

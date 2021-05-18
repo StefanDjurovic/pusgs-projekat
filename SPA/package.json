@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.6",
     "@auth0/angular-jwt": "^5.0.2",
     "alertifyjs": "^1.13.1",
+    "angularx-social-login": "^3.5.7",
     "bootstrap": "^5.0.0-beta3",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^6.2.0",

@@ -1,6 +1,8 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -16,7 +18,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router, private socialAuth: SocialAuthService) { }
 
   ngOnInit() {
 
@@ -33,6 +35,19 @@ export class LoginComponent implements OnInit {
         this.alertify.error(error);
       });
     }
+  }
+
+  loginWithGoogle() {
+    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
+      console.log(data);
+      this.authService.socialLogin(data).subscribe(next => {
+        this.alertify.success('logged in!');
+        this.router.navigate(['profile'])
+      }, error => {
+        this.alertify.error(error)        
+      });
+    })
+    
   }
 
   loggedIn() {

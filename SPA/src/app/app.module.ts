@@ -37,6 +37,8 @@ import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { AllDevicesComponent } from './devices/all-devices/all-devices.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SortDirective } from './direrctive/sort.directive';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
+import { WorkRequestService } from './_services/workRequest.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,20 @@ import { SortDirective } from './direrctive/sort.directive';
     NotificationComponent,
     RegisterApplicationsComponent,
     NewWorkRequestComponent,
-    MapComponent
+    MapComponent,
+    IncidentsTableComponent,
+    CallsTableComponent,
+    CallReportComponent,
+    SettingsComponent,
+    WorkRequestFormComponent,
+    WorkRequestsComponent,
+    IconUpdateComponent,
+    ChangePasswordComponent,
+    PriorityAssignmentComponent,
+    AddDeviceComponent,
+    AllDevicesComponent,
+    PaginationComponent,
+    SortDirective
    ],
   imports: [
     BrowserModule,
@@ -63,12 +78,32 @@ import { SortDirective } from './direrctive/sort.directive';
     BrowserAnimationsModule,
     AngularMaterialModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    SocialLoginModule
   ],
   providers: [
     AuthService,
+    WorkRequestService,
     ErrorInterceptorProvider,
     RegisterApplicationsResolver,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '659260485501-mul4bbnvgh9mjbsijc8ald6esdmitg8k.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })

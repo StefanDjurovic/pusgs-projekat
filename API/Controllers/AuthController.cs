@@ -99,5 +99,23 @@ namespace API.Controllers
                 token = tokenHandler.WriteToken(token)
             });
         }
+
+
+        [HttpPost("SocialLogin")]
+        public async Task<IActionResult> SocialLogin(UserLoginDto userLoginDto) 
+        {
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Expires = DateTime.UtcNow.AddMinutes(30),
+                // key?
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.config.GetSection("AppSettings:Token").Value)), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.WriteToken(securityToken);
+            return Ok(new { token });
+        }
+
     }
 }

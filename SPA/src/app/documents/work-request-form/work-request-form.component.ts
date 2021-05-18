@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { WorkRequestService } from 'src/app/_services/workRequest.service';
 
 @Component({
   selector: 'app-work-request-form',
@@ -9,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class WorkRequestFormComponent implements OnInit {
   types = [
     { value: 'planned', viewValue: 'Planned Work' },
-    { value: 'unplanned', viewValue: 'Unplanned Work' },
+    { value: 'notplanned', viewValue: 'Unplanned Work' },
   ];
 
   equipments = [];
@@ -17,23 +18,23 @@ export class WorkRequestFormComponent implements OnInit {
   emergencyWorkToggle = false;
 
   workRequestForm: FormGroup = new FormGroup({
-    type: new FormControl(''),
+    workType: new FormControl(''),
     draft: new FormControl({ value: '', disabled: true }),
     incident: new FormControl({ value: '', disabled: true }),
     equipment: new FormControl(''),
-    start_dt: new FormControl(''),
-    end_dt: new FormControl(''),
-    created_by: new FormControl({ value: '', disabled: true }),
+    startDate: new FormControl(''),
+    endDate: new FormControl(''),
+    createdBy: new FormControl({ value: '', disabled: true }),
     purpose: new FormControl(''),
     details: new FormControl(''),
     notes: new FormControl(''),
     company: new FormControl(''),
-    phone_num: new FormControl(''),
-    dt_created: new FormControl(''),
+    phoneNumber: new FormControl(''),
+    createdAt: new FormControl(''),
     emergencyWork: new FormControl(false),
   });
 
-  constructor() { }
+  constructor(private workRequestService: WorkRequestService) { }
 
   ngOnInit(): void {
   }
@@ -42,6 +43,17 @@ export class WorkRequestFormComponent implements OnInit {
     this.checkEmergencyToggle();
     if (this.workRequestForm.valid) {
       console.log(this.workRequestForm.value);
+      this.workRequestService.createWorkRequest(this.workRequestForm.value).subscribe(next => {
+        console.log(next);
+        
+      }, error => {
+        console.log(error);
+        
+      })
+    } else 
+    {
+      console.log('invalid work request!');
+      
     }
   }
 

@@ -18,6 +18,9 @@
         </mat-error>
       </mat-form-field>
       <button mat-raised-button color="primary" [disabled]="!form.valid">Login</button>
+      <div class="">
+        <button mat-raised-button color="secondary" (click)="loginWithGoogle()">continue with google</button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>

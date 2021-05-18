@@ -71,5 +71,6 @@ namespace API.Controllers
         {
             IEnumerable<Device> totalDevices = await this.repo.GetAllDevices();
             return totalDevices.Count();
+        }
     }
 }

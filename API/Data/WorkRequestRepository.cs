@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
+using API.Models;
 
 namespace API.Data
 {
-    public class WorkRequest : IWorkRequest
+    public class WorkRequestRepository : IWorkRequestRepository
     {
         private readonly DataContext context;
-        public WorkRequest(DataContext context)
+        public WorkRequestRepository(DataContext context)
         {
             this.context = context;
         }

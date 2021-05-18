@@ -3,7 +3,7 @@ using API.Models;
 
 namespace API.Data
 {
-    public interface IWorkRequest
+    public interface IWorkRequestRepository
     {
         Task<bool> CreateRequest(WorkRequest workRequest);
         Task<WorkRequest> GetRequest(int requestId);

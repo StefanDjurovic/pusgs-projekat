@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/_services/auth.service';
 import { WorkRequestService } from 'src/app/_services/workRequest.service';
 
 @Component({
@@ -31,10 +32,11 @@ export class WorkRequestFormComponent implements OnInit {
     company: new FormControl(''),
     phoneNumber: new FormControl(''),
     createdAt: new FormControl(''),
+    userId: new FormControl(''),
     emergencyWork: new FormControl(false),
   });
 
-  constructor(private workRequestService: WorkRequestService) { }
+  constructor(private workRequestService: WorkRequestService, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -43,6 +45,7 @@ export class WorkRequestFormComponent implements OnInit {
     this.checkEmergencyToggle();
     if (this.workRequestForm.valid) {
       console.log(this.workRequestForm.value);
+      this.workRequestForm.controls.userId.setValue(this.authService.getId());
       this.workRequestService.createWorkRequest(this.workRequestForm.value).subscribe(next => {
         console.log(next);
         

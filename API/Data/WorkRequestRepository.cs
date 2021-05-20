@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
@@ -18,9 +20,14 @@ namespace API.Data
             return await this.context.SaveChangesAsync() > 0;
         }
 
-        public Task<WorkRequest> GetRequest(int requestId)
+        public async Task<WorkRequest> GetRequest(int requestId)
         {
-            throw new System.NotImplementedException();
+            return await this.context.WorkRequests.FirstOrDefaultAsync(wr => wr.Id == requestId);
+        }
+
+        public async Task<IEnumerable<WorkRequest>> GetRequests()
+        {
+            return await this.context.WorkRequests.ToListAsync();
         }
     }
 }

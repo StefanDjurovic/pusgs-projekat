@@ -39,6 +39,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { SortDirective } from './direrctive/sort.directive';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import { WorkRequestService } from './_services/workRequest.service';
+import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { WorkRequestService } from './_services/workRequest.service';
     WorkRequestService,
     ErrorInterceptorProvider,
     RegisterApplicationsResolver,
+    UserWorkRequestsResolver,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

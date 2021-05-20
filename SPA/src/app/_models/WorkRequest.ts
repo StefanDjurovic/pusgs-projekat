@@ -1,4 +1,6 @@
-import { Address } from "node:cluster";
+// import { Address } from "node:cluster";
+
+import { Address } from "./Address";
 
 export class WorkRequest {
     id: number;

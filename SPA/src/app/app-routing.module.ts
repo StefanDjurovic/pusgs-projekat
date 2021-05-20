@@ -19,6 +19,7 @@ import { WorkRequestsComponent } from './documents/work-requests/work-requests.c
 import { WorkRequestFormComponent } from './documents/work-request-form/work-request-form.component';
 import { AllDevicesComponent } from './devices/all-devices/all-devices.component';
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
+import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
 
 
 const routes: Routes = [
@@ -31,11 +32,11 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationComponent },
   { path: 'map', component: MapComponent },
   { path: 'register-applications', component: RegisterApplicationsComponent, resolve: { applications: RegisterApplicationsResolver } },
-  { path: 'notifications', component: NotificationComponent },
+  // { path: 'notifications', component: NotificationComponent },
   { path: 'incidents', component: IncidentsTableComponent },
   { path: 'calls', component: CallsTableComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'documents', component: WorkRequestsComponent },
+  { path: 'workRequests', component: WorkRequestsComponent, resolve: { workRequests: UserWorkRequestsResolver} },
   { path: 'create-work-request', component: WorkRequestFormComponent },
   { path: 'all-devices', component: AllDevicesComponent },
   { path: 'add-device', component: AddDeviceComponent },

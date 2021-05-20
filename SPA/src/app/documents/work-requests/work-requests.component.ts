@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
+import { WorkRequest } from 'src/app/_models/WorkRequest';
 
 @Component({
   selector: 'app-work-requests',
@@ -13,6 +15,8 @@ export class WorkRequestsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  workRequests: WorkRequest[]
+
   displayedColumns: string[] = ['id', 'start_date', 'phone_num', 'status', 'address'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
@@ -21,9 +25,15 @@ export class WorkRequestsComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.data.subscribe(data => {
+      this.workRequests = data['workRequests'];
+    });
+
+    console.log(this.workRequests);
+    
   }
 
   showWorkRequestForm() {

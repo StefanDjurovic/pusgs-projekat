@@ -21,7 +21,6 @@ namespace API.Controllers
         public WorkRequestController(IWorkRequestRepository repo)
         {
             this.repo = repo;
-
         }
 
         [HttpPost("create")]
@@ -31,18 +30,19 @@ namespace API.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetUserWorkrequests(int userId)
+        public async Task<IActionResult> GetUserWorkrequests(int userId, [FromForm] PaginationParameters param)
         {
-            var workRequests = await this.repo.GetRequests();
-
-            return Ok(workRequests.Where(wr => wr.UserId == userId));
+            // PaginationParameters param = new PaginationParameters();
+            // param.PageNumber = num;
+            // param.PageSize = size;
+            var workRequests = await this.repo.GetRequests(userId, param);
+            return Ok(workRequests);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetWorkrequest(int id) 
+        public async Task<IActionResult> GetWorkrequest(int id)
         {
             var workRequest = await this.repo.GetRequest(id);
-
             return Ok(workRequest);
         }
     }

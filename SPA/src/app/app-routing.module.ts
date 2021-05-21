@@ -20,6 +20,7 @@ import { WorkRequestFormComponent } from './documents/work-request-form/work-req
 import { AllDevicesComponent } from './devices/all-devices/all-devices.component';
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -36,10 +37,12 @@ const routes: Routes = [
   { path: 'incidents', component: IncidentsTableComponent },
   { path: 'calls', component: CallsTableComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'workRequests', component: WorkRequestsComponent, resolve: { workRequests: UserWorkRequestsResolver} },
+  { path: 'work-requests', component: WorkRequestsComponent },
+  // { path: 'work-requests', component: WorkRequestsComponent, resolve: { workRequests: UserWorkRequestsResolver } },
   { path: 'create-work-request', component: WorkRequestFormComponent },
   { path: 'all-devices', component: AllDevicesComponent },
   { path: 'add-device', component: AddDeviceComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: '**', redirectTo: '' }
 ];
 

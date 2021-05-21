@@ -24,11 +24,10 @@ namespace API.Controllers
         {
             this.config = config;
             this.repo = repo;
-
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegDto userRegDto) 
+        public async Task<IActionResult> Register(UserRegDto userRegDto)
         {
             // validate request
             userRegDto.Username = userRegDto.Username.ToLower();
@@ -74,7 +73,7 @@ namespace API.Controllers
                 return BadRequest("your application has been declined");
             }
 
-            var claims = new []
+            var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Username)
@@ -95,14 +94,15 @@ namespace API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
         }
 
 
         [HttpPost("SocialLogin")]
-        public async Task<IActionResult> SocialLogin(UserLoginDto userLoginDto) 
+        public async Task<IActionResult> SocialLogin(UserLoginDto userLoginDto)
         {
             var tokenDescriptor = new SecurityTokenDescriptor
             {

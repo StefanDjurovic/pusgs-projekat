@@ -8,14 +8,16 @@ namespace API.Data
     public class AuthRepository : IAuthRepository
     {
         private readonly DataContext context;
-        public AuthRepository(DataContext context)
+        private readonly INotificationRepository notification;
+        public AuthRepository(DataContext context, INotificationRepository _notifier)
         {
             this.context = context;
-
+            this.notification = _notifier;
         }
         public async Task<User> Login(string username, string password)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
             if (user == null)
             {
                 return null;
@@ -24,6 +26,11 @@ namespace API.Data
             if (!PasswordVerification.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 return null;
+            }
+
+            if (user != null)
+            {
+                await this.notification.CreateNewNotification(user.Id, NotificationType.Success, "Successfull Login!");
             }
 
             return user;

@@ -1,0 +1,25 @@
+.example-card {
+    max-width: 300px; 
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 50px;
+} 
+
+#line-chart {
+    max-width: 65%; 
+    margin-left: 10px;
+}
+
+#pie-chart {
+    max-width: 30%; 
+}
+
+#inner {
+    display: table;
+    margin: 0 auto;
+}
+  
+#outer {
+    width:100%;
+    margin-bottom: 50px;
+}

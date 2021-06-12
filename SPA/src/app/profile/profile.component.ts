@@ -1,7 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ChangeDetectorRef } from '@angular/core';
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
+import { stringify } from '@angular/compiler/src/util';
+import { ChangeDetectorRef, Output, EventEmitter, NgModuleFactoryLoader } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
@@ -28,16 +30,25 @@ export class ProfileComponent implements OnInit {
     confirm_password: new FormControl('', Validators.required),
   }, { validators: this.checkPasswords });
 
+  // ? 
   pictureForm: FormGroup = new FormGroup({
     picture: new FormControl(''),
   });
+
+  public file: File = null;
+  public message: string;
+  public progress: number;
+  @Output() public onUploadFinished = new EventEmitter();
 
   userService = null;
   authService = null;
   currentUser = null;
   initialValue = null;
   hasChanged = false;
-  selectedFile: File = null;
+
+  profileImageToShow: any;
+  noUserProfileImage = true;
+
   constructor(private http: HttpClient, userService: UserService, authService: AuthService, private alertify: AlertifyService, private changeDetector: ChangeDetectorRef) {
     this.userService = userService;
     this.authService = authService;
@@ -45,6 +56,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUserProfle();
+
+    // localStorage.setItem('notificationCount', '5');
+    // console.log(localStorage.notificationCount);
   }
 
   ngAfterViewChecked() {
@@ -93,6 +107,10 @@ export class ProfileComponent implements OnInit {
     var id = this.authService.decodedToken.nameid;
     this.currentUser = this.userService.getUser(id).subscribe(res => {
       this.currentUser = res;
+      if (this.currentUser.profileImage) {
+        this.noUserProfileImage = false;
+        this.loadImage();
+      }
       this.fillForm();
     });
   }
@@ -126,19 +144,54 @@ export class ProfileComponent implements OnInit {
   }
 
   onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
-    this.pictureForm.controls['picture'].setValue(this.selectedFile.name);
-    console.log(this.selectedFile);
+    this.file = event.target.files[0];
+    this.pictureForm.controls['picture'].setValue(this.file.name);
+    console.log(this.file.name);
   }
 
   onUpload() {
-    this.http.post('http://localhost:5000/api/user/file-upload', this.selectedFile, {
-      reportProgress: true,
-      observe: 'events'
-    })
-      .subscribe(event => {
-        console.log(event); // handle event here
-      });
+    console.log('Upload Profile Image to Server-Side!');
+
+    if (this.file === null)
+      return;
+
+    this.progress = 0;
+    this.message = "";
+    let fileToUpload = this.file;
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+
+    var id = this.authService.decodedToken.nameid;
+    this.http.post('http://localhost:5000/api/upload/profile-image/' + id, formData, { reportProgress: true, observe: 'events' }).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      }
+      else if (event.type === HttpEventType.Response) {
+        this.message = 'Upload success.';
+        this.loadImage();
+        location.reload();
+      }
+    });
   }
 
+  loadImage() {
+    var id = this.authService.decodedToken.nameid;
+    var imageUrl = 'http://localhost:5000/api/upload/retrieve-profile-image/' + id;
+    this.http.get(imageUrl, { responseType: 'blob' }).subscribe(data => {
+      this.createImageFromBlob(data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.profileImageToShow = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
 }

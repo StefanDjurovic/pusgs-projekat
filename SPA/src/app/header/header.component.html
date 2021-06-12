@@ -18,7 +18,7 @@
   </button>
   <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" matTooltip="Notifications"
     [routerLink]='["/notifications"]' aria-label="notifications">
-    <mat-icon matBadge="4" matBadgeColor="warn">notifications</mat-icon>
+    <mat-icon>notifications</mat-icon>
   </button>
   <button mat-icon-button class="navbar-icon" *ngIf="loggedIn()" (click)="logout()" matTooltip="Sign Out"
     aria-label="logout">

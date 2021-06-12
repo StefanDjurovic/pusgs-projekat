@@ -1,9 +1,12 @@
 <div class="container rounded bg-white mt-5 mb-5" align="center">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                    class="rounded-circle mt-5 profile-img"
-                    src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img id="profile-img" [src]="profileImageToShow" class="" alt="Profile Image"
+                    *ngIf="!noUserProfileImage; else noImageFound">
+                <ng-template #noImageFound>
+                    <img id="profile-img" src="https://i.stack.imgur.com/34AD2.jpg" alt="PlaceholderImage">
+                </ng-template>
                 <br>
                 <span class="font-weight-bold">{{this.currentUser.name}} {{this.currentUser.surname}}</span><span
                     class="text-black-50">{{this.currentUser.email}}</span><span>
@@ -24,10 +27,18 @@
                     <input hidden #fileInput type="file" id="file" (change)="onFileChanged($event)">
                 </mat-form-field>
                 <br>
-                <mat-progress-bar *ngIf="false" mode="determinate" value="40"></mat-progress-bar>
+                <!-- <mat-progress-bar *ngIf="false" mode="determinate" value="40"></mat-progress-bar> -->
+                <div>
+                    <span class="upload" *ngIf="progress > 0">
+                        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                        <span>{{progress}}%</span>
+                    </span>
+                    <span class="upload" *ngIf="message">
+                        {{message}}
+                    </span>
+                </div>
                 <br>
-
-                <button mat-raised-button type="submit" color="primary">Update Picture</button>
+                <button mat-raised-button type="submit" color="primary" (click)="onUpload()">Update Picture</button>
             </div>
         </div>
 

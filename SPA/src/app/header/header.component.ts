@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
+import { NotificationService } from '../_services/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +13,16 @@ export class HeaderComponent implements OnInit {
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
   model: any = {};
 
-  constructor(protected authService: AuthService, private alertify: AlertifyService, private router: Router) { }
+  notificationCount = 0;
 
-  ngOnInit() { }
+  constructor(protected authService: AuthService, private alertify: AlertifyService, private router: Router, private notificationService: NotificationService) { }
+
+  ngOnInit() {
+    this.loadNotifications();
+
+
+
+  }
 
   login() {
     this.authService.login(this.model).subscribe(next => {
@@ -40,5 +48,17 @@ export class HeaderComponent implements OnInit {
         new Event('resize')
       );
     }, 300);
+  }
+
+  loadNotifications() {
+    this.notificationService.fetchAllNotifications().subscribe(response => {
+      var responseJSON = JSON.parse(response);
+      console.log(responseJSON);
+      this.notificationCount = responseJSON.size();
+
+      //localStorage.setItem('notificationCount', responseJSON.size().toString());
+      //console.log(localStorage.notificationCount);
+
+    });
   }
 }

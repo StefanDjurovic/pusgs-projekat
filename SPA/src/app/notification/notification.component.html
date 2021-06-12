@@ -12,13 +12,13 @@
     </mat-card>
 </div>
 
-<div class="container mt-3" *ngFor="let _notification of show_notifications">
-    <mat-card class="{{_notification.type}}">
+<div class="container mt-3" *ngFor="let notification of shownNotifications;">
+    <mat-card class="{{translateNotificationTypeToString(notification.type)}}">
         <mat-card-content>
-            <mat-icon class="notification-icon">{{_notification.type}}</mat-icon>
-            {{_notification.content}}
+            <mat-icon class="notification-icon">{{translateNotificationTypeToString(notification.type)}}</mat-icon>
+            {{notification.message}}
             <button mat-icon-button aria-label="">
-                <mat-icon class="clear-btn" (click)="markAsReadNotification(_notification)">clear</mat-icon>
+                <mat-icon class="clear-btn" (click)="markAsReadNotification(notification)">clear</mat-icon>
             </button>
         </mat-card-content>
     </mat-card>

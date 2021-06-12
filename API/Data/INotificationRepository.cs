@@ -10,5 +10,6 @@ namespace API.Data
         public Task<bool> CreateNewNotification(int userId, NotificationType notificationType, string message);
         public Task<IEnumerable<Notification>> GetAllNotification(int userId);
         public Task<IEnumerable<Notification>> GetNotificationByType(int userId, NotificationType notificationType);
+        public Task<bool> UpdateNotificationState(int notificationId);
     }
 }

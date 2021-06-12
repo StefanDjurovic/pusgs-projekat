@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from '../_services/notification.service';
 
 
 @Component({
@@ -16,59 +17,91 @@ export class NotificationComponent implements OnInit {
     { name: 'Warnings', color: 'warning' },
   ];
 
-  notifications_mock = [
-    { 'type': 'information', 'read': false, 'content': 'content example of notifications', 'date': new Date().toLocaleDateString() },
-    { 'type': 'warning', 'read': true, 'content': 'content example of notifications', 'date': new Date().toLocaleDateString() },
-    { 'type': 'error', 'read': true, 'content': 'content example of notifications', 'date': new Date().toLocaleDateString() },
-    { 'type': 'check_circle', 'read': false, 'content': 'content example of notifications', 'date': new Date().toLocaleDateString() },
-  ]
+  notifications = []
+  shownNotifications = []
 
-  show_notifications = []
-
-  constructor() { }
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit(): void {
-    this.show_notifications = this.showAll();
+    this.getNotifications();
+    this.shownNotifications = this.notifications;
   }
 
   showNotifications(notificationType: String) {
     if (notificationType === "All")
-      this.show_notifications = this.showAll();
+      this.shownNotifications = this.showAll();
     else if (notificationType === "Unread")
-      this.show_notifications = this.showUnread();
+      this.showUnread();
     else {
       switch (notificationType) {
         case 'Info':
-          this.show_notifications = this.showCertainNotification('information');
+          this.shownNotifications = this.showCertainNotification('information');
           break;
         case 'Errors':
-          this.show_notifications = this.showCertainNotification('error');
+          this.shownNotifications = this.showCertainNotification('error');
           break;
         case 'Warnings':
-          this.show_notifications = this.showCertainNotification('warning');
+          this.shownNotifications = this.showCertainNotification('warning');
           break;
         case 'Success':
-          this.show_notifications = this.showCertainNotification('check_circle');
+          this.shownNotifications = this.showCertainNotification('check_circle');
           break;
       }
     }
   }
 
   showAll() {
-    return this.notifications_mock;
+    return this.notifications;
   }
 
   showUnread() {
-    return this.notifications_mock.filter(i => i['read'] === false);
+    this.shownNotifications = this.notifications.filter(i => i.read === false);
   }
 
-  showCertainNotification(notificationType: String) {
-    console.log(notificationType);
-    return this.notifications_mock.filter(i => i['type'] === notificationType);
+  showCertainNotification(notificationType) {
+    var _type = this.translateNotificationTypeToInt(notificationType);
+    console.log(_type);
+    return this.notifications.filter(i => i.type === _type);
   }
 
   markAsReadNotification(notification) {
-    notification.read = true;
+    this.notificationService.updateNotification(notification.id).subscribe(response => {
+      if (response === true) {
+        this.getNotifications();
+        this.showUnread();
+        console.log('Notification Selected as Read!');
+      }
+    });
   }
 
+  translateNotificationTypeToString(notificationType) {
+    if (notificationType === 0) {
+      return 'information';
+    } else if (notificationType === 1) {
+      return 'warning';
+    } else if (notificationType === 2) {
+      return 'error';
+    } else {
+      return 'check_circle';
+    }
+  }
+
+  translateNotificationTypeToInt(notificationType) {
+    if (notificationType === 'information') {
+      return 0;
+    } else if (notificationType === 'warning') {
+      return 1;
+    } else if (notificationType === 'error') {
+      return 2;
+    } else {
+      return 3;
+    }
+  }
+
+  getNotifications() {
+    this.notificationService.fetchAllNotifications().subscribe(response => {
+      var responseJSON = JSON.parse(response);
+      this.notifications = responseJSON;
+    });
+  }
 }

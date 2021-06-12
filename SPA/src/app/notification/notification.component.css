@@ -2,6 +2,8 @@ mat-chip {
     max-width: 200px;
 }
 
+/* Information 0, Warning 1, Error 2, Success 3 */
+
 .information {
   background-color: rgb(93, 132, 240);
 }

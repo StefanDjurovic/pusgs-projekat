@@ -11,6 +11,7 @@ namespace API.Models
         public string Surname { get; set; }
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
+        public string ProfileImage { get; set; } = "";
         public UserActivationStatus ActivationStatus { get; set; }
         public UserType Type { get; set; }
         public byte[] PasswordHash { get; set; }

@@ -11,8 +11,7 @@ export class UserWorkRequestsResolver implements Resolve<WorkRequest[]> {
     constructor(private workRequestService: WorkRequestService, private authService: AuthService) { }
 
     resolve(): Observable<WorkRequest[]> {
-        console.log(`user id is : ${this.authService.getId()}`);
-        
+        //console.log(`user id is : ${this.authService.getId()}`);
         return this.workRequestService.getUserRequests(this.authService.getId());
     }
 }

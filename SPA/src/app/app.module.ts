@@ -40,6 +40,7 @@ import { SortDirective } from './direrctive/sort.directive';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import { WorkRequestService } from './_services/workRequest.service';
 import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver
     AddDeviceComponent,
     AllDevicesComponent,
     PaginationComponent,
-    SortDirective
+    SortDirective,
+    DashboardComponent
    ],
   imports: [
     BrowserModule,

@@ -25,5 +25,11 @@ namespace API.Controllers
         {
             return await this.repo.GetAllNotification(userId);
         }
+
+        [HttpGet("update/{notificationId}")]
+        public async Task<bool> UpdateNotificationState(int notificationId)
+        {
+            return await this.repo.UpdateNotificationState(notificationId);
+        }
     }
 }

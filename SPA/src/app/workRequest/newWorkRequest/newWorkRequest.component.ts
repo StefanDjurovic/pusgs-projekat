@@ -36,12 +36,10 @@ export class NewWorkRequestComponent implements OnInit {
 
   submit() {
     console.log(this.newWorkReqFrom.value);
-    
   }
 
   logEvent(event) {
     console.log(event);
-    
   }
 
   handleMapSelection(event) {
@@ -55,8 +53,10 @@ export class NewWorkRequestComponent implements OnInit {
     }
     const country = event.address.country;
 
-    this.newWorkReqFrom.controls['address'].setValue({street: road, number: houseNumber ?? 0, city: city,
-     country: country, longitude: event.lon, latitude: event.lat});
+    this.newWorkReqFrom.controls['address'].setValue({
+      street: road, number: houseNumber ?? 0, city: city,
+      country: country, longitude: event.lon, latitude: event.lat
+    });
 
     this.newWorkReqFrom.markAsDirty();
   }

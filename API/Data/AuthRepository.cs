@@ -30,7 +30,7 @@ namespace API.Data
 
             if (user != null)
             {
-                await this.notification.CreateNewNotification(user.Id, NotificationType.Success, "Successfull Login!");
+                await this.notification.CreateNewNotification(user.Id, NotificationType.Success, "Successfull Login.");
             }
 
             return user;

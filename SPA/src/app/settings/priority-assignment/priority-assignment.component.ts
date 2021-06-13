@@ -1,24 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
+export interface PriorityElement {
+  id: number;
+  street: number;
+  city: string
   priority: number;
-
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', priority: 1 },
-  { position: 2, name: 'Helium', priority: 4 },
-  { position: 3, name: 'Lithium', priority: 5 },
-  { position: 4, name: 'Beryllium', priority: 2 },
-  { position: 5, name: 'Boron', priority: 3 },
-  { position: 6, name: 'Carbon', priority: 1 },
-  { position: 7, name: 'Nitrogen', priority: 4 },
-  { position: 8, name: 'Oxygen', priority: 5 },
-  { position: 9, name: 'Fluorine', priority: 1 },
-  { position: 10, name: 'Neon', priority: 2 },
-];
 
 @Component({
   selector: 'app-priority-assignment',
@@ -26,16 +15,28 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./priority-assignment.component.css']
 })
 export class PriorityAssignmentComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'priority', 'update'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['id', 'street', 'city', 'priority', 'update'];
+  dataSource = [];
 
-  constructor() { }
+  constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
+    this.fetchPriorities();
   }
 
   updateStreetPriority() {
-    console.log('Update Priorities')
+    var url = 'http://localhost:5000/api/AddressPriority/update';
+    this.http.post(url, this.dataSource).subscribe(res => {
+      this.alertify.success('Successfully Updated Priority!');
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
+  fetchPriorities() {
+    var url = 'http://localhost:5000/api/AddressPriority/';
+    this.http.get<PriorityElement>(url).subscribe(res => {
+      this.dataSource = JSON.parse(JSON.stringify(res));
+    });
+  }
 }

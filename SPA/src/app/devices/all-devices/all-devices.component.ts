@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatListSubheaderCssMatStyler } from '@angular/material/list';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -31,6 +32,19 @@ export class AllDevicesComponent implements OnInit {
   limit = 10;
   loading = false;
 
+  show: boolean = false;
+
+  filterForm: FormGroup = new FormGroup({
+    idFrom: new FormControl(''),
+    idTo: new FormControl(''),
+    name: new FormControl(''),
+    surname: new FormControl(''),
+    location: new FormControl(''),
+    telephone: new FormControl(''),
+    priorityFrom: new FormControl(''),
+    priorityTo: new FormControl(''),
+  });
+
   ngAfterViewInit() {
 
   }
@@ -40,6 +54,10 @@ export class AllDevicesComponent implements OnInit {
   ngOnInit(): void {
     this.fetchDevicePage();
     this.fetchDeviceCount();
+  }
+
+  toggle() {
+    this.show = !this.show;
   }
 
   redirectToAddDevicePage() {
@@ -109,6 +127,23 @@ export class AllDevicesComponent implements OnInit {
     console.log('Going to Specific Page!');
     this.page = n;
     this.fetchDevicePage();
+  }
+
+  clearFilter() {
+    this.filterForm = new FormGroup({
+      idFrom: new FormControl(''),
+      idTo: new FormControl(''),
+      name: new FormControl(''),
+      surname: new FormControl(''),
+      location: new FormControl(''),
+      telephone: new FormControl(''),
+      priorityFrom: new FormControl(''),
+      priorityTo: new FormControl(''),
+    });
+  }
+
+  applyFilter() {
+    console.log(this.filterForm.value);
   }
 
 }

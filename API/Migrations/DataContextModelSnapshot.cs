@@ -42,6 +42,26 @@ namespace API.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("API.Models.AddressPriority", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddressPriorities");
+                });
+
             modelBuilder.Entity("API.Models.Device", b =>
                 {
                     b.Property<int>("Id")
@@ -123,6 +143,9 @@ namespace API.Migrations
 
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("BLOB");
+
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Surname")
                         .HasColumnType("TEXT");

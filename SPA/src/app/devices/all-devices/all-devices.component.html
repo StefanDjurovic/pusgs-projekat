@@ -7,13 +7,66 @@
         <button mat-button color="primary" tooltip="Add a new Device" (click)="redirectToAddDevicePage()">
             <mat-icon>add</mat-icon> New
         </button>
-        <button mat-button color="primary">
+        <button mat-button color="primary" (click)="toggle()">
             <mat-icon>sort</mat-icon> Filter
         </button>
     </div>
 </div>
-<legend></legend>
+<br>
 
+<ng-container *ngIf="show">
+    <div class="filter">
+        <form [formGroup]="filterForm" (ngSubmit)="applyFilter()" class="filter-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>ID From</mat-label>
+                <input matInput formControlName="idFrom">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>ID To</mat-label>
+                <input matInput formControlName="idTo">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Surname</mat-label>
+                <input matInput formControlName="surname">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Location</mat-label>
+                <input matInput formControlName="location">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Telephone</mat-label>
+                <input matInput formControlName="telephone">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Priority From</mat-label>
+                <input matInput formControlName="priorityFrom">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Priority To</mat-label>
+                <input matInput formControlName="priorityTo">
+            </mat-form-field>
+            <br>
+            <button class="example-full-width" mat-raised-button color="primary" (click)="applyFilter()">Apply
+                Filter</button>
+            <button class="example-full-width" mat-raised-button color="warn" (click)="clearFilter()">Clear
+                Filter</button>
+        </form>
+    </div>
+</ng-container>
+
+<legend></legend>
+<br>
 <div>
     <table class="table">
         <thead>

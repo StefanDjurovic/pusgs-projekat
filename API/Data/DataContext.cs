@@ -14,6 +14,7 @@ namespace API.Data
         public DbSet<WorkRequest> WorkRequests { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<AddressPriority> AddressPriorities { get; set; }
 
     }
 }

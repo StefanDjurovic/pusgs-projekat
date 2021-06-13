@@ -18,9 +18,6 @@ export class HeaderComponent implements OnInit {
   constructor(protected authService: AuthService, private alertify: AlertifyService, private router: Router, private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.loadNotifications();
-
-
 
   }
 
@@ -48,17 +45,5 @@ export class HeaderComponent implements OnInit {
         new Event('resize')
       );
     }, 300);
-  }
-
-  loadNotifications() {
-    this.notificationService.fetchAllNotifications().subscribe(response => {
-      var responseJSON = JSON.parse(response);
-      console.log(responseJSON);
-      this.notificationCount = responseJSON.size();
-
-      //localStorage.setItem('notificationCount', responseJSON.size().toString());
-      //console.log(localStorage.notificationCount);
-
-    });
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WorkRequestService } from 'src/app/_services/workRequest.service';
 
@@ -17,6 +18,11 @@ export class WorkRequestsComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'start_date', 'phone_num', 'status', 'address'];
 
+  filterForm: FormGroup = new FormGroup({
+    statusType: new FormControl({ value: 'undefined', disabled: false }),
+    streetName: new FormControl({ value: 'undefined', disabled: false }),
+  });
+
   constructor(private workRequestService: WorkRequestService, private router: Router) { }
 
   ngOnInit(): void {
@@ -28,6 +34,8 @@ export class WorkRequestsComponent implements OnInit {
       var responseJSON = JSON.parse(response);
       this.workRequests = responseJSON;
       this.loading = false;
+
+      console.log(this.workRequests);
     });
   }
 

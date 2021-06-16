@@ -25,6 +25,8 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     this.getNotifications();
     this.shownNotifications = this.notifications;
+    console.log(this.notifications);
+    this.showUnread();
   }
 
   showNotifications(notificationType: String) {

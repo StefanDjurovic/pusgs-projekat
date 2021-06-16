@@ -14,14 +14,19 @@ import { UserService } from 'src/app/_services/user.service';
 export class AddDeviceComponent implements OnInit {
   name = '';
   surname = '';
-
+  streetsPriorities = [];
+  selectedStreet = 'First Select a Street!';
   userService = null;
   authService = null;
 
+
   deviceForm: FormGroup = new FormGroup({
+    UserId: new FormControl(''),
     Name: new FormControl(''),
     Surname: new FormControl(''),
-    Location: new FormControl(''),
+    StreetName: new FormControl(''),
+    StreetNumber: new FormControl('', [Validators.required, Validators.pattern("[1-9]{1}[0-9]{0,1}[0-9]{0,1}")]),
+    City: new FormControl({ value: 'Novi Sad', disabled: true }),
     Telephone: new FormControl('', [Validators.required, Validators.pattern("[0-9]{9}")]),
     AccountType: new FormControl(''),
   });
@@ -33,25 +38,32 @@ export class AddDeviceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUserProfle();
+    this.fetchPriorities();
   }
 
   submitNewDevice() {
     var baseURL = 'http://localhost:5000/api/device/add';
 
     if (this.deviceForm.valid) {
-      this.deviceForm.value['Priority'] = 0;
-      this.deviceForm.value['Id'] = 0;
+      this.deviceForm.value['UserId'] = this.authService.decodedToken.nameid;
       this.deviceForm.value['AccountType'] = Number(this.deviceForm.value['AccountType']);
 
-      console.log(this.deviceForm.value);
+      var streetObject = this.deviceForm.value['StreetName'];
+      this.deviceForm.value['StreetName'] = streetObject.street;
+      this.deviceForm.value['Priority'] = streetObject.priority;
+      this.deviceForm.value['City'] = streetObject.city;
 
-      this.http.post(baseURL, this.deviceForm.value).subscribe(response => {
-        this.alertify.success('New Device Added!');
-        this.router.navigate(['all-devices'])
-      }, error => {
-        console.log('Failed to add new Device!');
-        this.alertify.error(error);
-      });
+
+      console.log(this.deviceForm.value);
+      if (this.deviceForm.valid) {
+        this.http.post(baseURL, this.deviceForm.value).subscribe(response => {
+          this.alertify.success('New Device Added!');
+          //this.router.navigate(['all-devices'])
+        }, error => {
+          console.log('Failed to add new Device!');
+          this.alertify.error(error);
+        });
+      }
     }
   }
 
@@ -64,5 +76,17 @@ export class AddDeviceComponent implements OnInit {
       this.deviceForm.controls['Name'].setValue(res.name);
       this.deviceForm.controls['Surname'].setValue(res.surname);
     });
+  }
+
+  fetchPriorities() {
+    var url = 'http://localhost:5000/api/AddressPriority/';
+    this.http.get(url).subscribe(res => {
+      this.streetsPriorities = JSON.parse(JSON.stringify(res));
+      console.log(this.streetsPriorities);
+    });
+  }
+
+  onStreetChange(e) {
+    this.selectedStreet = e.value.priority;
   }
 }

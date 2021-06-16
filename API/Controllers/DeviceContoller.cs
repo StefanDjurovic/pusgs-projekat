@@ -56,20 +56,27 @@ namespace API.Controllers
         [HttpGet("all-devices")]
         public async Task<IEnumerable<Device>> GetAllDevices()
         {
-            return await this.repo.GetAllDevices();
+            //return await this.repo.GetAllDevices();
+            throw new NotImplementedException();
         }
 
-        [HttpGet("devices")]
-        public async Task<IEnumerable<Device>> GetDevices([FromQuery] PaginationParameters paginationParameters)
+        [HttpGet("devices/{userId}/{accountType}/{streetName}")]
+        public async Task<IEnumerable<Device>> GetDevices([FromQuery] PaginationParameters paginationParameters, int userId, string accountType, string streetName)
         {
-            return await this.repo.GetDevices(paginationParameters);
+            DeviceFilterParameters deviceFilterParameters = new DeviceFilterParameters();
+            deviceFilterParameters.AccountType = accountType;
+            deviceFilterParameters.StreetName = streetName;
+            return await this.repo.GetDevices(paginationParameters, userId, deviceFilterParameters);
         }
 
-
-        [HttpGet("total-pages")]
-        public async Task<int> GetTotalPages()
+        [HttpGet("total-pages/{userId}/{accountType}/{streetName}")]
+        public async Task<int> GetTotalPages(int userId, string accountType, string streetName)
         {
-            IEnumerable<Device> totalDevices = await this.repo.GetAllDevices();
+            DeviceFilterParameters deviceFilterParameters = new DeviceFilterParameters();
+            deviceFilterParameters.AccountType = accountType;
+            deviceFilterParameters.StreetName = streetName;
+
+            IEnumerable<Device> totalDevices = await this.repo.GetAllDevices(userId, deviceFilterParameters);
             return totalDevices.Count();
         }
     }

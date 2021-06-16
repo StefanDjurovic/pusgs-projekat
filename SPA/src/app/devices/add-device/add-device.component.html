@@ -10,7 +10,7 @@
                 <!-- automaticly assigned by the location -->
                 <mat-form-field class="example-full-width">
                     <mat-label>Account ID</mat-label>
-                    <input matInput placeholder="ID" disabled>
+                    <input matInput placeholder="ID" value="Will be Automatically Assigned." disabled>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="example-full-width">
@@ -23,15 +23,34 @@
                     <input matInput disabled [value]="surname">
                 </mat-form-field>
                 <br>
+
+                <!-- <mat-form-field class="example-full-width">
+                    <mat-label>Street Name</mat-label>
+                    <input matInput placeholder="Location" formControlName="StreetName" required />
+                </mat-form-field> -->
+
                 <mat-form-field class="example-full-width">
-                    <mat-label>Location</mat-label>
-                    <textarea matInput placeholder="Location" formControlName="Location" required></textarea>
+                    <mat-label>Street Name</mat-label>
+                    <mat-select formControlName="StreetName" (selectionChange)="onStreetChange($event)" required>
+                        <mat-option *ngFor="let street of streetsPriorities" [value]="street">{{street.street}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Street Number</mat-label>
+                    <input matInput placeholder="Location" formControlName="StreetNumber" required />
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>City</mat-label>
+                    <input matInput placeholder="Location" formControlName="City" disabled value="Novi Sad" />
                 </mat-form-field>
                 <br>
                 <mat-form-field class="example-full-width">
                     <mat-label>Priority (Napomena: Lokacije kroz različite vremenske periode mogu da menjaju
                         prioritete.) </mat-label>
-                    <input matInput disabled value="Automatically assigned with Location">
+                    <input matInput disabled [value]="selectedStreet">
                 </mat-form-field>
                 <br>
                 <mat-form-field class="example-full-width">

@@ -21,6 +21,7 @@ import { AllDevicesComponent } from './devices/all-devices/all-devices.component
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CrewsComponent } from './crews/crews.component';
 
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'all-devices', component: AllDevicesComponent },
   { path: 'add-device', component: AddDeviceComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'crews', component: CrewsComponent },
   { path: '**', redirectTo: '' }
 ];
 

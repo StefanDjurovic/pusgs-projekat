@@ -55,14 +55,37 @@ namespace API.Data
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Device>> GetDevices(PaginationParameters paginationParameters)
+        public async Task<IEnumerable<Device>> GetDevices(PaginationParameters paginationParameters, int id, DeviceFilterParameters deviceFilterParameters)
         {
-            return await this.context.Devices.OrderBy(x => x.Name).Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
+            // var devices = this.context.Devices.Where(d => d.StreetName.Equals(deviceFilterParameters.StreetName) &&
+            //                         d.AccountType.Equals(deviceFilterParameters.AccountType == "Residential" ? DeviceType.Residential : DeviceType.Commercial));
+            List<Device> devices = await this.context.Devices.Where(x => x.UserId.Equals(id)).ToListAsync();
+
+            if (!string.IsNullOrEmpty(deviceFilterParameters.StreetName) && deviceFilterParameters.StreetName != "undefined")
+                devices = devices.Where(d => d.StreetName.Equals(deviceFilterParameters.StreetName)).ToList();
+
+            if (!string.IsNullOrEmpty(deviceFilterParameters.AccountType) && deviceFilterParameters.AccountType != "undefined")
+                devices = devices.Where(d => d.AccountType.Equals(deviceFilterParameters.AccountType == "Residential" ? DeviceType.Residential : DeviceType.Commercial)).ToList();
+
+            return devices.OrderBy(x => x.Name).Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToList();
         }
 
-        public async Task<IEnumerable<Device>> GetAllDevices()
+        public async Task<IEnumerable<Device>> GetAllDevices(int id, DeviceFilterParameters deviceFilterParameters)
         {
-            return await this.context.Devices.ToListAsync();
+            // var devices = this.context.Devices.Where(d => d.StreetName.Equals(deviceFilterParameters.StreetName) &&
+            //                     d.AccountType.Equals(deviceFilterParameters.AccountType == "Residential" ? DeviceType.Residential : DeviceType.Commercial));
+
+            // return await devices.Where(x => x.Id.Equals(id)).ToListAsync();
+
+            List<Device> devices = await this.context.Devices.Where(x => x.UserId.Equals(id)).ToListAsync();
+
+            if (!string.IsNullOrEmpty(deviceFilterParameters.StreetName) && deviceFilterParameters.StreetName != "undefined")
+                devices = devices.Where(d => d.StreetName.Equals(deviceFilterParameters.StreetName)).ToList();
+
+            if (!string.IsNullOrEmpty(deviceFilterParameters.AccountType) && deviceFilterParameters.AccountType != "undefined")
+                devices = devices.Where(d => d.AccountType.Equals(deviceFilterParameters.AccountType == "Residential" ? DeviceType.Residential : DeviceType.Commercial)).ToList();
+
+            return devices;
         }
 
     }

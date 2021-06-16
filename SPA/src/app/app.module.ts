@@ -41,6 +41,7 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
 import { WorkRequestService } from './_services/workRequest.service';
 import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CrewsComponent } from './crews/crews.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AllDevicesComponent,
     PaginationComponent,
     SortDirective,
-    DashboardComponent
+    DashboardComponent,
+    CrewsComponent
    ],
   imports: [
     BrowserModule,

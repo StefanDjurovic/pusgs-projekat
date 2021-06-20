@@ -48,14 +48,14 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col" data-name="id">ID</th>
-                <th scope="col" data-name="name">Name</th>
-                <th scope="col" data-name="surname">Surname</th>
+                <th scope="col" (click)="onIdClick()" data-name="id">ID</th>
+                <th scope="col" (click)="onNameClick()" data-name="name">Name</th>
+                <th scope="col" (click)="onSurnameClick()" data-name="surname">Surname</th>
                 <th scope="col" data-name="street_name">Street Name</th>
-                <th scope="col" data-name="street_number">Street Number</th>
+                <th scope="col" (click)="onStreetNumberClick()" data-name="street_number">Street Number</th>
                 <th scope="col" data-name="city">City</th>
-                <th scope="col" data-name="telephone">Telephone</th>
-                <th scope="col" data-name="priority">Priority</th>
+                <th scope="col" (click)="onTelephoneClick()" data-name="telephone">Telephone</th>
+                <th scope="col" (click)="onPriorityClick()" data-name="priority">Priority</th>
                 <th scope="col" data-name="account_type">AccountType</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
@@ -76,7 +76,7 @@
                     <mat-icon (click)="removeDevice(device.id)">delete</mat-icon>
                 </td>
                 <td>
-                    <mat-icon (click)="editDevice(device.id)">edit</mat-icon>
+                    <mat-icon [routerLink]="['/consumer', device.id]">edit</mat-icon>
                 </td>
             </tr>
         </tbody>

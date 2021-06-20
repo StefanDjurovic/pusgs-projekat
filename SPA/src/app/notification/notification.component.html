@@ -12,25 +12,28 @@
     </mat-card>
 </div>
 
-<div class="container mt-3" *ngFor="let notification of this.shownNotifications;">
-    <!-- <div class="upcoming-container-title-section color" style="margin-left: 50%;margin-bottom: 10px;">
-        {{notification.creationDate | date: 'dd-mm-YYYY'}}
-    </div> -->
-
-    <mat-card class="{{translateNotificationTypeToString(notification.type)}}" id="notificationRoundCard">
-        <mat-card-content>
-            <mat-icon class="notification-icon">{{translateNotificationTypeToString(notification.type)}}</mat-icon>
-            {{notification.message}}
-
-            <span style="float: right;margin-top:-10px ;" *ngIf="!notification.read">
-                <button mat-icon-button aria-label="">
-                    <mat-icon class="clear-btn" (click)="markAsReadNotification(notification)">clear</mat-icon>
-                </button>
-            </span>
-
-            <span style="float: right;">
-                {{notification.creationDate | date: 'HH:mm:ss a'}}
-            </span>
-        </mat-card-content>
-    </mat-card>
+<div class="container mt-3" *ngFor="let dateData of resultData">
+    <div class="upcoming-container">
+        <div class="upcoming-container-title-section color" style="margin-left: 50%;margin-bottom: 10px;">
+            {{dateData.date | date : 'dd/MM/YYYY' }}
+        </div>
+        <div *ngFor="let notification of dateData.notifications">
+            <mat-card class="{{translateNotificationTypeToString(notification.type)}}" id="notificationRoundCard">
+                <mat-card-content>
+                    <mat-icon class="notification-icon">{{translateNotificationTypeToString(notification.type)}}
+                    </mat-icon>
+                    {{notification.message}}
+                    <span style="float: right;margin-top:-10px ;" *ngIf="!notification.read">
+                        <button mat-icon-button aria-label="">
+                            <mat-icon class="clear-btn" (click)="markAsReadNotification(notification)">clear
+                            </mat-icon>
+                        </button>
+                    </span>
+                    <span style="float: right;">
+                        {{notification.creationDate | date: 'HH:mm:ss a'}}
+                    </span>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </div>

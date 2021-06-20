@@ -1,5 +1,5 @@
 <mat-card>
-    <mat-card-title>Add a new Consumer</mat-card-title>
+    <mat-card-title>Add/Edit Consumer</mat-card-title>
 
     <div class="container rounded bg-white mt-5 mb-5" align="center">
         <div class="col-md-5 border-right">
@@ -13,14 +13,15 @@
                     <input matInput placeholder="ID" value="Will be Automatically Assigned." disabled>
                 </mat-form-field>
                 <br>
+
                 <mat-form-field class="example-full-width">
                     <mat-label>Name</mat-label>
-                    <input matInput disabled [value]="name">
+                    <input matInput formControlName="Name" disabled>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="example-full-width">
                     <mat-label>Surname</mat-label>
-                    <input matInput disabled [value]="surname">
+                    <input matInput formControlName="Surname" disabled>
                 </mat-form-field>
                 <br>
 
@@ -48,9 +49,9 @@
                 </mat-form-field>
                 <br>
                 <mat-form-field class="example-full-width">
-                    <mat-label>Priority (Napomena: Lokacije kroz različite vremenske periode mogu da menjaju
-                        prioritete.) </mat-label>
-                    <input matInput disabled [value]="selectedStreet">
+                    <mat-label>Priority</mat-label>
+                    <input matInput value="Priority (Napomena: Lokacije kroz različite vremenske periode mogu da menjaju
+                    prioritete.)" disabled>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="example-full-width">

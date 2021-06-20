@@ -24,7 +24,8 @@
                     <button mat-icon-button matSuffix (click)="fileInput.click()" matTooltip="Upload Profile Image">
                         <mat-icon>attach_file</mat-icon>
                     </button>
-                    <input hidden #fileInput type="file" id="file" (change)="onFileChanged($event)">
+                    <input hidden #fileInput type="file" id="file" accept="image/png, image/jpeg"
+                        (change)="onFileChanged($event)">
                 </mat-form-field>
                 <br>
                 <!-- <mat-progress-bar *ngIf="false" mode="determinate" value="40"></mat-progress-bar> -->

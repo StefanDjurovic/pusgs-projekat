@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -16,10 +16,7 @@ interface Instruction {
   styleUrls: ['./add-switching-plan.component.css']
 })
 export class AddSwitchingPlanComponent implements OnInit {
-  types = [
-    { value: 'planned', viewValue: 'Planned Work' },
-    { value: 'notplanned', viewValue: 'Unplanned Work' },
-  ];
+  types = ['Planned', 'NotPlanned'];
 
   selectedFiles?: FileList;
   progressInfos: any[] = [];
@@ -39,6 +36,8 @@ export class AddSwitchingPlanComponent implements OnInit {
   equipmentPage = false;
   switchingPage = false;
 
+  document_id = null;
+
   switchingPlanForm: FormGroup = new FormGroup({
     type: new FormControl(''),
     status: new FormControl({ value: 'Draft', disabled: true }),
@@ -56,12 +55,18 @@ export class AddSwitchingPlanComponent implements OnInit {
   });
 
 
-  constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router, private _Activatedroute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.fetchSwitchingPlansValue();
     this.fetchCrewValues();
     this.fetchPriorities();
+
+    this.document_id = this._Activatedroute.snapshot.paramMap.get("id");
+    if (this.document_id != null) {
+      this.fetchSafetyDocument();
+      this.fetchPreviousInstructions();
+    }
   }
 
   fetchPriorities() {
@@ -73,44 +78,93 @@ export class AddSwitchingPlanComponent implements OnInit {
   }
 
   submitSwitchPlan() {
-    if (this.switchingPlanForm.valid) {
-      var id = this.authService.decodedToken.nameid;
-      this.switchingPlanForm.value["createdById"] = id;
 
-      if (this.switchingPlanForm.value["type"] === "planned") {
-        this.switchingPlanForm.value["type"] = 0;
-      }
-      else {
-        this.switchingPlanForm.value["type"] = 1;
-      }
-
+    if (this.document_id != null) {
+      this.switchingPlanForm.addControl("Id", new FormControl(""));
+      this.switchingPlanForm.value['Id'] = this.document_id;
+      this.removeAllPreviousInstructions();
+    }
+    else {
+      this.switchingPlanForm.value["type"] = parseInt(this.switchingPlanForm.value["type"], 10);
       this.switchingPlanForm.value["status"] = 0;
       this.switchingPlanForm.value["createdDateTime"] = new Date();
-
-      console.log(this.switchingPlanForm.value);
-      console.log(this.switchingInstructions);
-      console.log(this.selectedFiles);
-
-      // if (this.switchingPlanForm.value["type"] === "planned")
-      //   this.switchingPlanForm.value["type"] = 0;
-      // else {
-      //   this.switchingPlanForm.value["type"] = 1;
-      // }
-
-      var url = 'http://localhost:5000/api/safetydocuments/create/';
-      this.http.post(url, this.switchingPlanForm.value).subscribe(res => {
-        this.switchPlanId = res;
-
-        // upload multimedia attachments
-        this.uploadFiles();
-        this.uploadInstructions();
-
-        this.router.navigate(["/safety-documents-all"]);
-      });
-
-    } else {
-      console.log('invalid switching plan!');
     }
+    var id = this.authService.decodedToken.nameid;
+    this.switchingPlanForm.value["createdById"] = id;
+
+    console.log('Adding/Updating Safety Document!');
+    console.log(this.switchingPlanForm.value);
+    console.log(this.switchingInstructions);
+    console.log(this.selectedFiles);
+
+    // if (this.switchingPlanForm.value["type"] === "planned")
+    //   this.switchingPlanForm.value["type"] = 0;
+    // else {
+    //   this.switchingPlanForm.value["type"] = 1;
+    // }
+    console.log(this.switchingPlanForm.value);
+    var url = 'http://localhost:5000/api/safetydocuments/create/';
+    this.http.post(url, this.switchingPlanForm.value).subscribe(res => {
+      this.switchPlanId = res;
+
+      // upload multimedia attachments
+      this.uploadFiles();
+      this.uploadInstructions();
+
+      this.router.navigate(["/safety-documents-all"]);
+    });
+
+    // } else {
+    //   console.log(this.switchingPlanForm.value);
+    //   console.log('invalid switching plan!');
+    // }
+  }
+
+  fetchSafetyDocument() {
+    var url = 'http://localhost:5000/api/safetydocuments/document/' + this.document_id;
+    this.http.get(url).subscribe(response => {
+      console.log(response);
+
+      if (response['status'] === 0)
+        this.switchingPlanForm.controls['status'].setValue("Draft");
+      else
+        this.switchingPlanForm.controls['status'].setValue("Submited");
+
+      this.switchingPlanForm.controls['type'].setValue(response['type']);
+      this.switchingPlanForm.controls['switchingPlan'].setValue(response['switchingPlan']);
+      this.switchingPlanForm.controls['fieldCrew'].setValue(response['fieldCrew']);
+      this.switchingPlanForm.controls['createdDateTime'].setValue(response['createdDateTime']);
+      this.switchingPlanForm.controls['details'].setValue(response['details']);
+      this.switchingPlanForm.controls['notes'].setValue(response['notes']);
+      this.switchingPlanForm.controls['telephone'].setValue(response['telephone']);
+
+      // this.switchingPlanForm.value['type'] = response['type'];
+      // this.switchingPlanForm.value['status'] = response['status'];
+      // this.switchingPlanForm.value['switchingPlan'] = response['switchingPlan'];
+      // this.switchingPlanForm.value['fieldCrew'] = response['fieldCrew'];
+      // this.switchingPlanForm.value['createdDateTime'] = response['createdDateTime'];
+      // this.switchingPlanForm.value['details'] = response['details'];
+      // this.switchingPlanForm.value['notes'] = response['notes'];
+      // this.switchingPlanForm.value['telephone'] = response['telephone'];
+    });
+  }
+
+  removeAllPreviousInstructions() {
+    var url = 'http://localhost:5000/api/safetydocuments/delete-instructions/' + this.document_id;
+    this.http.get(url).subscribe(response => {
+      console.log(response);
+    });
+  }
+
+  fetchPreviousInstructions() {
+    var url = 'http://localhost:5000/api/safetydocuments/get-instructions/' + this.document_id;
+    this.http.get(url).subscribe(response => {
+
+
+      var jsonResponse = JSON.parse(JSON.stringify(response));
+      this.switchingInstructions = jsonResponse;
+      console.log(jsonResponse);
+    });
   }
 
   onSwitchingPlanChange(event) {

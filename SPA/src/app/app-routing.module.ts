@@ -43,11 +43,14 @@ const routes: Routes = [
   { path: 'create-work-request', component: WorkRequestFormComponent },
   { path: 'all-consumers', component: AllDevicesComponent },
   { path: 'add-consumer', component: AddDeviceComponent },
+  { path: 'consumer/:id', component: AddDeviceComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'safety-documents-all', component: SwitchingPlanComponent },
+  { path: 'safety-document/:id', component: AddSwitchingPlanComponent },
   { path: 'new-safety-document', component: AddSwitchingPlanComponent },
   { path: 'report-a-call', component: CallReportComponent },
   { path: '**', redirectTo: '' }
+
 ];
 
 @NgModule({

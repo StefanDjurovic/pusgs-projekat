@@ -36,11 +36,10 @@
                     <div class="row">
                         <mat-form-field class="example-full-width">
                             <mat-label>Type</mat-label>
-                            <mat-select formControlName="type">
-                                <mat-option *ngFor="let _type of types" [value]="_type.value" required>
-                                    {{_type.viewValue}}
-                                </mat-option>
-                            </mat-select>
+                            <select matNativeControl formControlName="type" required>
+                                <option value="0">Planned</option>
+                                <option value="1">Not Planned</option>
+                            </select>
                         </mat-form-field>
 
                         <mat-form-field class="example-full-width">
@@ -190,7 +189,7 @@
                                 <td>{{ i+1 }}</td>
                                 <td>{{ instruction.message }}</td>
                                 <td>
-                                    <mat-checkbox [value]="instruction.isExecuted" (click)=toggleDone(i)></mat-checkbox>
+                                    <input type="checkbox" [(ngModel)]="instruction.isExecuted" (click)=toggleDone(i) />
                                 </td>
                                 <td>
                                     <button mat-icon-button class="delete" (click)="deleteTodo(i)">

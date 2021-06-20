@@ -43,6 +43,7 @@ import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SwitchingPlanComponent } from './switching-plan/switching-plan.component';
 import { AddSwitchingPlanComponent } from './switching-plan/add-switching-plan/add-switching-plan.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { AddSwitchingPlanComponent } from './switching-plan/add-switching-plan/a
     SocialLoginModule
   ],
   providers: [
+    DatePipe,
     AuthService,
     WorkRequestService,
     ErrorInterceptorProvider,

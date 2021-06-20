@@ -45,13 +45,13 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col" data-name="id">ID</th>
-                <th scope="col" data-name="createdDateTime">Created Date</th>
+                <th scope="col" (click)="onIdClick()" data-name="id">ID</th>
+                <th scope="col" (click)="onCreatedDateTimeClick()" data-name="createdDateTime">Created Date</th>
                 <th scope="col" data-name="type">Status</th>
                 <th scope="col" data-name="status">Type</th>
-                <th scope="col" data-name="fieldCrew">Field Crew</th>
-                <th scope="col" data-name="switchingPlan">Switching Plan</th>
-                <th scope="col" data-name="telephone">Telephone</th>
+                <th scope="col" (click)="onFieldCrewClick()" data-name="fieldCrew">Field Crew</th>
+                <th scope="col" (click)="onSwitchingPlanClick()" data-name="switchingPlan">Switching Plan</th>
+                <th scope="col" (click)="onTelephoneNumberClick()" data-name="telephone">Telephone</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
@@ -70,7 +70,7 @@
                     <mat-icon (click)="removeDocument(doc.id)">delete</mat-icon>
                 </td>
                 <td>
-                    <mat-icon (click)="updateDocument(doc.id)">edit</mat-icon>
+                    <mat-icon [routerLink]="['/safety-document', doc.id]">edit</mat-icon>
                 </td>
             </tr>
         </tbody>

@@ -38,23 +38,41 @@ namespace API.Controllers
             return await this.repo.CreateSafetyDocumentInstruction(instruction, switchingPlanId);
         }
 
-        [HttpGet("get-plans/{type}/{status}")]
-        public async Task<IEnumerable<SafetyDocument>> GetAllSwitchPlans([FromQuery] PaginationParameters paginationParameters, string type, string status)
+        [HttpPost("get-plans/{type}/{status}")]
+        public async Task<IEnumerable<SafetyDocument>> GetAllSwitchPlans(SortingParam consumerSorting, [FromQuery] PaginationParameters paginationParameters, string type, string status)
         {
-            return await this.repo.GetSafetyDocumentPlans(paginationParameters, type, status);
+            return await this.repo.GetSafetyDocumentPlans(consumerSorting, paginationParameters, type, status);
         }
 
-        [HttpGet("document-count/{type}/{status}")]
-        public async Task<int> GetAllSwitchPlansCount([FromQuery] PaginationParameters paginationParameters, string type, string status)
+        [HttpPost("document-count/{type}/{status}")]
+        public async Task<int> GetAllSwitchPlansCount(SortingParam consumerSorting, [FromQuery] PaginationParameters paginationParameters, string type, string status)
         {
-            IEnumerable<SafetyDocument> allDocuments = await this.repo.GetSafetyDocumentPlans(paginationParameters, type, status);
+            IEnumerable<SafetyDocument> allDocuments = await this.repo.GetSafetyDocumentPlans(consumerSorting, paginationParameters, type, status);
             return allDocuments.Count();
+        }
+
+        [HttpGet("document/{id}")]
+        public async Task<SafetyDocument> GetDocument(int id)
+        {
+            return await this.repo.GetDocument(id);
         }
 
         [HttpPost("delete/{documentId}")]
         public async Task<bool> GetAllSwitchPlansCount(int documentId)
         {
             return await this.repo.DeleteDocument(documentId);
+        }
+
+        [HttpGet("get-instructions/{id}")]
+        public async Task<IEnumerable<SwitchingInstruction>> GetAllInstructions(int id)
+        {
+            return await this.repo.GetAllInstructions(id);
+        }
+
+        [HttpGet("delete-instructions/{id}")]
+        public async Task<bool> DeleteAllInstructions(int id)
+        {
+            return await this.repo.DeleteInstructions(id);
         }
     }
 }

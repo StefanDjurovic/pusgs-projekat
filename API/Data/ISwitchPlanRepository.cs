@@ -13,8 +13,13 @@ namespace API.Data
 
         Task<bool> CreateSafetyDocumentInstruction(SwitchingInstruction instructions, int switchingPlanId);
 
-        Task<IEnumerable<SafetyDocument>> GetSafetyDocumentPlans(PaginationParameters paginationParameters, string type, string status);
+        Task<IEnumerable<SafetyDocument>> GetSafetyDocumentPlans(SortingParam consumerSorting, PaginationParameters paginationParameters, string type, string status);
 
+        Task<SafetyDocument> GetDocument(int id);
         Task<bool> DeleteDocument(int id);
+
+        Task<bool> DeleteInstructions(int id);
+
+        Task<IEnumerable<SwitchingInstruction>> GetAllInstructions(int id);
     }
 }

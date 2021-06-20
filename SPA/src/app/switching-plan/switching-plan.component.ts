@@ -21,6 +21,9 @@ export class SwitchingPlanComponent implements OnInit {
 
   show = true;
 
+  sortBy = "Id";
+  sortDirection = "ascending";
+
   typeFilterValues = ['Planned', 'NotPlanned'];
   statusFilterValues = ['Draft', 'Submited']
 
@@ -48,8 +51,10 @@ export class SwitchingPlanComponent implements OnInit {
   }
 
   fetchAllDocuments() {
+    var sortingParams = { 'SortBy': this.sortBy, 'SortDirection': this.sortDirection };
+    console.log(sortingParams);
     var url = 'http://localhost:5000/api/safetydocuments/get-plans/' + this.filterForm.value['type'] + '/' + this.filterForm.value['status'] + '/?pageNumber=' + this.page + '&pageSize=' + this.limit;
-    this.http.get(url).subscribe(response => {
+    this.http.post(url, sortingParams).subscribe(response => {
       this.dataSource = response;
       //console.log(this.dataSource);
 
@@ -72,8 +77,10 @@ export class SwitchingPlanComponent implements OnInit {
   }
 
   fetchDocumentsCount() {
+    var sortingParams = { 'SortBy': this.sortBy, 'SortDirection': this.sortDirection };
+
     var url = 'http://localhost:5000/api/safetydocuments/document-count/' + this.filterForm.value['type'] + '/' + this.filterForm.value['status'] + '/?pageNumber=' + this.page + '&pageSize=' + this.limit;
-    this.http.get(url, { responseType: 'text' }).subscribe(response => {
+    this.http.post(url, sortingParams, { responseType: 'text' }).subscribe(response => {
       this.total = JSON.parse(response);
       //this.total = this.dataSource.length;
     });
@@ -137,4 +144,48 @@ export class SwitchingPlanComponent implements OnInit {
   onStatusChange(event) {
     this.filterForm.value['status'] = event.value;
   }
+
+  // SORTING FUNCTIONS
+  onIdClick() {
+    this.sortBy = "Id";
+    this.changeDirection();
+    this.fetchAllDocuments();
+    this.fetchDocumentsCount();
+  }
+
+  onFieldCrewClick() {
+    this.sortBy = "FieldCrew";
+    this.changeDirection();
+    this.fetchAllDocuments();
+    this.fetchDocumentsCount();
+  }
+
+  onSwitchingPlanClick() {
+    this.sortBy = "SwitchingPlan";
+    this.changeDirection();
+    this.fetchAllDocuments();
+    this.fetchDocumentsCount();
+  }
+
+  onCreatedDateTimeClick() {
+    this.sortBy = "CreatedDateTime";
+    this.changeDirection();
+    this.fetchAllDocuments();
+    this.fetchDocumentsCount();
+  }
+
+  onTelephoneNumberClick() {
+    this.sortBy = "Telephone";
+    this.changeDirection();
+    this.fetchAllDocuments();
+    this.fetchDocumentsCount();
+  }
+
+  changeDirection() {
+    if (this.sortDirection === 'ascending')
+      this.sortDirection = 'descending';
+    else
+      this.sortDirection = 'ascending';
+  }
+
 }

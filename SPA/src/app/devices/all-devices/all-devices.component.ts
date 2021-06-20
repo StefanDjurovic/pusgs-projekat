@@ -40,6 +40,9 @@ export class AllDevicesComponent implements OnInit {
   accountTypeFilterValues = [];
   streetNameFilterValues = []
 
+  sortBy = "";
+  sortDirection = "ascending";
+
   show: boolean = true;
 
   filterForm: FormGroup = new FormGroup({
@@ -89,9 +92,12 @@ export class AllDevicesComponent implements OnInit {
     //this.filterForm.value['StreetName'] = "Bulevar oslobođenja";
     var id = this.authService.decodedToken.nameid;
     console.log(this.filterForm.value);
-    // + '&streetName=' + this.filterForm.value['AccountType'] + '&accountType=' + this.filterForm.value['StreetName']
+
+
+    var sortingParams = { 'SortBy': this.sortBy, 'SortDirection': this.sortDirection };
+    console.log(sortingParams);
     var url = 'http://localhost:5000/api/device/devices/' + id + '/' + this.filterForm.value['accountType'] + '/' + this.filterForm.value['streetName'] + '/?pageNumber=' + this.page + '&pageSize=' + this.limit;
-    this.http.get<DeviceElement>(url).subscribe(response => {
+    this.http.post<DeviceElement>(url, sortingParams).subscribe(response => {
       this.dataSource = response;
 
       for (var i = 0; i < this.dataSource.length; i++) {
@@ -188,4 +194,55 @@ export class AllDevicesComponent implements OnInit {
   onStreetNameChange(event) {
     this.filterForm.value['streetName'] = event.value;
   }
+
+  // SORTING FUNCTIONS
+  onIdClick() {
+    this.sortBy = "Id";
+    this.changeDirection();
+    this.fetchDevicePage();
+    this.fetchDeviceCount();
+  }
+
+  onNameClick() {
+    this.sortBy = "Name";
+    this.changeDirection();
+    this.fetchDevicePage();
+    this.fetchDeviceCount();
+  }
+
+  onSurnameClick() {
+    this.sortBy = "Surname";
+    this.changeDirection();
+    this.fetchDevicePage();
+    this.fetchDeviceCount();
+  }
+
+  onStreetNumberClick() {
+    this.sortBy = "StreetNumber";
+    this.changeDirection();
+    this.fetchDevicePage();
+    this.fetchDeviceCount();
+  }
+
+  onTelephoneClick() {
+    this.sortBy = "Telephone";
+    this.changeDirection();
+    this.fetchDevicePage();
+    this.fetchDeviceCount();
+  }
+  onPriorityClick() {
+    this.sortBy = "Priority";
+    this.changeDirection();
+    this.fetchDevicePage();
+    this.fetchDeviceCount();
+  }
+
+  changeDirection() {
+    if (this.sortDirection === 'ascending')
+      this.sortDirection = 'descending';
+    else
+      this.sortDirection = 'ascending';
+  }
+
+
 }

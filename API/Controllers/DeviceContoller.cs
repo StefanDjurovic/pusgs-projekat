@@ -60,13 +60,13 @@ namespace API.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpGet("devices/{userId}/{accountType}/{streetName}")]
-        public async Task<IEnumerable<Device>> GetDevices([FromQuery] PaginationParameters paginationParameters, int userId, string accountType, string streetName)
+        [HttpPost("devices/{userId}/{accountType}/{streetName}")]
+        public async Task<IEnumerable<Device>> GetDevices(SortingParam consumerSorting, [FromQuery] PaginationParameters paginationParameters, int userId, string accountType, string streetName)
         {
             DeviceFilterParameters deviceFilterParameters = new DeviceFilterParameters();
             deviceFilterParameters.AccountType = accountType;
             deviceFilterParameters.StreetName = streetName;
-            return await this.repo.GetDevices(paginationParameters, userId, deviceFilterParameters);
+            return await this.repo.GetDevices(consumerSorting, paginationParameters, userId, deviceFilterParameters);
         }
 
         [HttpGet("total-pages/{userId}/{accountType}/{streetName}")]
@@ -78,6 +78,12 @@ namespace API.Controllers
 
             IEnumerable<Device> totalDevices = await this.repo.GetAllDevices(userId, deviceFilterParameters);
             return totalDevices.Count();
+        }
+
+        [HttpGet("get/{id}")]
+        public async Task<Device> GetDevice(int id)
+        {
+            return await this.repo.GetDevice(id);
         }
     }
 }

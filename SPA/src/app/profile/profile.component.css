@@ -11,7 +11,11 @@
 }
 
 .example-full-width {
-width: 100%;
+  width: 100%;
+}
+
+.submit-btn {
+  width: 100px;;
 }
 
 .upload {

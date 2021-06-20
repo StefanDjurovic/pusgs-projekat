@@ -41,7 +41,8 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
 import { WorkRequestService } from './_services/workRequest.service';
 import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CrewsComponent } from './crews/crews.component';
+import { SwitchingPlanComponent } from './switching-plan/switching-plan.component';
+import { AddSwitchingPlanComponent } from './switching-plan/add-switching-plan/add-switching-plan.component';
 
 @NgModule({
   declarations: [
@@ -72,8 +73,9 @@ import { CrewsComponent } from './crews/crews.component';
     PaginationComponent,
     SortDirective,
     DashboardComponent,
-    CrewsComponent
-   ],
+    SwitchingPlanComponent,
+    AddSwitchingPlanComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

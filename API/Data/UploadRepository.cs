@@ -21,7 +21,7 @@ namespace API.Data
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
-            .Select(s => s[random.Next(s.Length)]).ToArray()) + ".jpg";
+            .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         public async Task<bool> StoreProfileImage(HttpRequest request, int userId)
@@ -37,7 +37,7 @@ namespace API.Data
                 if (file.Length > 0 && foundUser != null)
                 {
                     //var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim().ToString();
-                    var fileName = RandomString(36);
+                    var fileName = RandomString(36) + ".jpg";
                     var fullPath = Path.Combine(pathToSave, fileName);
 
                     while (System.IO.File.Exists(fullPath))
@@ -74,6 +74,56 @@ namespace API.Data
                 return profileImage;
             }
             return null;
+        }
+
+
+        public async Task<bool> StoreSwitchDocument(HttpRequest request, int switchPlanId)
+        {
+            bool returnPath = false;
+            try
+            {
+                var file = request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "Documents");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    //var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim().ToString();
+
+                    string strExtention = file.FileName.Substring(file.FileName.LastIndexOf('.') + 1);
+                    string fileName = "";
+                    if (!string.IsNullOrEmpty(strExtention))
+                        fileName = RandomString(36) + '.' + strExtention;
+                    else
+                        fileName = RandomString(36);
+
+                    var fullPath = Path.Combine(pathToSave, fileName);
+
+                    while (System.IO.File.Exists(fullPath))
+                    {
+                        fullPath = Path.Combine(pathToSave, RandomString(36));
+                    }
+
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    MultimediaAttachments attachment = new MultimediaAttachments();
+                    attachment.SwitchPlanId = switchPlanId;
+                    attachment.File = dbPath;
+
+                    this.context.MultimediaAttachments.Add(attachment);
+                    return await this.context.SaveChangesAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString());
+            }
+
+            return returnPath;
         }
     }
 }

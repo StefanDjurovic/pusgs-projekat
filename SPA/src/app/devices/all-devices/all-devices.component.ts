@@ -66,7 +66,7 @@ export class AllDevicesComponent implements OnInit {
   }
 
   redirectToAddDevicePage() {
-    this.router.navigate(['add-device']);
+    this.router.navigate(['add-consumer']);
   }
 
 
@@ -120,11 +120,16 @@ export class AllDevicesComponent implements OnInit {
     var url = 'http://localhost:5000/api/device/remove/' + id;
     this.http.get(url).subscribe(response => {
       this.alertify.success('Device Removed!');
-      this.fetchAllDevices();
+      this.fetchDevicePage();
+      this.fetchDeviceCount();
     }, error => {
       console.log('Failed to Remove Device!');
       this.alertify.error(error);
     });
+  }
+
+  editDevice(id) {
+    console.log(id);
   }
 
   updateDevice(id) {

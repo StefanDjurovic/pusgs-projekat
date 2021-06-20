@@ -22,6 +22,19 @@ namespace API.Controllers
             return await this.repo.StoreProfileImage(Request, userId);
         }
 
+        [HttpPost("document/{switchPlanId}"), DisableRequestSizeLimit]
+        public async Task<bool> UploadDocument(int switchPlanId)
+        {
+            return await this.repo.StoreSwitchDocument(Request, switchPlanId);
+        }
+
+        [HttpGet("get-documents/{switchPlanId}/"), DisableRequestSizeLimit]
+        public async Task<IActionResult> GetUserDocument(int switchPlanId)
+        {
+            // return await this.repo.StoreSwitchDocument(Request, switchPlanId);
+            throw new NotImplementedException();
+        }
+
         [HttpGet("retrieve-profile-image/{userId}")]
         public async Task<IActionResult> GetUserProfileImage(int userId)
         {

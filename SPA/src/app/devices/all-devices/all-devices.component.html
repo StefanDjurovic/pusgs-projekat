@@ -1,10 +1,10 @@
 <div class="row">
-    <h2>Devices Table</h2>
+    <h2>Consumers Table</h2>
 </div>
 
 <div class="row">
     <div class="example-button-row">
-        <button mat-button color="primary" tooltip="Add a new Device" (click)="redirectToAddDevicePage()">
+        <button mat-button color="primary" tooltip="Add a new Consumer" (click)="redirectToAddDevicePage()">
             <mat-icon>add</mat-icon> New
         </button>
         <button mat-button color="primary" (click)="toggle()">
@@ -58,6 +58,7 @@
                 <th scope="col" data-name="priority">Priority</th>
                 <th scope="col" data-name="account_type">AccountType</th>
                 <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
@@ -71,7 +72,12 @@
                 <td>{{device.telephone}}</td>
                 <td>{{device.priority}}</td>
                 <td>{{device.accountType}}</td>
-                <td>&nbsp;</td>
+                <td>
+                    <mat-icon (click)="removeDevice(device.id)">delete</mat-icon>
+                </td>
+                <td>
+                    <mat-icon (click)="editDevice(device.id)">edit</mat-icon>
+                </td>
             </tr>
         </tbody>
     </table>

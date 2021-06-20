@@ -10,6 +10,7 @@ namespace API.Data
     public interface IUploadRepository
     {
         Task<bool> StoreProfileImage(HttpRequest request, int userId);
+        Task<bool> StoreSwitchDocument(HttpRequest request, int userId);
         Task<FileStream> GetProfileImage(int userId);
     }
 }

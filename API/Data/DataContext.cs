@@ -15,6 +15,10 @@ namespace API.Data
         public DbSet<Device> Devices { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<AddressPriority> AddressPriorities { get; set; }
-
+        public DbSet<SafetyDocument> SafetyDocuments { get; set; }
+        public DbSet<MultimediaAttachments> MultimediaAttachments { get; set; }
+        public DbSet<SwitchingInstruction> SwitchingInstructions { get; set; }
+        public DbSet<Call> Calls { get; set; }
+        public DbSet<Icon> Icons { get; set; }
     }
 }

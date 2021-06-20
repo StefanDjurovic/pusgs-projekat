@@ -1,5 +1,5 @@
 mat-chip {
-    max-width: 200px;
+  max-width: 200px;
 }
 
 /* Information 0, Warning 1, Error 2, Success 3 */
@@ -22,4 +22,9 @@ mat-chip {
 
 .mat-icon {
   vertical-align: middle;
+}
+
+#notificationRoundCard {
+  border-radius: 50px;
+  margin-top:5px ;
 }

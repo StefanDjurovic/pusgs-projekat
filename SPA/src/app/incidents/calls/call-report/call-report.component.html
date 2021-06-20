@@ -17,7 +17,7 @@
                 <mat-select formControlName="reason" required>
                     <mat-option>--</mat-option>
                     <mat-option *ngFor="let reason of reasons" [value]="reason">
-                        {{reason}}
+                        {{reason.name}}
                     </mat-option>
                 </mat-select>
                 <mat-error>
@@ -42,6 +42,31 @@
                 </mat-error>
             </mat-form-field>
 
+            <div class="col">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Street Name</mat-label>
+                    <mat-select formControlName="streetName" required>
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let _street of streetValues" [value]="_street.street">
+                            {{_street.street}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        Please select a valid Street!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Street Number</mat-label>
+                    <input matInput formControlName="streetNumber" required>
+                    <mat-error>
+                        Please provide a valid Street Number!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
             <section class="example-full-width">
                 <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="anonymousCheck" class="example-margin">
                     Stay
@@ -52,23 +77,15 @@
             <div *ngIf="!anonymousCheck">
                 <mat-form-field class="example-full-width">
                     <mat-label>Name</mat-label>
-                    <input matInput formControlName="name" required>
+                    <input matInput formControlName="reporter" placeholder="Automaticly Filled">
                     <mat-error>
                         Please provide a valid name!
                     </mat-error>
                 </mat-form-field>
-
-                <mat-form-field class="example-full-width">
-                    <mat-label>Address</mat-label>
-                    <input matInput formControlName="address" required>
-                    <mat-error>
-                        Please provide a valid address!
-                    </mat-error>
-                </mat-form-field>
-
             </div>
-
+            <br>
             <button mat-raised-button class="btn-submit" color="primary">Submit Incident</button>
+            <br>
         </form>
     </div>
 </div>

@@ -43,6 +43,8 @@ namespace API
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IUploadRepository, UploadRepository>();
             services.AddScoped<IAddressPriorityRepository, AddressPriorityRepository>();
+            services.AddScoped<ISafetyDocumentRepository, SafetyDocumentRepository>();
+            services.AddScoped<ICallRepository, CallRepository>();
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

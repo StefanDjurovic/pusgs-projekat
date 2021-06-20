@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-call-report',
@@ -10,38 +13,62 @@ export class CallReportComponent implements OnInit {
   @Output() returnToCalls: EventEmitter<any> = new EventEmitter();
 
   anonymousCheck = false;
-
+  streetValues = [];
 
   reasons = [
-    'No Electricity',
-    'There is a malfunction',
-    'Lights flickering',
-    'Power is back',
-    'Partial current',
-    'Voltage problems'
+    { name: 'No Electricity', value: 0 },
+    { name: 'There is a malfunction', value: 1 },
+    { name: 'Lights flickering', value: 2 },
+    { name: 'Power is back', value: 3 },
+    { name: 'Partial current', value: 4 },
+    { name: 'Voltage problems', value: 5 },
   ];
 
   incidentForm: FormGroup = new FormGroup({
     reason: new FormControl(''),
     comment: new FormControl(''),
     hazard: new FormControl(''),
-    name: new FormControl(''),
-    address: new FormControl(''),
+    reporter: new FormControl({ value: "", disabled: true }),
+    streetName: new FormControl(''),
+    streetNumber: new FormControl(''),
   });
 
-  constructor() { }
+  constructor(private http: HttpClient, private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
+    this.fetchPriorities();
   }
 
   submitIncident() {
+    var id = this.authService.decodedToken.nameid;
     if (this.incidentForm.valid) {
-      console.log(this.incidentForm.value);
+      if (this.anonymousCheck === true || id === null) {
+        this.incidentForm.value["reporter"] = "Anonymous Reporter";
+      } else {
+        this.incidentForm.value["reporter"] = id;
+      }
+
+      this.incidentForm.value["reason"] = this.incidentForm.value["reason"].value;
+      var url = 'http://localhost:5000/api/call/new/';
+      this.http.post(url, this.incidentForm.value).subscribe(response => {
+        console.log(response);
+        this.alertify.success('Successfully Submited a Call!');
+      }, error => {
+        this.alertify.error(error);
+      });
     }
   }
 
   returnToCallsTable() {
-    this.returnToCalls.emit()
+    console.log('show map');
+  }
+
+  fetchPriorities() {
+    var url = 'http://localhost:5000/api/AddressPriority/';
+    this.http.get(url).subscribe(res => {
+      this.streetValues = JSON.parse(JSON.stringify(res));
+      console.log(this.streetValues);
+    });
   }
 }
 

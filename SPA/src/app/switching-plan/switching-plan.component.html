@@ -1,0 +1,84 @@
+<div class="row">
+    <h2>Safety Documents - ALL</h2>
+</div>
+
+<div class="row">
+    <div class="example-button-row">
+        <button mat-button color="primary" tooltip="New Switch Plan" (click)="redirectToAddSwitchPlanPage()">
+            <mat-icon>add</mat-icon> New Safety Document
+        </button>
+    </div>
+</div>
+<br>
+
+<ng-container *ngIf="show">
+    <div class="filter">
+        <form [formGroup]="filterForm" (ngSubmit)="applyFilter()" class="filter-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type" (selectionChange)="onTypeChange($event)">
+                    <mat-option *ngFor="let type of typeFilterValues" [value]="type">{{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status" (selectionChange)="onStatusChange($event)">
+                    <mat-option *ngFor="let status of statusFilterValues" [value]="status">{{status}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <br>
+            <button class="example-full-width" mat-raised-button color="primary" (click)="applyFilter()">Apply
+                Filter</button>
+            <button class="example-full-width" mat-raised-button color="warn" (click)="clearFilter()">Clear
+                Filter</button>
+        </form>
+    </div>
+</ng-container>
+
+<legend></legend>
+<br>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" data-name="id">ID</th>
+                <th scope="col" data-name="createdDateTime">Created Date</th>
+                <th scope="col" data-name="type">Status</th>
+                <th scope="col" data-name="status">Type</th>
+                <th scope="col" data-name="fieldCrew">Field Crew</th>
+                <th scope="col" data-name="switchingPlan">Switching Plan</th>
+                <th scope="col" data-name="telephone">Telephone</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let doc of dataSource">
+                <td>{{doc.id}}</td>
+                <td>{{doc.createdDateTime | date:'longDate'}}</td>
+                <td>{{doc.type}}</td>
+                <td>{{doc.status}}</td>
+                <td>{{doc.fieldCrew}}</td>
+                <td>{{doc.switchingPlan}}</td>
+                <td>{{doc.telephone}}</td>
+                <td>
+                    <mat-icon (click)="removeDocument(doc.id)">delete</mat-icon>
+                </td>
+                <td>
+                    <mat-icon (click)="updateDocument(doc.id)">edit</mat-icon>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <app-pagination (goPage)="goToPage($event)" (goPrev)="goToPrevious()" (goNext)="goToNext()"
+        (updateSize)="reloadTable($event)" [page]="page" [perPage]="limit" [count]="total">
+    </app-pagination>
+</div>

@@ -21,8 +21,8 @@ import { AllDevicesComponent } from './devices/all-devices/all-devices.component
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CrewsComponent } from './crews/crews.component';
-
+import { SwitchingPlanComponent } from './switching-plan/switching-plan.component';
+import { AddSwitchingPlanComponent } from './switching-plan/add-switching-plan/add-switching-plan.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -41,10 +41,12 @@ const routes: Routes = [
   { path: 'work-requests', component: WorkRequestsComponent },
   // { path: 'work-requests', component: WorkRequestsComponent, resolve: { workRequests: UserWorkRequestsResolver } },
   { path: 'create-work-request', component: WorkRequestFormComponent },
-  { path: 'all-devices', component: AllDevicesComponent },
-  { path: 'add-device', component: AddDeviceComponent },
+  { path: 'all-consumers', component: AllDevicesComponent },
+  { path: 'add-consumer', component: AddDeviceComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'crews', component: CrewsComponent },
+  { path: 'safety-documents-all', component: SwitchingPlanComponent },
+  { path: 'new-safety-document', component: AddSwitchingPlanComponent },
+  { path: 'report-a-call', component: CallReportComponent },
   { path: '**', redirectTo: '' }
 ];
 

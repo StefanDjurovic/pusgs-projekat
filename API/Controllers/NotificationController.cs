@@ -31,5 +31,18 @@ namespace API.Controllers
         {
             return await this.repo.UpdateNotificationState(notificationId);
         }
+
+        [HttpGet("delete-all/{id}")]
+        public async Task<bool> DeleteAllNotifications(int id)
+        {
+            return await this.repo.DeleteAllNotifications(id);
+        }
+
+        [HttpGet("mark-all/{id}")]
+        public async Task<bool> MarkAllNotifications(int id)
+        {
+            return await this.repo.MarkAllNotifications(id);
+        }
+
     }
 }

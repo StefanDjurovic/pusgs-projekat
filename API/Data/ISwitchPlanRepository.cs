@@ -21,5 +21,7 @@ namespace API.Data
         Task<bool> DeleteInstructions(int id);
 
         Task<IEnumerable<SwitchingInstruction>> GetAllInstructions(int id);
+
+        Task<IEnumerable<HistoryChange>> GetAllChanges(int id);
     }
 }

@@ -38,6 +38,9 @@ export class AddSwitchingPlanComponent implements OnInit {
 
   document_id = null;
 
+  hasPreviousChanges = false;
+  historyChanges = [];
+
   switchingPlanForm: FormGroup = new FormGroup({
     type: new FormControl(''),
     status: new FormControl({ value: 'Draft', disabled: true }),
@@ -61,11 +64,14 @@ export class AddSwitchingPlanComponent implements OnInit {
     this.fetchSwitchingPlansValue();
     this.fetchCrewValues();
     this.fetchPriorities();
+    console.log('changes:' + this.hasPreviousChanges);
+
 
     this.document_id = this._Activatedroute.snapshot.paramMap.get("id");
     if (this.document_id != null) {
       this.fetchSafetyDocument();
       this.fetchPreviousInstructions();
+      this.fetchAllHistoryChanges();
     }
   }
 
@@ -154,6 +160,18 @@ export class AddSwitchingPlanComponent implements OnInit {
     this.http.get(url).subscribe(response => {
       console.log(response);
     });
+  }
+
+  fetchAllHistoryChanges() {
+    var url = 'http://localhost:5000/api/safetydocuments/history-changes/' + this.document_id;
+    this.http.get(url).subscribe(response => {
+      this.historyChanges = JSON.parse(JSON.stringify(response));
+      if (this.historyChanges.length === 0)
+        this.hasPreviousChanges = false;
+      else
+        this.hasPreviousChanges = true;
+    });
+
   }
 
   fetchPreviousInstructions() {

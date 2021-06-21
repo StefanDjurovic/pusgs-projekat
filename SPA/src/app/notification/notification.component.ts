@@ -1,5 +1,8 @@
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 import { NotificationService } from '../_services/notification.service';
 
 
@@ -25,7 +28,7 @@ export class NotificationComponent implements OnInit {
   public resultData = [];
   _notificationType: String;
 
-  constructor(private notificationService: NotificationService, public datepipe: DatePipe) { }
+  constructor(private notificationService: NotificationService, public datepipe: DatePipe, private http: HttpClient, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.getNotifications();
@@ -152,11 +155,28 @@ export class NotificationComponent implements OnInit {
       data.forEach((creationDate) => {
         this.resultData.push({
           date: creationDate,
-          notifications: this.notifications.filter(i => i.creationDate === creationDate)
+          notifications: this.notifications.filter(i => i.creationDate.getDate() === creationDate.getDate())
         })
         console.log(this.resultData);
       });
 
+    });
+  }
+
+  deleteNotifications() {
+    var id = this.authService.decodedToken.nameid;
+    var url = 'http://localhost:5000/api/notification/delete-all/' + id;
+    this.http.get(url).subscribe(response => {
+      console.log(response);
+      window.location.reload();
+    });
+  }
+
+  markAsReadNotifications() {
+    var id = this.authService.decodedToken.nameid;
+    var url = 'http://localhost:5000/api/notification/mark-all/' + id;
+    this.http.get(url).subscribe(response => {
+      window.location.reload();
     });
   }
 }

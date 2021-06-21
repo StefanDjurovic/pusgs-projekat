@@ -74,5 +74,11 @@ namespace API.Controllers
         {
             return await this.repo.DeleteInstructions(id);
         }
+
+        [HttpGet("history-changes/{id}")]
+        public async Task<IEnumerable<HistoryChange>> GetAllHistoryChanges(int id)
+        {
+            return await this.repo.GetAllChanges(id);
+        }
     }
 }

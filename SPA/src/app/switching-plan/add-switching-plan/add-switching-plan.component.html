@@ -102,8 +102,29 @@
             </mat-card>
         </span>
         <span *ngIf="historyPage">
+            <!-- hasPreviousChanges -->
             <mat-card>
-                <mat-label>Document is being created! No previous history changes could be found.</mat-label>
+                <div *ngIf="hasPreviousChanges; else creatingDocument">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Message</th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let change of this.historyChanges; let i = index;">
+                            <tr>
+                                <td>{{ i+1 }}</td>
+                                <td>{{ change.content }}</td>
+                                <td>{{ change.changes | date:'full'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ng-template #creatingDocument>
+                    <mat-label>Document is being created! No previous history changes could be found.</mat-label>
+                </ng-template>
             </mat-card>
         </span>
         <span *ngIf="multimediaPage">

@@ -19,11 +19,32 @@ namespace API.Data
         }
         public async Task<int> CreateSafetyDocument(SafetyDocument safetyDocument)
         {
+            HistoryChange newChange = new HistoryChange();
+
+            newChange.Document = safetyDocument.Id;
+            newChange.Changes = DateTime.Now;
+
             if (safetyDocument != null)
             {
                 var document = this.context.SafetyDocuments.Where(x => x.Id.Equals(safetyDocument.Id)).FirstOrDefault();
                 if (document != null)
                 {
+
+                    if (document.Type != safetyDocument.Type)
+                        newChange.Content = "Document Type was changed.";
+                    if (document.Status != safetyDocument.Status)
+                        newChange.Content = "Document Status was changed.";
+                    if (document.FieldCrew != safetyDocument.FieldCrew)
+                        newChange.Content = "Document FieldCrew was changed.";
+                    if (document.SwitchingPlan != safetyDocument.SwitchingPlan)
+                        newChange.Content = "Document SwitchingPlan was changed.";
+                    if (document.Details != safetyDocument.Details)
+                        newChange.Content = "Document Details was changed.";
+                    if (document.Notes != safetyDocument.Notes)
+                        newChange.Content = "Document Notes was changed.";
+                    if (document.Telephone != safetyDocument.Telephone)
+                        newChange.Content = "Document Telephone was changed.";
+
                     document.Type = safetyDocument.Type;
                     document.Status = safetyDocument.Status;
                     document.FieldCrew = safetyDocument.FieldCrew;
@@ -34,15 +55,19 @@ namespace API.Data
                 }
                 else
                 {
+                    newChange.Content = "Document was created!";
                     this.context.SafetyDocuments.Add(safetyDocument);
 
                 }
+                this.context.HistoryChanges.Add(newChange);
                 await this.context.SaveChangesAsync();
                 return safetyDocument.Id;
 
             }
             return -1;
         }
+
+
 
         public async Task<bool> CreateSafetyDocumentInstruction(SwitchingInstruction instructions, int switchingPlanId)
         {
@@ -83,6 +108,11 @@ namespace API.Data
                 this.context.SwitchingInstructions.Remove(x);
 
             return await this.context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<IEnumerable<HistoryChange>> GetAllChanges(int id)
+        {
+            return await this.context.HistoryChanges.Where(x => x.Document.Equals(id)).ToListAsync();
         }
 
         public async Task<IEnumerable<SwitchingInstruction>> GetAllInstructions(int id)

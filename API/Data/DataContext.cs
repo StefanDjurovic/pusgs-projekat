@@ -20,5 +20,6 @@ namespace API.Data
         public DbSet<SwitchingInstruction> SwitchingInstructions { get; set; }
         public DbSet<Call> Calls { get; set; }
         public DbSet<Icon> Icons { get; set; }
+        public DbSet<HistoryChange> HistoryChanges { get; set; }
     }
 }

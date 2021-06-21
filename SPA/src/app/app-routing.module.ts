@@ -50,7 +50,6 @@ const routes: Routes = [
   { path: 'new-safety-document', component: AddSwitchingPlanComponent },
   { path: 'report-a-call', component: CallReportComponent },
   { path: '**', redirectTo: '' }
-
 ];
 
 @NgModule({

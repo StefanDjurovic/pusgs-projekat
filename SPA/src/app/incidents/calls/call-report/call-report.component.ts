@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -33,7 +34,7 @@ export class CallReportComponent implements OnInit {
     streetNumber: new FormControl(''),
   });
 
-  constructor(private http: HttpClient, private authService: AuthService, private alertify: AlertifyService) { }
+  constructor(private http: HttpClient, private authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchPriorities();
@@ -53,6 +54,7 @@ export class CallReportComponent implements OnInit {
       this.http.post(url, this.incidentForm.value).subscribe(response => {
         console.log(response);
         this.alertify.success('Successfully Submited a Call!');
+        this.router.navigate(['/home']);
       }, error => {
         this.alertify.error(error);
       });

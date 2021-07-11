@@ -1,8 +1,10 @@
-<div class="container rounded bg-white mt-5 mb-5" align="center">
+<div class="container">
+
+<mat-card class="col-md-10" align="center">
     <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img id="profile-img" [src]="profileImageToShow" class="" alt="Profile Image"
+               <img id="profile-img" [src]="profileImageToShow" class="" alt="Profile Image"
                     *ngIf="!noUserProfileImage; else noImageFound">
                 <ng-template #noImageFound>
                     <img id="profile-img" src="https://i.stack.imgur.com/34AD2.jpg" alt="PlaceholderImage">
@@ -13,36 +15,14 @@
                 </span>
             </div>
 
-            <div [formGroup]="pictureForm" (ngSubmit)="updateProfilePicture()"
-                class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <mat-form-field class="columns">
-                    <mat-label *ngIf="">Selected File</mat-label>
-                    <ng-template #newFile>
-                        <mat-label>Choose file</mat-label>
-                    </ng-template>
-                    <input matInput formControlName="picture" disabled>
-                    <button mat-icon-button matSuffix (click)="fileInput.click()" matTooltip="Upload Profile Image">
-                        <mat-icon>attach_file</mat-icon>
-                    </button>
-                    <input hidden #fileInput type="file" id="file" (change)="onFileChanged($event)">
-                </mat-form-field>
-                <br>
-                <!-- <mat-progress-bar *ngIf="false" mode="determinate" value="40"></mat-progress-bar> -->
-                <div>
-                    <span class="upload" *ngIf="progress > 0">
-                        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-                        <span>{{progress}}%</span>
-                    </span>
-                    <span class="upload" *ngIf="message">
-                        {{message}}
-                    </span>
-                </div>
-                <br>
-                <button mat-raised-button type="submit" color="primary" (click)="onUpload()">Update Picture</button>
+            <mat-progress-bar mode="determinate" *ngIf="isUploading" value="{{uploadProgress}}"></mat-progress-bar>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <button mat-raised-button (click)="fileInput.click()" matTooltip="Upload Profile Image">upload image</button>
+                <input hidden #fileInput type="file" id="file" (change)="onImageUpload($event)">
             </div>
         </div>
 
-        <div class="col-md-5 border-right">
+        <div class="col-md-4 border-right">
             <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="example-form mt-5">
                 <mat-error *ngIf="!profileForm.valid">
                     All of the fields are necessary, and can't be left empty!
@@ -138,4 +118,5 @@
             </form>
         </div> -->
     </div>
+</mat-card>
 </div>

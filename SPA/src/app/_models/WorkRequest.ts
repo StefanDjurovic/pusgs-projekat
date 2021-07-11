@@ -1,6 +1,8 @@
 // import { Address } from "node:cluster";
 
 import { Address } from "./Address";
+import { Attachment } from "./Attachment";
+import { ChangeEvent } from "./ChangeEvent";
 
 export class WorkRequest {
     id: number;
@@ -10,7 +12,11 @@ export class WorkRequest {
     endDate: Date;
     createdAt: Date;
     userId: number;
-    additionalInfo: string;
+    isEmergency: boolean;
+    additionalNotes: string;
     purpose: string;
+    company: string;
     phoneNumber: string;
+    attachments: Attachment[];
+    history: ChangeEvent[];
 }

@@ -1,0 +1,14 @@
+tr {
+    transition: all .5s;
+}
+
+tr:hover {
+    cursor: pointer;
+    background-color: silver;
+}
+
+.firstRow {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

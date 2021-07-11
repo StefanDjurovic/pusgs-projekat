@@ -1,31 +1,40 @@
-<div class="row">
-    <div class="inline-block navigation">
-        <mat-card>
-            <mat-card class="mat-card-item">
-                Basic Information
-            </mat-card>
+<h2 align="center">Work request</h2>
 
-            <mat-card class="mat-card-item" routerLinkActive="list-item">
-                History of State Changes
-            </mat-card>
+<div class="container">
 
-            <mat-card class="mat-card-item" routerLinkActive="list-item">
-                Multimedia Attchments
-            </mat-card>
+    <div class="sidebar">
 
-            <mat-card class="mat-card-item">
-                Equipment
+        <div class="navigation" align="center">
+            <mat-card>
+                <mat-card [ngClass]="{selected: currentlyShow=='basicInformation'}" class="mat-card-item" (click)="currentlyShow = 'basicInformation'">
+                    Basic Information
+                </mat-card>
+
+                <mat-card [ngClass]="{selected: currentlyShow=='stateChanges'}" class="mat-card-item" routerLinkActive="list-item" (click)="currentlyShow = 'stateChanges'">
+                    History of State Changes
+                </mat-card>
+
+                <mat-card [ngClass]="{selected: currentlyShow=='attach'}" class="mat-card-item" routerLinkActive="list-item" (click)="currentlyShow = 'attach'">
+                    Multimedia Attchments
+                </mat-card>
+
+                <mat-card [ngClass]="{selected: currentlyShow=='equipment'}" class="mat-card-item" routerLinkActive="list-item" (click)="currentlyShow = 'equipment'">
+                    Equipment
+                </mat-card>
             </mat-card>
-        </mat-card>
+        </div>
     </div>
 
 
-    <div class="components">
-        <span *ngIf="true">
-            <!-- generate a new component -->
-            <mat-card>
+    <div class="components" align="center">
+        
+        <span *ngIf="currentlyShow == 'basicInformation'">
+            <!-- form -->
+            <mat-card class="">
                 <form [formGroup]="workRequestForm" (ngSubmit)="submitWorkRequest()">
                     <div class="row">
+                        <div class="form-row">
+
                         <mat-form-field class="example-full-width">
                             <mat-label>Type</mat-label>
                             <mat-select formControlName="workType">
@@ -35,23 +44,14 @@
                             </mat-select>
                         </mat-form-field>
 
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Draft</mat-label>
-                            <input matInput formControlName="draft" value="Draft">
+                        <mat-form-field>
+                            <mat-label>Incident (coming soon)</mat-label>
+                            <input matInput formControlName="incident" placeholder="Import Incident" disabled>
                         </mat-form-field>
 
-                        <div class="col">
-                            <mat-form-field>
-                                <mat-label>Incident</mat-label>
-                                <input matInput formControlName="incident" placeholder="Import Incident" required>
-                            </mat-form-field>
-                        </div>
+                    </div>
 
-                        <div class="col">
-                            <button mat-button>Import Incident</button>
-                        </div>
-
-
+<!-- 
                         <mat-form-field class="example-full-width">
                             <mat-label>Equipment</mat-label>
                             <mat-select formControlName="equipment">
@@ -59,31 +59,46 @@
                                     {{type.viewValue}}
                                 </mat-option>
                             </mat-select>
-                        </mat-form-field>
+                        </mat-form-field> -->
 
 
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Start date/time</mat-label>
-                            <input matInput [matDatepicker]="picker" placeholder="Start date/time"
-                                formControlName="startDate" required>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
+
+                        <div class="form-row">
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Start date/time</mat-label>
+                                <input matInput [matDatepicker]="picker" placeholder="Start date/time"
+                                    formControlName="startDate" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
 
 
-                        <mat-form-field class="example-full-width">
-                            <mat-label>End date/time</mat-label>
-                            <input matInput [matDatepicker]="picker_" placeholder="End date/time"
-                                formControlName="endDate" required>
-                            <mat-datepicker-toggle matSuffix [for]="picker_"></mat-datepicker-toggle>
-                            <mat-datepicker #picker_></mat-datepicker>
-                        </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>End date/time</mat-label>
+                                <input matInput [matDatepicker]="picker_" placeholder="End date/time"
+                                    formControlName="endDate" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker_"></mat-datepicker-toggle>
+                                <mat-datepicker #picker_></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-row">
 
 
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Created By</mat-label>
-                            <input matInput formControlName="createdBy">
-                        </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Created By</mat-label>
+                                <input matInput formControlName="userId">
+                            </mat-form-field>
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Document type</mat-label>
+                                <input matInput formControlName="documentType">
+                            </mat-form-field>
+
+
+                        </div>
+
 
                         <mat-form-field class="example-full-width">
                             <mat-label>Purpose</mat-label>
@@ -91,38 +106,17 @@
                         </mat-form-field>
 
                         <mat-form-field class="example-full-width">
-                            <mat-label>Details</mat-label>
-                            <textarea matInput formControlName="details" required></textarea>
-                        </mat-form-field>
-
-                        <mat-form-field class="example-full-width">
                             <mat-label>Notes</mat-label>
-                            <textarea matInput formControlName="notes" required></textarea>
+                            <textarea matInput formControlName="additionalNotes" required></textarea>
                         </mat-form-field>
 
 
-                        <!-- <mat-form-field class="example-full-width">
-                            <mat-label>Emergency Work</mat-label>
-                            <mat-slide-toggle formControlName="emergencyWork">
-                                Emergency Work
-                            </mat-slide-toggle>
-                        </mat-form-field> -->
+                        
 
-                        <br>
-                        <mat-slide-toggle [checked]="emergencyWorkToggle"
-                            (change)="emergencyWorkToggle = $event.source.checked">
-                            Emergency Work
-                        </mat-slide-toggle>
-                        <br>
 
                         <mat-form-field class="example-full-width">
                             <mat-label>Company</mat-label>
                             <input matInput formControlName="company" value="Company Name">
-                        </mat-form-field>
-
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Incident</mat-label>
-                            <input matInput formControlName="incident" value="IN1">
                         </mat-form-field>
 
                         <mat-form-field class="example-full-width">
@@ -138,20 +132,21 @@
                             <mat-datepicker #__picker></mat-datepicker>
                         </mat-form-field>
 
-                        <button mat-raised-button color="primary">Save</button>
-                    </div>
+                        <br>
+                        <mat-slide-toggle [checked]="emergencyWorkToggle"
+                            (change)="emergencyWorkToggle = $event.source.checked">
+                            Emergency Work
+                        </mat-slide-toggle>
+                        <br>
 
+
+                        <button class="mt-3" mat-raised-button color="primary">Save</button>
+                    </div>
                 </form>
+                <button *ngIf="workRequest" (click)="onDelete()" class="mt-3" mat-button color="secondary">Delete</button>
             </mat-card>
         </span>
 
-        <span *ngIf="">
-            <!-- devices component -->
-        </span>
-
-        <span *ngIf="">
-            <!-- resolution component -->
-        </span>
 
         <span *ngIf="">
             <!-- calls -->
@@ -163,21 +158,40 @@
             <app-call-report></app-call-report>
         </span>
 
-        <span *ngIf="">
-            <!--  crew -->
+        <span *ngIf="currentlyShow == 'equipment'">
+            <mat-card>
+                <p>equipment placeholder</p>
+            </mat-card>
         </span>
 
-        <span *ngIf="">
-            <!--  crew -->
+        <span *ngIf="currentlyShow == 'stateChanges'">
+            <mat-card *ngIf="workRequest.history.length == 0">
+                <div>no changes have been made yet</div>
+            </mat-card>
+
+            <mat-card class="change" *ngFor="let change of workRequest.history">
+                <div class="">{{change.changedAt  | date:'MM/dd/yyyy'}}</div>
+                <div class="">{{change.content}} </div>
+                <div class="">changed by: {{change.changedBy}}</div>
+            </mat-card>
         </span>
 
-        <span *ngIf="">
-            <!-- ultimedia attchments -->
+        <span *ngIf="currentlyShow == 'attach'">
+            <!-- multimedia attchments -->
+            <mat-card class="attach" *ngFor="let attach of workRequest.attachments">
+                <div class="">{{attach.fileName}}</div>
+                <div class="">
+                    <button mat-button color="primary" (click)="onDownload(attach.id)">download</button>
+                    <button mat-button color="secondary" (click)="onDeleteAttach(attach.id)">delete</button>
+                </div>
+            </mat-card>
+            <mat-card>
+                <input hidden #fileInput type="file" id="file" (change)="onFileChanged($event)">
+                <button mat-raised-button color="primary" (click)="fileInput.click()">Upload</button>
+            </mat-card>
+
         </span>
 
-        <span *ngIf="">
-            <!-- equipment -->
-
-        </span>
     </div>
+
 </div>

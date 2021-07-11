@@ -6,6 +6,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Observable } from 'rxjs';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
+import { imageService } from '../_services/image.service';
 import { UserService } from '../_services/user.service';
 
 @Component({
@@ -46,10 +47,13 @@ export class ProfileComponent implements OnInit {
   initialValue = null;
   hasChanged = false;
 
+  uploadProgress = 0;
+  isUploading = false;
+
   profileImageToShow: any;
   noUserProfileImage = true;
 
-  constructor(private http: HttpClient, userService: UserService, authService: AuthService, private alertify: AlertifyService, private changeDetector: ChangeDetectorRef) {
+  constructor(private http: HttpClient, private imageService: imageService, userService: UserService, authService: AuthService, private alertify: AlertifyService, private changeDetector: ChangeDetectorRef) {
     this.userService = userService;
     this.authService = authService;
   }
@@ -143,26 +147,45 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  onFileChanged(event) {
+  async onImageUpload(event) {
     this.file = event.target.files[0];
-    this.pictureForm.controls['picture'].setValue(this.file.name);
-    console.log(this.file.name);
+    if (this.file === null)
+    return;
+
+    this.uploadProgress = 0;
+    this.isUploading = true;
+    
+    // to test progress bar
+    // await new Promise(f => setTimeout(f, 1000));
+
+    var id = this.authService.decodedToken.nameid;
+    this.imageService.uploadImage(id, this.file).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.uploadProgress = Math.round(100 * event.loaded / event.total);
+        
+      }
+      else if (event.type === HttpEventType.Response) {
+        this.message = 'Upload success.';
+        this.loadImage();
+        this.uploadProgress = 100;
+        // location.reload();
+      }
+    });
+
+    this.isUploading = false;
   }
 
+
   onUpload() {
-    console.log('Upload Profile Image to Server-Side!');
 
     if (this.file === null)
       return;
 
     this.progress = 0;
     this.message = "";
-    let fileToUpload = this.file;
-    const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
 
     var id = this.authService.decodedToken.nameid;
-    this.http.post('http://localhost:5000/api/upload/profile-image/' + id, formData, { reportProgress: true, observe: 'events' }).subscribe(event => {
+    this.imageService.uploadImage(id, this.file).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);
       }

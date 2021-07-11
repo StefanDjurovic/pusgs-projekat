@@ -21,6 +21,16 @@ import { AllDevicesComponent } from './devices/all-devices/all-devices.component
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UnitsComponent } from './units/units.component';
+import { UnitsResolver } from './_resolvers/units.resolver';
+import { UnitsFormComponent } from './unitsForm/unitsForm.component';
+import { GeneralMapComponent } from './generalMap/generalMap.component';
+import { UnitEditComponent } from './unitEdit/unitEdit.component';
+import { UnitDetailsResolver } from './_resolvers/unitDetails';
+import { AvailableMembersResolver } from './_resolvers/availableMembers.resolver';
+import { IncidentPlaceholderComponent } from './placeholders/incidentPlaceholder/incidentPlaceholder.component';
+import { WorkRequestResolver } from './_resolvers/workRequest.resolver';
+import { WorkRequestsResolver } from './_resolvers/workRequests.resolver';
 
 
 const routes: Routes = [
@@ -31,18 +41,30 @@ const routes: Routes = [
   { path: 'newWorkRequest', component: NewWorkRequestComponent }, // route guard for unauth users
   { path: 'registerApplications', component: RegisterApplicationsComponent, resolve: { applications: RegisterApplicationsResolver } },
   { path: 'notifications', component: NotificationComponent },
-  { path: 'map', component: MapComponent },
+  // { path: 'map', component: MapComponent },
   { path: 'register-applications', component: RegisterApplicationsComponent, resolve: { applications: RegisterApplicationsResolver } },
   // { path: 'notifications', component: NotificationComponent },
   { path: 'incidents', component: IncidentsTableComponent },
   { path: 'calls', component: CallsTableComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'work-requests', component: WorkRequestsComponent },
+  { path: 'edit-work-request/:id', component: WorkRequestFormComponent, resolve: {workRequest: WorkRequestResolver} },
+  { path: 'work-requests', component: WorkRequestsComponent, resolve: {workRequests: WorkRequestsResolver } },
+  { path: 'units', component: UnitsComponent, resolve: { units: UnitsResolver} },
+  { path: 'create-unit', component: UnitsFormComponent },
+  { path: 'edit-unit/:id', component: UnitEditComponent, resolve: {unit: UnitDetailsResolver, availableUMs: AvailableMembersResolver} },
+
+  { path: 'map', component: GeneralMapComponent },
+
+
+  { path: 'incident/:id', component: IncidentPlaceholderComponent },
+
+
   // { path: 'work-requests', component: WorkRequestsComponent, resolve: { workRequests: UserWorkRequestsResolver } },
   { path: 'create-work-request', component: WorkRequestFormComponent },
   { path: 'all-devices', component: AllDevicesComponent },
   { path: 'add-device', component: AddDeviceComponent },
   { path: 'dashboard', component: DashboardComponent },
+  {path: '', component: HomeComponent },
   { path: '**', redirectTo: '' }
 ];
 

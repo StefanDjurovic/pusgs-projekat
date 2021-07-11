@@ -88,5 +88,13 @@ namespace API.Data
             }
             return false;
         }
+
+        public async Task<IEnumerable<User>> GetAvailableTeamMembers()
+        {
+            var teamMembers = await this.context.Users.Where(user => user.Type == UserType.teamMember).ToListAsync();
+            var unitMembers = await this.context.Units.ToListAsync();
+
+            return teamMembers.Where(tm => unitMembers.FirstOrDefault(ums => ums.Members.Contains(tm)) == default);
+        }
     }
 }

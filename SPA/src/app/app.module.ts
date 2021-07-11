@@ -41,9 +41,28 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
 import { WorkRequestService } from './_services/workRequest.service';
 import { UserWorkRequestsResolver } from './_resolvers/userWorkRequests.resolver';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UnitsComponent } from './units/units.component';
+import { UnitService } from './_services/unit.service';
+import { UnitsResolver } from './_resolvers/units.resolver';
+import { MatCardModule } from '@angular/material/card';
+import { UnitsFormComponent } from './unitsForm/unitsForm.component';
+import { GeneralMapComponent } from './generalMap/generalMap.component';
+import { UnitEditComponent } from './unitEdit/unitEdit.component';
+import { UnitDetailsResolver } from './_resolvers/unitDetails';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { AvailableMembersResolver } from './_resolvers/availableMembers.resolver';
+import { WorkRequestResolver } from './_resolvers/workRequest.resolver';
+import { JwtModule } from '@auth0/angular-jwt';
+import { WorkRequestsResolver } from './_resolvers/workRequests.resolver';
+
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
-  declarations: [
+  declarations: [				
     AppComponent,
     ValueComponent,
     LoginComponent,
@@ -70,7 +89,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AllDevicesComponent,
     PaginationComponent,
     SortDirective,
-    DashboardComponent
+    DashboardComponent,
+    UnitsComponent,
+    UnitsFormComponent,
+      GeneralMapComponent,
+      UnitEditComponent
    ],
   imports: [
     BrowserModule,
@@ -82,7 +105,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AngularMaterialModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
-    SocialLoginModule
+    SocialLoginModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    JwtModule.forRoot({
+      config: {
+         tokenGetter: tokenGetter,
+         allowedDomains: ['localhost:5000'],
+         disallowedRoutes: ['localhost:5000/api/auth']
+      }
+   })
   ],
   providers: [
     AuthService,
@@ -90,6 +123,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ErrorInterceptorProvider,
     RegisterApplicationsResolver,
     UserWorkRequestsResolver,
+    UnitService,
+    UnitsResolver,
+    UnitDetailsResolver,
+    AvailableMembersResolver,
+    WorkRequestResolver,
+    WorkRequestsResolver,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

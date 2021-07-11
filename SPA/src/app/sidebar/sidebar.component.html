@@ -1,57 +1,62 @@
-<mat-nav-list>
-    <div class="profile-card">
+<mat-nav-list *ngIf="authService.loggedIn()">
+    <div class="profile-card" (click)="goToProfile()">
         <div class="header">
-            <h2>Name Surename</h2>
+            <h2>{{ token?.name }}</h2>
         </div>
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Profile Picture"
-            (click)="goToProfile()">
+        <img src="{{ profileImage }}" alt="Profile Picture">
     </div>
+
 
     <mat-divider></mat-divider>
 
     <h2 matSubheader>Pages</h2>
 
-    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+    <!-- <a mat-list-item routerLinkActive="list-item" routerLink="/">
         <mat-icon>find_in_page</mat-icon>
         Search
-    </a>
+    </a> -->
 
-    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/home']">
+    <a mat-list-item routerLinkActive="selected" [routerLink]="['home']">
         <mat-icon>home</mat-icon>
         Home
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/incidents']">
+    <a mat-list-item routerLinkActive="selected" [routerLink]="['/incidents']">
         <mat-icon>ballot icon</mat-icon>
         Incidents
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/documents']">
+    <a mat-list-item routerLinkActive="selected" [routerLink]="['/map']">
+        <mat-icon>map</mat-icon>
+        Map
+    </a>
+
+    <a mat-list-item routerLinkActive="selected" [routerLink]="['/documents']">
         <mat-icon>insert_drive_file</mat-icon>
         Documents
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+    <!-- <a mat-list-item routerLinkActive="list-item" routerLink="/">
         <mat-icon>phone</mat-icon>
         Example
-    </a>
+    </a> -->
 
-    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/all-devices']">
+    <a mat-list-item routerLinkActive="selected" [routerLink]="['/all-devices']">
         <mat-icon>widgets</mat-icon>
         Devices
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/work-requests']">
+    <a mat-list-item routerLinkActive="selected" [routerLink]="['/work-requests']">
         <mat-icon>receipt</mat-icon>
         Work Requests
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+    <a mat-list-item routerLinkActive="selected" [routerLink]="['/units']">
         <mat-icon>people</mat-icon>
-        Example
+        Units
     </a>
 
-    <a mat-list-item routerLinkActive="list-item" [routerLink]="['/register-applications']">
+    <a *ngIf="token?.role == 'admin'" mat-list-item routerLinkActive="selected" [routerLink]="['/register-applications']">
         <mat-icon>people</mat-icon>
         Register Applications
     </a>

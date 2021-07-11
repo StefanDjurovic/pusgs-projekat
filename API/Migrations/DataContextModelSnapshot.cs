@@ -42,6 +42,53 @@ namespace API.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("API.Models.Attachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("WorkRequestId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkRequestId");
+
+                    b.ToTable("Attachment");
+                });
+
+            modelBuilder.Entity("API.Models.ChangeEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ChangedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("WorkRequestId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkRequestId");
+
+                    b.ToTable("ChangeEvent");
+                });
+
             modelBuilder.Entity("API.Models.Device", b =>
                 {
                     b.Property<int>("Id")
@@ -71,6 +118,26 @@ namespace API.Migrations
                     b.ToTable("Devices");
                 });
 
+            modelBuilder.Entity("API.Models.Incident", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cause")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Lat")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Lon")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Incidents");
+                });
+
             modelBuilder.Entity("API.Models.Notification", b =>
                 {
                     b.Property<int>("Id")
@@ -97,6 +164,20 @@ namespace API.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("API.Models.Unit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Units");
+                });
+
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -113,9 +194,11 @@ namespace API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("PasswordHash")
@@ -124,16 +207,27 @@ namespace API.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("BLOB");
 
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("UnitId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(25)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Users");
                 });
@@ -164,11 +258,17 @@ namespace API.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Company")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsEmergency")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
@@ -192,6 +292,27 @@ namespace API.Migrations
                     b.ToTable("WorkRequests");
                 });
 
+            modelBuilder.Entity("API.Models.Attachment", b =>
+                {
+                    b.HasOne("API.Models.WorkRequest", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("WorkRequestId");
+                });
+
+            modelBuilder.Entity("API.Models.ChangeEvent", b =>
+                {
+                    b.HasOne("API.Models.WorkRequest", null)
+                        .WithMany("History")
+                        .HasForeignKey("WorkRequestId");
+                });
+
+            modelBuilder.Entity("API.Models.User", b =>
+                {
+                    b.HasOne("API.Models.Unit", null)
+                        .WithMany("Members")
+                        .HasForeignKey("UnitId");
+                });
+
             modelBuilder.Entity("API.Models.WorkRequest", b =>
                 {
                     b.HasOne("API.Models.Address", "Address")
@@ -199,6 +320,18 @@ namespace API.Migrations
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("API.Models.Unit", b =>
+                {
+                    b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("API.Models.WorkRequest", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("History");
                 });
 #pragma warning restore 612, 618
         }

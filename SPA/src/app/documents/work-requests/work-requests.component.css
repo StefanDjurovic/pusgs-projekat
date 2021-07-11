@@ -1,3 +1,25 @@
-table {
-    width: 100%;
+
+tr {
+    transition: all .5s;
+}
+
+tr:hover {
+    cursor: pointer;
+    background-color: silver;
+}
+
+.firstRow {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.selectedCol {
+    color: rgb(214, 46, 158);
+    /* background-color: red; */
+}
+
+.emergencyWork {
+    background-color: rgba(255, 81, 81, 0.479);
 }

@@ -4,11 +4,18 @@
 }
 
 .navigation {
-    width: 15%; 
 }
 
-.components {
-    width: 80%; 
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.sidebar {
+    width: 30%;
+    margin-right: 25px;
 }
 
 .mat-card-item {
@@ -27,14 +34,45 @@
     margin: 5px;
 }
 
-.navigation {
-    width: 15%; 
-}
 
 .components {
-    width: 80%; 
+    width: 50%; 
 }
 
 .mat-card-item {
     margin: 5px;
+}
+
+.mat-card-item:hover {
+    cursor: pointer;
+    background-color: rgb(71, 168, 185);
+}
+
+.selected {
+    background-color: rgb(53, 131, 145);
+
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-row mat-form-field {
+    width: 45%;
+}
+
+mat-card.change {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+mat-card.attach {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }

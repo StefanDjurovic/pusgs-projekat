@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace API.Models
@@ -15,6 +16,11 @@ namespace API.Models
         public string AdditionalNotes { get; set; }
         public string Purpose { get; set; }
         public string PhoneNumber { get; set; }
+        public string Company { get; set; }
+        public bool IsEmergency { get; set; }
+
+        public List<Attachment> Attachments { get; set; } = new List<Attachment>();
+        public List<ChangeEvent> History { get; set; } = new List<ChangeEvent>();
 
         public WorkRequest(string workType, Address address, DateTime startDate, DateTime endDate, int userId, string additionalNotes, string purpose, string phoneNumber)
         {

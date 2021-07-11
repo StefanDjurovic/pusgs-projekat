@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router, private socialAuth: SocialAuthService) { }
 
+  wrongCredMessage = false;
+
   ngOnInit() {
 
   }
@@ -29,10 +31,11 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.form.value).subscribe(next => {
         console.log('Logged in successfully');
         this.alertify.success('logged in!');
-        this.router.navigate(['profile'])
+        this.router.navigate([''])
       }, error => {
         console.log('Failed to login');
         this.alertify.error(error);
+        this.wrongCredMessage = true;
       });
     }
   }
@@ -42,7 +45,7 @@ export class LoginComponent implements OnInit {
       console.log(data);
       this.authService.socialLogin(data).subscribe(next => {
         this.alertify.success('logged in!');
-        this.router.navigate(['profile'])
+        this.router.navigate([''])
       }, error => {
         this.alertify.error(error)        
       });
@@ -53,5 +56,9 @@ export class LoginComponent implements OnInit {
   loggedIn() {
     const token = localStorage.getItem('token');
     return !!token;
+  }
+
+  redirectToRegister() {
+    this.router.navigate(['register'])
   }
 }

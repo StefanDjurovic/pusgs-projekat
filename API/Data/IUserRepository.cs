@@ -8,6 +8,7 @@ namespace API.Data
     public interface IUserRepository
     {
         Task<IEnumerable<User>> GetUsers();
+        Task<IEnumerable<User>> GetAvailableTeamMembers();
         Task<User> GetUser(int userId);
         Task<IEnumerable<User>> GetUserApplications();
         Task<bool> ApproveApplication(int userId);

@@ -14,6 +14,16 @@ namespace API.Data
             this.context = context;
             this.notification = _notifier;
         }
+
+        public async Task<bool> EmailTaken(string email)
+        {
+            if (await this.context.Users.AnyAsync(x => x.Email == email))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public async Task<User> Login(string username, string password)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(x => x.Username == username);
@@ -43,6 +53,14 @@ namespace API.Data
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
+            await this.context.Users.AddAsync(user);
+            await this.context.SaveChangesAsync();
+
+            return user;
+        }
+
+        public async Task<User> SocialRegister(User user)
+        {
             await this.context.Users.AddAsync(user);
             await this.context.SaveChangesAsync();
 

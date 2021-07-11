@@ -12,6 +12,7 @@ import {fromLonLat} from 'ol/proj';
 import {toLonLat} from 'ol/proj';
 import {transform} from 'ol/proj';
 import Point from 'ol/geom/Point';
+import { MapInfo } from 'src/app/_models/MapInfo';
 
 @Component({
   selector: 'app-map',
@@ -22,7 +23,11 @@ export class MapComponent implements AfterViewInit {
   @Input() enablePinDrop = true; // ova 3 inputa za prikazivanje
   @Input() locationLon: number;
   @Input() locationLat: number;
+  @Input() incidents: MapInfo[];
+  @Input() vehicle: MapInfo[];
   @Output() locationEmitter = new EventEmitter(); // output kad treba da se pokupi adresa
+  
+
 
   map: Map
 

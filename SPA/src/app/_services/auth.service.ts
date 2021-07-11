@@ -32,6 +32,8 @@ export class AuthService {
 
 
   socialLogin(data: SocialUser) {
+    console.log(data);
+    
     return this.http.post(this.baseUrl + 'socialLogin', data)
       .pipe(
         map((response: any) => {

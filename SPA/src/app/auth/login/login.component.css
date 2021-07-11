@@ -5,5 +5,24 @@ mat-card {
   }
   
 mat-form-field {
-display: block;
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card-content button {
+  /* height: 150px; */
+  width: 100%;
+  margin: 8px 0;
+}
+
+.noAccPar {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+button:hover {
+  opacity: .65;
+  transition: all .5s;
 }

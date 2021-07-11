@@ -1,0 +1,31 @@
+<div class="container" align="center">
+        <!-- generate a new component -->
+        <mat-card class="col-md-5" align="left">
+            <form [formGroup]="unitsForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" >
+                    </mat-form-field>
+                    
+                    <h3 class="mt-4">current team members:</h3>
+                    <div class="" *ngFor="let user of unitMembers">
+                    <mat-checkbox (change)="onCheckboxChange($event)" checked="true" id="{{user.id}}">{{ user?.username }} - {{user?.name}} {{user?.surname}}</mat-checkbox>
+
+                    </div>
+
+                    <h3 class="mt-4">add following members to team</h3>
+                    <div class="" *ngFor="let user of availableMembers">
+                    <mat-checkbox (change)="onCheckboxChange($event)" id="{{user.id}}">{{ user?.username }} - {{user?.name}} {{user?.surname}}</mat-checkbox>
+
+                    </div>
+
+                    <button class="mt-4" mat-raised-button color="primary">Save</button>
+                    <button class="mt-2" mat-raised-button (click)="onDelete(unit.id)" color="secondary">Delete</button>
+
+                </div>
+
+            </form>
+        </mat-card>
+
+</div>

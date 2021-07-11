@@ -2,9 +2,7 @@
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="login()">
       <h2>Log In</h2>
-      <mat-error *ngIf="!form.valid && form.touched">
-        The username and password were not recognised
-      </mat-error>
+
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Username" formControlName="username" required>
         <mat-error>
@@ -17,8 +15,14 @@
           Please provide a valid password!
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="!form.valid">Login</button>
-      <div class="">
+      <mat-error *ngIf="wrongCredMessage">
+        The username and password were not recognised
+      </mat-error>
+      <button mat-raised-button class="" color="primary" [disabled]="!form.valid">Login</button>
+      <div class="noAccPar">
+        <div>don't have an account?</div>
+        <button mat-raised-button color="secondary" (click)="redirectToRegister()">register</button>
+        <p>or</p>
         <button mat-raised-button color="secondary" (click)="loginWithGoogle()">continue with google</button>
       </div>
     </form>

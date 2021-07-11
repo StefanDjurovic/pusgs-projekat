@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210516162309_dbRecreation")]
-    partial class dbRecreation
+    [Migration("20210709151041_WorkRequestHistoryAdded")]
+    partial class WorkRequestHistoryAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,50 @@ namespace API.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("API.Models.Attachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("WorkRequestId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkRequestId");
+
+                    b.ToTable("Attachment");
+                });
+
+            modelBuilder.Entity("API.Models.ChangeEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ChangedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("WorkRequestId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkRequestId");
+
+                    b.ToTable("ChangeEvent");
+                });
+
             modelBuilder.Entity("API.Models.Device", b =>
                 {
                     b.Property<int>("Id")
@@ -73,6 +117,46 @@ namespace API.Migrations
                     b.ToTable("Devices");
                 });
 
+            modelBuilder.Entity("API.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Read")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("API.Models.Unit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Units");
+                });
+
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -100,16 +184,24 @@ namespace API.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("BLOB");
 
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Surname")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("UnitId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Users");
                 });
@@ -158,14 +250,35 @@ namespace API.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("WorkType")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("WorkType")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
                     b.ToTable("WorkRequests");
+                });
+
+            modelBuilder.Entity("API.Models.Attachment", b =>
+                {
+                    b.HasOne("API.Models.WorkRequest", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("WorkRequestId");
+                });
+
+            modelBuilder.Entity("API.Models.ChangeEvent", b =>
+                {
+                    b.HasOne("API.Models.WorkRequest", null)
+                        .WithMany("History")
+                        .HasForeignKey("WorkRequestId");
+                });
+
+            modelBuilder.Entity("API.Models.User", b =>
+                {
+                    b.HasOne("API.Models.Unit", null)
+                        .WithMany("Members")
+                        .HasForeignKey("UnitId");
                 });
 
             modelBuilder.Entity("API.Models.WorkRequest", b =>
@@ -175,6 +288,18 @@ namespace API.Migrations
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("API.Models.Unit", b =>
+                {
+                    b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("API.Models.WorkRequest", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("History");
                 });
 #pragma warning restore 612, 618
         }

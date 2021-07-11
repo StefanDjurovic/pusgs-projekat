@@ -1,0 +1,57 @@
+<mat-card class="container" align="center">
+
+    <!-- <div class="row">
+    <h2>Units</h2>
+    </div> -->
+
+    <div class="firstRow">
+        <div>
+            <h2>Units</h2>
+
+        </div>
+        <div class="">
+
+            <button mat-button color="primary" tooltip="Add new unit" (click)="redirectToCreateNewUnit()" >
+                <mat-icon>add</mat-icon> New
+            </button>
+            <!-- filter capability does not seem to be needed -->
+            <!-- <button mat-button color="primary">
+                <mat-icon>sort</mat-icon> Filter
+            </button> -->
+        </div>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Member count</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let unit of units" [routerLink]="['/edit-unit/' + unit.id]">
+
+                    <td>{{unit?.id}}</td>
+                    <td>{{unit?.name}}</td>
+                    <td>{{unit?.members.length}}</td>
+                    <td>&nbsp;</td>
+
+                    <!-- <td>{{request.surname}}</td>
+                    <td>{{request.location}}</td>
+                    <td>{{request.telephone}}</td>
+                    <td>{{request.priority}}</td> -->
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+    <!-- <app-pagination (goPage)="goToPage($event)" (goPrev)="goToPrevious()" (goNext)="goToNext()"
+        (updateSize)="reloadTable($event)" [page]="page" [perPage]="limit" [count]="total">
+    </app-pagination> -->
+    </div>
+</mat-card>

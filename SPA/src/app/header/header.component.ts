@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     this.alertify.message('logged out');
+    this.router.navigate([''])
   }
 
   toggleSideBar() {
@@ -54,7 +55,7 @@ export class HeaderComponent implements OnInit {
     this.notificationService.fetchAllNotifications().subscribe(response => {
       var responseJSON = JSON.parse(response);
       console.log(responseJSON);
-      this.notificationCount = responseJSON.size();
+      // this.notificationCount = responseJSON.size();
 
       //localStorage.setItem('notificationCount', responseJSON.size().toString());
       //console.log(localStorage.notificationCount);

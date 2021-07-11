@@ -6,8 +6,10 @@ namespace API.Data
     public interface IAuthRepository
     {
          Task<User> Register(User user, string password);
+         Task<User> SocialRegister(User user);
          Task<User> Login(string username, string password);
          Task<bool> UserExists(string username);
+         Task<bool> EmailTaken(string email);
          
     }
 }

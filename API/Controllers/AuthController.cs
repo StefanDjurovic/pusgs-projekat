@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Data;
 using API.Dtos;
+using API.Helpers;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,7 @@ namespace API.Controllers
     {
         private readonly IAuthRepository repo;
         private readonly IConfiguration config;
+
         public AuthController(IAuthRepository repo, IConfiguration config)
         {
             this.config = config;
@@ -37,6 +39,12 @@ namespace API.Controllers
                 return BadRequest("username already taken");
             }
 
+            if (await this.repo.EmailTaken(userRegDto.Email))
+            {
+                return BadRequest("email already taken");
+            }
+
+
             var userToCreate = new User
             {
                 Username = userRegDto.Username,
@@ -50,7 +58,7 @@ namespace API.Controllers
 
             var createdUser = await this.repo.Register(userToCreate, userRegDto.Password);
 
-            return StatusCode(201);
+            return Ok(createdUser.Id);
         }
 
         [HttpPost("login")]
@@ -76,7 +84,8 @@ namespace API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
+                new Claim(ClaimTypes.Name, userFromRepo.Username),
+                new Claim(ClaimTypes.Role, userFromRepo.Type.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.config.GetSection("AppSettings:Token").Value));
@@ -102,8 +111,24 @@ namespace API.Controllers
 
 
         [HttpPost("SocialLogin")]
-        public async Task<IActionResult> SocialLogin(UserLoginDto userLoginDto)
+        public async Task<IActionResult> SocialLogin(SocialUserDto socialUserDto)
         {
+            if (!await this.repo.UserExists(socialUserDto.Name)) 
+            {
+                var newUser = new User();
+                newUser.Username = socialUserDto.Name;
+                newUser.Name = socialUserDto.FirstName;
+                newUser.Surname = socialUserDto.LastName;
+                newUser.ProfileImage = socialUserDto.PhotoUrl;
+                newUser.Email = socialUserDto.Email;    
+
+                var createdUser = await this.repo.SocialRegister(newUser);
+                if (createdUser == null) 
+                {
+                    return BadRequest();
+                }
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Expires = DateTime.UtcNow.AddMinutes(30),

@@ -1,65 +1,60 @@
-<div class="row">
-    <h2>Work Request Table</h2>
-</div>
+<mat-card class="container" align="center">
 
-<div class="row">
-    <div class="example-button-row">
-        <button mat-button color="primary" tooltip="Add a new Work Request" (click)="redirectToAddWorkRequestPage()">
-            <mat-icon>add</mat-icon> New
-        </button>
-        <button mat-button color="primary">
-            <mat-icon>sort</mat-icon> Filter
-        </button>
+    <div class="firstRow">
+        <div class="">
+            <h2>Work requests</h2>
+        </div>
+        <div class="">
+            <button mat-button color="primary" tooltip="Add a new Work Request" (click)="redirectToAddWorkRequestPage()">
+                <mat-icon>add</mat-icon> New
+            </button>
+            <!-- <button mat-button color="primary">
+                <mat-icon>sort</mat-icon> Filter
+            </button> -->
+            <mat-button-toggle-group name="filter" aria-label="filter" [formControl]="filterControl" [(ngModel)]="filter" (click)="onFilterClick()">
+                <mat-button-toggle selected value="all">All</mat-button-toggle>
+                <mat-button-toggle value="mine">Mine</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
     </div>
-</div>
-<legend></legend>
+    <legend></legend>
 
-<!-- <div class="row">
-    <div class="example-button-row">
-        <button mat-button color="primary" tooltip="Add a new Device" (click)="redirectToAddDevicePage()">
-            <mat-icon>add</mat-icon> New
-        </button>
-        <button mat-button color="primary">
-            <mat-icon>sort</mat-icon> Filter
-        </button>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" [ngClass]="{selectedCol: sortBy == 'id'}"(click)="sortBy = 'id'">ID</th>
+                    <th scope="col" [ngClass]="{selectedCol: sortBy == 'workType'}"(click)="sortBy = 'workType'">Work Type</th>
+                    <th scope="col" [ngClass]="{selectedCol: sortBy == 'startDate'}"(click)="sortBy = 'startDate'">Start Date</th>
+                    <th scope="col" [ngClass]="{selectedCol: sortBy == 'endDate'}"(click)="sortBy = 'endDate'">End Date</th>
+                    <th scope="col" >Purpose</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of WorkRequests" [ngClass]="{emergencyWork: request.isEmergency}"  [routerLink]="['/edit-work-request/' + request.id]">
+                    <td>{{request.id}}</td>
+                    <td>{{request.worktype}}</td>
+                    <td>{{request.startDate | date:'short'}}</td>
+                    <td>{{request.endDate | date:'short'}}</td>
+                    <td>{{request.purpose}}</td>
+                    <td>{{request.phoneNumber}}</td>
+                    <td>&nbsp;</td>
+
+                    <!-- <td>{{request.surname}}</td>
+                    <td>{{request.location}}</td>
+                    <td>{{request.telephone}}</td>
+                    <td>{{request.priority}}</td> -->
+                </tr>
+            </tbody>
+        </table>
     </div>
-</div>
-<legend></legend> -->
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Work Type</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Purpose</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let request of workRequests">
-                <td>{{request.id}}</td>
-                <td>{{request.worktype}}</td>
-                <td>{{request.startDate | date:'short'}}</td>
-                <td>{{request.endDate | date:'short'}}</td>
-                <td>{{request.purpose}}</td>
-                <td>{{request.phoneNumber}}</td>
-                <td>&nbsp;</td>
+    <div class="row">
+        <app-pagination (goPage)="goToPage($event)" (goPrev)="goToPrevious()" (goNext)="goToNext()"
+            (updateSize)="reloadTable($event)" [page]="page" [perPage]="limit" [count]="total">
+        </app-pagination>
+    </div>
 
-                <!-- <td>{{request.surname}}</td>
-                <td>{{request.location}}</td>
-                <td>{{request.telephone}}</td>
-                <td>{{request.priority}}</td> -->
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="row">
-    <app-pagination (goPage)="goToPage($event)" (goPrev)="goToPrevious()" (goNext)="goToNext()"
-        (updateSize)="reloadTable($event)" [page]="page" [perPage]="limit" [count]="total">
-    </app-pagination>
-</div>
+</mat-card>

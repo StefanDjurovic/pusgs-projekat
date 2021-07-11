@@ -26,4 +26,16 @@ export class UserService {
   getUser(id) {
     return this.http.get(this.baseUrl + id);
   }
+
+  getUsers() {
+    return this.http.get<User[]>(this.baseUrl);
+  }
+
+  getAvailableUMs() {
+    return this.http.get<User[]>(this.baseUrl + 'availableUM');
+  }
+
+  getUnitMembers(unitId) {
+    return this.http.get<User[]>(this.baseUrl + 'unitMembers/' + unitId);
+  }
 }
